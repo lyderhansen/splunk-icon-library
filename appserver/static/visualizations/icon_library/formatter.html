@@ -1,0 +1,379 @@
+<form class="splunk-formatter-section" section-label="Data configurations">
+    <splunk-control-group label="Icon (Popular)" help="Pick a popular Material Symbols icon from the list. Overridden by Custom Icon Name if set.">
+        <splunk-select name="{{VIZ_NAMESPACE}}.iconName" value="home">
+            <option value="home">home</option>
+            <option value="search">search</option>
+            <option value="settings">settings</option>
+            <option value="favorite">favorite</option>
+            <option value="star">star</option>
+            <option value="check_circle">check_circle</option>
+            <option value="cancel">cancel</option>
+            <option value="delete">delete</option>
+            <option value="add_circle">add_circle</option>
+            <option value="remove_circle">remove_circle</option>
+            <option value="info">info</option>
+            <option value="warning">warning</option>
+            <option value="error">error</option>
+            <option value="help">help</option>
+            <option value="visibility">visibility</option>
+            <option value="visibility_off">visibility_off</option>
+            <option value="lock">lock</option>
+            <option value="lock_open">lock_open</option>
+            <option value="person">person</option>
+            <option value="group">group</option>
+            <option value="account_circle">account_circle</option>
+            <option value="admin_panel_settings">admin_panel_settings</option>
+            <option value="security">security</option>
+            <option value="shield">shield</option>
+            <option value="verified_user">verified_user</option>
+            <option value="gpp_good">gpp_good</option>
+            <option value="gpp_bad">gpp_bad</option>
+            <option value="vpn_key">vpn_key</option>
+            <option value="key">key</option>
+            <option value="fingerprint">fingerprint</option>
+            <option value="notifications">notifications</option>
+            <option value="notifications_active">notifications_active</option>
+            <option value="email">email</option>
+            <option value="chat">chat</option>
+            <option value="forum">forum</option>
+            <option value="phone">phone</option>
+            <option value="language">language</option>
+            <option value="public">public</option>
+            <option value="dns">dns</option>
+            <option value="cloud">cloud</option>
+            <option value="cloud_upload">cloud_upload</option>
+            <option value="cloud_download">cloud_download</option>
+            <option value="cloud_off">cloud_off</option>
+            <option value="storage">storage</option>
+            <option value="database">database</option>
+            <option value="folder">folder</option>
+            <option value="folder_open">folder_open</option>
+            <option value="description">description</option>
+            <option value="article">article</option>
+            <option value="upload_file">upload_file</option>
+            <option value="download">download</option>
+            <option value="upload">upload</option>
+            <option value="sync">sync</option>
+            <option value="refresh">refresh</option>
+            <option value="autorenew">autorenew</option>
+            <option value="schedule">schedule</option>
+            <option value="timer">timer</option>
+            <option value="calendar_today">calendar_today</option>
+            <option value="event">event</option>
+            <option value="dashboard">dashboard</option>
+            <option value="analytics">analytics</option>
+            <option value="insights">insights</option>
+            <option value="trending_up">trending_up</option>
+            <option value="trending_down">trending_down</option>
+            <option value="bar_chart">bar_chart</option>
+            <option value="pie_chart">pie_chart</option>
+            <option value="show_chart">show_chart</option>
+            <option value="monitor_heart">monitor_heart</option>
+            <option value="speed">speed</option>
+            <option value="bolt">bolt</option>
+            <option value="power">power</option>
+            <option value="memory">memory</option>
+            <option value="developer_board">developer_board</option>
+            <option value="terminal">terminal</option>
+            <option value="code">code</option>
+            <option value="bug_report">bug_report</option>
+            <option value="build">build</option>
+            <option value="construction">construction</option>
+            <option value="engineering">engineering</option>
+            <option value="hub">hub</option>
+            <option value="router">router</option>
+            <option value="wifi">wifi</option>
+            <option value="wifi_off">wifi_off</option>
+            <option value="signal_cellular_alt">signal_cellular_alt</option>
+            <option value="cell_tower">cell_tower</option>
+            <option value="lan">lan</option>
+            <option value="cable">cable</option>
+            <option value="devices">devices</option>
+            <option value="computer">computer</option>
+            <option value="laptop">laptop</option>
+            <option value="smartphone">smartphone</option>
+            <option value="tablet">tablet</option>
+            <option value="monitor">monitor</option>
+            <option value="tv">tv</option>
+            <option value="print">print</option>
+            <option value="keyboard">keyboard</option>
+            <option value="mouse">mouse</option>
+            <option value="headphones">headphones</option>
+            <option value="camera">camera</option>
+            <option value="videocam">videocam</option>
+            <option value="mic">mic</option>
+            <option value="location_on">location_on</option>
+            <option value="map">map</option>
+            <option value="explore">explore</option>
+            <option value="navigation">navigation</option>
+            <option value="directions">directions</option>
+            <option value="flight">flight</option>
+            <option value="local_shipping">local_shipping</option>
+            <option value="shopping_cart">shopping_cart</option>
+            <option value="store">store</option>
+            <option value="payments">payments</option>
+            <option value="credit_card">credit_card</option>
+            <option value="account_balance">account_balance</option>
+            <option value="work">work</option>
+            <option value="business">business</option>
+            <option value="apartment">apartment</option>
+            <option value="factory">factory</option>
+            <option value="school">school</option>
+            <option value="local_hospital">local_hospital</option>
+            <option value="health_and_safety">health_and_safety</option>
+            <option value="science">science</option>
+            <option value="biotech">biotech</option>
+            <option value="eco">eco</option>
+            <option value="recycling">recycling</option>
+            <option value="electric_bolt">electric_bolt</option>
+            <option value="solar_power">solar_power</option>
+            <option value="water_drop">water_drop</option>
+            <option value="thermostat">thermostat</option>
+            <option value="air">air</option>
+            <option value="light_mode">light_mode</option>
+            <option value="dark_mode">dark_mode</option>
+            <option value="brightness_high">brightness_high</option>
+            <option value="palette">palette</option>
+            <option value="brush">brush</option>
+            <option value="edit">edit</option>
+            <option value="tune">tune</option>
+            <option value="filter_list">filter_list</option>
+            <option value="sort">sort</option>
+            <option value="check">check</option>
+            <option value="close">close</option>
+            <option value="arrow_forward">arrow_forward</option>
+            <option value="arrow_back">arrow_back</option>
+            <option value="expand_more">expand_more</option>
+            <option value="expand_less">expand_less</option>
+            <option value="open_in_new">open_in_new</option>
+            <option value="fullscreen">fullscreen</option>
+            <option value="zoom_in">zoom_in</option>
+            <option value="zoom_out">zoom_out</option>
+            <option value="play_arrow">play_arrow</option>
+            <option value="pause">pause</option>
+            <option value="stop">stop</option>
+            <option value="skip_next">skip_next</option>
+            <option value="replay">replay</option>
+            <option value="thumb_up">thumb_up</option>
+            <option value="thumb_down">thumb_down</option>
+            <option value="mood">mood</option>
+            <option value="sentiment_dissatisfied">sentiment_dissatisfied</option>
+            <option value="celebration">celebration</option>
+            <option value="rocket_launch">rocket_launch</option>
+            <option value="deployed_code">deployed_code</option>
+            <option value="task_alt">task_alt</option>
+            <option value="pending">pending</option>
+            <option value="hourglass_empty">hourglass_empty</option>
+            <option value="rule">rule</option>
+            <option value="policy">policy</option>
+            <option value="flag">flag</option>
+            <option value="bookmark">bookmark</option>
+            <option value="grade">grade</option>
+            <option value="military_tech">military_tech</option>
+            <option value="emoji_events">emoji_events</option>
+            <option value="workspace_premium">workspace_premium</option>
+            <option value="token">token</option>
+            <option value="data_object">data_object</option>
+            <option value="api">api</option>
+            <option value="integration_instructions">integration_instructions</option>
+            <option value="schema">schema</option>
+            <option value="network_check">network_check</option>
+            <option value="troubleshoot">troubleshoot</option>
+            <option value="emergency">emergency</option>
+            <option value="crisis_alert">crisis_alert</option>
+            <option value="report">report</option>
+        </splunk-select>
+    </splunk-control-group>
+
+    <splunk-control-group label="Custom Icon Name" help="Syntax: lowercase_with_underscores only (e.g. mode_heat_off, nest_thermostat). Browse all names at fonts.google.com/icons. Only a-z, 0-9, _ allowed. Overrides dropdown above.">
+        <splunk-text-input name="{{VIZ_NAMESPACE}}.customIcon" value="">
+        </splunk-text-input>
+    </splunk-control-group>
+</form>
+
+<form class="splunk-formatter-section" section-label="Data display">
+    <splunk-control-group label="Icon Size" help="Icon size in pixels. 0 = auto-scale to fill the panel.">
+        <splunk-text-input name="{{VIZ_NAMESPACE}}.iconSize" value="0">
+        </splunk-text-input>
+    </splunk-control-group>
+
+    <splunk-control-group label="Horizontal Align" help="Horizontal position of icon within the panel">
+        <splunk-radio-input name="{{VIZ_NAMESPACE}}.hAlign" value="center">
+            <option value="left">Left</option>
+            <option value="center">Center</option>
+            <option value="right">Right</option>
+        </splunk-radio-input>
+    </splunk-control-group>
+
+    <splunk-control-group label="Vertical Align" help="Vertical position of icon within the panel">
+        <splunk-radio-input name="{{VIZ_NAMESPACE}}.vAlign" value="center">
+            <option value="top">Top</option>
+            <option value="center">Center</option>
+            <option value="bottom">Bottom</option>
+        </splunk-radio-input>
+    </splunk-control-group>
+
+    <splunk-control-group label="Rotation" help="Rotation angle in degrees (0-360)">
+        <splunk-text-input name="{{VIZ_NAMESPACE}}.rotation" value="0">
+        </splunk-text-input>
+    </splunk-control-group>
+
+    <splunk-control-group label="Show Label" help="Display a text label below the icon (inside background shape if enabled)">
+        <splunk-radio-input name="{{VIZ_NAMESPACE}}.showLabel" value="no">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </splunk-radio-input>
+    </splunk-control-group>
+
+    <splunk-control-group label="Label Text" help="Text to display below the icon">
+        <splunk-text-input name="{{VIZ_NAMESPACE}}.labelText" value="">
+        </splunk-text-input>
+    </splunk-control-group>
+
+    <splunk-control-group label="Label Size" help="Label font size in pixels (0 = auto-scale)">
+        <splunk-text-input name="{{VIZ_NAMESPACE}}.labelSize" value="0">
+        </splunk-text-input>
+    </splunk-control-group>
+
+    <splunk-control-group label="Label Color" help="Color of the label text">
+        <splunk-color-picker name="{{VIZ_NAMESPACE}}.labelColor" type="custom" value="#94A3B8">
+            <splunk-color>#F8FAFC</splunk-color>
+            <splunk-color>#94A3B8</splunk-color>
+            <splunk-color>#06B6D4</splunk-color>
+            <splunk-color>#3B82F6</splunk-color>
+            <splunk-color>#22C55E</splunk-color>
+            <splunk-color>#F59E0B</splunk-color>
+            <splunk-color>#EF4444</splunk-color>
+            <splunk-color>#64748B</splunk-color>
+        </splunk-color-picker>
+    </splunk-control-group>
+
+    <splunk-control-group label="Enable Drilldown" help="Show pointer cursor and fire drilldown event on click. Works with Dashboard Studio eventHandlers (setToken, linkToSearch, linkToDashboard).">
+        <splunk-radio-input name="{{VIZ_NAMESPACE}}.drilldown" value="no">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </splunk-radio-input>
+    </splunk-control-group>
+
+    <splunk-control-group label="Drilldown URL" help="URL to navigate to on click. Supports tokens: $icon$, $label$, $color$. Leave empty to use Dashboard Studio eventHandlers instead.">
+        <splunk-text-input name="{{VIZ_NAMESPACE}}.drilldownUrl" value="">
+        </splunk-text-input>
+    </splunk-control-group>
+
+    <splunk-control-group label="Drilldown Opens New Tab" help="Open drilldown URL in a new browser tab">
+        <splunk-radio-input name="{{VIZ_NAMESPACE}}.drilldownNewTab" value="yes">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </splunk-radio-input>
+    </splunk-control-group>
+</form>
+
+<form class="splunk-formatter-section" section-label="Color and style">
+    <splunk-control-group label="Icon Color" help="Color of the icon">
+        <splunk-color-picker name="{{VIZ_NAMESPACE}}.iconColor" type="custom" value="#06B6D4">
+            <splunk-color>#F8FAFC</splunk-color>
+            <splunk-color>#06B6D4</splunk-color>
+            <splunk-color>#3B82F6</splunk-color>
+            <splunk-color>#22C55E</splunk-color>
+            <splunk-color>#F59E0B</splunk-color>
+            <splunk-color>#EF4444</splunk-color>
+            <splunk-color>#64748B</splunk-color>
+            <splunk-color>#8B5CF6</splunk-color>
+        </splunk-color-picker>
+    </splunk-control-group>
+
+    <splunk-control-group label="Background Shape" help="Shape rendered behind the icon and label">
+        <splunk-select name="{{VIZ_NAMESPACE}}.bgShape" value="none">
+            <option value="none">None</option>
+            <option value="circle">Circle</option>
+            <option value="rounded_rect">Rounded Rectangle</option>
+            <option value="square">Square</option>
+        </splunk-select>
+    </splunk-control-group>
+
+    <splunk-control-group label="Background Color" help="Fill color for the background shape">
+        <splunk-color-picker name="{{VIZ_NAMESPACE}}.bgColor" type="custom" value="#1E293B">
+            <splunk-color>#1E293B</splunk-color>
+            <splunk-color>#0F172A</splunk-color>
+            <splunk-color>#1A1A2E</splunk-color>
+            <splunk-color>#164E63</splunk-color>
+            <splunk-color>#1E3A5F</splunk-color>
+            <splunk-color>#312E81</splunk-color>
+            <splunk-color>#3F3F46</splunk-color>
+            <splunk-color>#18181B</splunk-color>
+        </splunk-color-picker>
+    </splunk-control-group>
+
+    <splunk-control-group label="Background Opacity" help="Opacity of the background shape (0 to 1)">
+        <splunk-text-input name="{{VIZ_NAMESPACE}}.bgOpacity" value="1">
+        </splunk-text-input>
+    </splunk-control-group>
+
+    <splunk-control-group label="Background Padding" help="Space between icon edge and background shape edge (px)">
+        <splunk-text-input name="{{VIZ_NAMESPACE}}.bgPadding" value="16">
+        </splunk-text-input>
+    </splunk-control-group>
+
+    <splunk-control-group label="Background Corner Radius" help="Corner radius for rounded rectangle background (px)">
+        <splunk-text-input name="{{VIZ_NAMESPACE}}.bgRadius" value="12">
+        </splunk-text-input>
+    </splunk-control-group>
+
+    <splunk-control-group label="Shadow" help="Add a drop shadow to the icon or background">
+        <splunk-radio-input name="{{VIZ_NAMESPACE}}.shadow" value="no">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </splunk-radio-input>
+    </splunk-control-group>
+
+    <splunk-control-group label="Shadow Color" help="Color of the drop shadow">
+        <splunk-color-picker name="{{VIZ_NAMESPACE}}.shadowColor" type="custom" value="#000000">
+            <splunk-color>#000000</splunk-color>
+            <splunk-color>#1E293B</splunk-color>
+            <splunk-color>#06B6D4</splunk-color>
+            <splunk-color>#3B82F6</splunk-color>
+            <splunk-color>#8B5CF6</splunk-color>
+            <splunk-color>#EF4444</splunk-color>
+        </splunk-color-picker>
+    </splunk-control-group>
+
+    <splunk-control-group label="Shadow Blur" help="Blur radius for the drop shadow (px)">
+        <splunk-text-input name="{{VIZ_NAMESPACE}}.shadowBlur" value="8">
+        </splunk-text-input>
+    </splunk-control-group>
+
+    <splunk-control-group label="Shadow Offset X" help="Horizontal offset for shadow (px)">
+        <splunk-text-input name="{{VIZ_NAMESPACE}}.shadowOffsetX" value="0">
+        </splunk-text-input>
+    </splunk-control-group>
+
+    <splunk-control-group label="Shadow Offset Y" help="Vertical offset for shadow (px)">
+        <splunk-text-input name="{{VIZ_NAMESPACE}}.shadowOffsetY" value="4">
+        </splunk-text-input>
+    </splunk-control-group>
+
+    <splunk-control-group label="Glow" help="Add a glow effect around the icon">
+        <splunk-radio-input name="{{VIZ_NAMESPACE}}.glow" value="no">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </splunk-radio-input>
+    </splunk-control-group>
+
+    <splunk-control-group label="Glow Color" help="Color of the glow effect">
+        <splunk-color-picker name="{{VIZ_NAMESPACE}}.glowColor" type="custom" value="#06B6D4">
+            <splunk-color>#06B6D4</splunk-color>
+            <splunk-color>#3B82F6</splunk-color>
+            <splunk-color>#22C55E</splunk-color>
+            <splunk-color>#F59E0B</splunk-color>
+            <splunk-color>#EF4444</splunk-color>
+            <splunk-color>#8B5CF6</splunk-color>
+            <splunk-color>#F8FAFC</splunk-color>
+            <splunk-color>#EC4899</splunk-color>
+        </splunk-color-picker>
+    </splunk-control-group>
+
+    <splunk-control-group label="Glow Size" help="Size of the glow effect in pixels">
+        <splunk-text-input name="{{VIZ_NAMESPACE}}.glowSize" value="12">
+        </splunk-text-input>
+    </splunk-control-group>
+</form>

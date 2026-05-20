@@ -1,0 +1,33 @@
+Icon Library for Splunk Dashboard Studio
+Copyright 2026 Lyder Hansen
+
+Licensed under the Apache License, Version 2.0 (see the LICENSE file).
+
+================================================================================
+Third-Party Notices
+================================================================================
+
+This product bundles the following third-party components. Each component is
+the property of its respective copyright holders and is licensed under its own
+terms, which are reproduced below or available at the URLs given.
+
+--------------------------------------------------------------------------------
+1. Material Symbols Outlined (font)
+--------------------------------------------------------------------------------
+
+Component:    Material Symbols Outlined (variable font, woff2)
+Copyright:    Copyright Google LLC
+License:      Apache License, Version 2.0
+Source:       https://github.com/google/material-design-icons
+Used in:      appserver/static/visualizations/icon_library/visualization.css
+              (the font file is base64-embedded into the @font-face rule)
+              appserver/static/visualizations/icon_library/fonts/material_symbols_outlined.woff2
+
+The font is bundled verbatim — no modifications have been made to the font
+binary itself. The same Apache License, Version 2.0 that covers this project
+(see the LICENSE file) applies to the bundled Material Symbols Outlined font,
+and is also available at:
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+================================================================================

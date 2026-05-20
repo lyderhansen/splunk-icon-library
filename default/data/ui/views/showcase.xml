@@ -1,0 +1,6749 @@
+<dashboard version="2" theme="dark">
+  <label>Icon Library Showcase</label>
+  <description>250 Material Symbols icons with different colors, backgrounds, glow, shadow, labels, alignment, rotation, and combined effects</description>
+  <definition><![CDATA[
+{
+  "title": "Icon Library Showcase \u2014 250 Icons",
+  "description": "Comprehensive showcase of icon_library visualization settings: colors, backgrounds, glow, shadow, labels, alignment, rotation, and combined effects.",
+  "dataSources": {
+    "ds_stub": {
+      "type": "ds.test",
+      "options": {
+        "data": {
+          "fields": [
+            {
+              "name": "stub"
+            }
+          ],
+          "columns": [
+            [
+              "1"
+            ]
+          ]
+        }
+      },
+      "name": "Stub for icon rendering"
+    }
+  },
+  "defaults": {},
+  "visualizations": {
+    "viz_hdr_0": {
+      "type": "splunk.markdown",
+      "options": {
+        "markdown": "### Color Palette\n20 icons in vibrant colors",
+        "fontColor": "#E2E8F0",
+        "backgroundColor": "transparent"
+      }
+    },
+    "viz_s0_0": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "home",
+        "icon_library.icon_library.iconColor": "#06B6D4"
+      }
+    },
+    "viz_s0_1": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "star",
+        "icon_library.icon_library.iconColor": "#3B82F6"
+      }
+    },
+    "viz_s0_2": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "favorite",
+        "icon_library.icon_library.iconColor": "#22C55E"
+      }
+    },
+    "viz_s0_3": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "bolt",
+        "icon_library.icon_library.iconColor": "#F59E0B"
+      }
+    },
+    "viz_s0_4": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "rocket_launch",
+        "icon_library.icon_library.iconColor": "#EF4444"
+      }
+    },
+    "viz_s0_5": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "diamond",
+        "icon_library.icon_library.iconColor": "#8B5CF6"
+      }
+    },
+    "viz_s0_6": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "light_mode",
+        "icon_library.icon_library.iconColor": "#EC4899"
+      }
+    },
+    "viz_s0_7": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "dark_mode",
+        "icon_library.icon_library.iconColor": "#F8FAFC"
+      }
+    },
+    "viz_s0_8": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "palette",
+        "icon_library.icon_library.iconColor": "#14B8A6"
+      }
+    },
+    "viz_s0_9": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "brush",
+        "icon_library.icon_library.iconColor": "#F97316"
+      }
+    },
+    "viz_s0_10": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "water_drop",
+        "icon_library.icon_library.iconColor": "#A855F7"
+      }
+    },
+    "viz_s0_11": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "eco",
+        "icon_library.icon_library.iconColor": "#6366F1"
+      }
+    },
+    "viz_s0_12": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "local_fire_department",
+        "icon_library.icon_library.iconColor": "#10B981"
+      }
+    },
+    "viz_s0_13": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "ac_unit",
+        "icon_library.icon_library.iconColor": "#E11D48"
+      }
+    },
+    "viz_s0_14": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "sunny",
+        "icon_library.icon_library.iconColor": "#0EA5E9"
+      }
+    },
+    "viz_s0_15": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "nightlight",
+        "icon_library.icon_library.iconColor": "#84CC16"
+      }
+    },
+    "viz_s0_16": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "cloud",
+        "icon_library.icon_library.iconColor": "#D946EF"
+      }
+    },
+    "viz_s0_17": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "thunderstorm",
+        "icon_library.icon_library.iconColor": "#FB923C"
+      }
+    },
+    "viz_s0_18": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "looks",
+        "icon_library.icon_library.iconColor": "#64748B"
+      }
+    },
+    "viz_s0_19": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "grade",
+        "icon_library.icon_library.iconColor": "#FBBF24"
+      }
+    },
+    "viz_hdr_1": {
+      "type": "splunk.markdown",
+      "options": {
+        "markdown": "### Circle Backgrounds\nIcons with circular background shapes",
+        "fontColor": "#E2E8F0",
+        "backgroundColor": "transparent"
+      }
+    },
+    "viz_s1_0": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "check_circle",
+        "icon_library.icon_library.bgShape": "circle",
+        "icon_library.icon_library.bgColor": "#1E293B",
+        "icon_library.icon_library.iconColor": "#06B6D4",
+        "icon_library.icon_library.bgPadding": "20"
+      }
+    },
+    "viz_s1_1": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "cancel",
+        "icon_library.icon_library.bgShape": "circle",
+        "icon_library.icon_library.bgColor": "#0F172A",
+        "icon_library.icon_library.iconColor": "#3B82F6",
+        "icon_library.icon_library.bgPadding": "20"
+      }
+    },
+    "viz_s1_2": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "info",
+        "icon_library.icon_library.bgShape": "circle",
+        "icon_library.icon_library.bgColor": "#1A1A2E",
+        "icon_library.icon_library.iconColor": "#22C55E",
+        "icon_library.icon_library.bgPadding": "20"
+      }
+    },
+    "viz_s1_3": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "warning",
+        "icon_library.icon_library.bgShape": "circle",
+        "icon_library.icon_library.bgColor": "#164E63",
+        "icon_library.icon_library.iconColor": "#F59E0B",
+        "icon_library.icon_library.bgPadding": "20"
+      }
+    },
+    "viz_s1_4": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "error",
+        "icon_library.icon_library.bgShape": "circle",
+        "icon_library.icon_library.bgColor": "#312E81",
+        "icon_library.icon_library.iconColor": "#EF4444",
+        "icon_library.icon_library.bgPadding": "20"
+      }
+    },
+    "viz_s1_5": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "help",
+        "icon_library.icon_library.bgShape": "circle",
+        "icon_library.icon_library.bgColor": "#18181B",
+        "icon_library.icon_library.iconColor": "#8B5CF6",
+        "icon_library.icon_library.bgPadding": "20"
+      }
+    },
+    "viz_s1_6": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "verified_user",
+        "icon_library.icon_library.bgShape": "circle",
+        "icon_library.icon_library.bgColor": "#1E293B",
+        "icon_library.icon_library.iconColor": "#EC4899",
+        "icon_library.icon_library.bgPadding": "20"
+      }
+    },
+    "viz_s1_7": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "gpp_good",
+        "icon_library.icon_library.bgShape": "circle",
+        "icon_library.icon_library.bgColor": "#0F172A",
+        "icon_library.icon_library.iconColor": "#F8FAFC",
+        "icon_library.icon_library.bgPadding": "20"
+      }
+    },
+    "viz_s1_8": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "gpp_bad",
+        "icon_library.icon_library.bgShape": "circle",
+        "icon_library.icon_library.bgColor": "#1A1A2E",
+        "icon_library.icon_library.iconColor": "#14B8A6",
+        "icon_library.icon_library.bgPadding": "20"
+      }
+    },
+    "viz_s1_9": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "shield",
+        "icon_library.icon_library.bgShape": "circle",
+        "icon_library.icon_library.bgColor": "#164E63",
+        "icon_library.icon_library.iconColor": "#F97316",
+        "icon_library.icon_library.bgPadding": "20"
+      }
+    },
+    "viz_s1_10": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "security",
+        "icon_library.icon_library.bgShape": "circle",
+        "icon_library.icon_library.bgColor": "#312E81",
+        "icon_library.icon_library.iconColor": "#A855F7",
+        "icon_library.icon_library.bgPadding": "20"
+      }
+    },
+    "viz_s1_11": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "lock",
+        "icon_library.icon_library.bgShape": "circle",
+        "icon_library.icon_library.bgColor": "#18181B",
+        "icon_library.icon_library.iconColor": "#6366F1",
+        "icon_library.icon_library.bgPadding": "20"
+      }
+    },
+    "viz_s1_12": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "vpn_key",
+        "icon_library.icon_library.bgShape": "circle",
+        "icon_library.icon_library.bgColor": "#1E293B",
+        "icon_library.icon_library.iconColor": "#10B981",
+        "icon_library.icon_library.bgPadding": "20"
+      }
+    },
+    "viz_s1_13": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "fingerprint",
+        "icon_library.icon_library.bgShape": "circle",
+        "icon_library.icon_library.bgColor": "#0F172A",
+        "icon_library.icon_library.iconColor": "#E11D48",
+        "icon_library.icon_library.bgPadding": "20"
+      }
+    },
+    "viz_s1_14": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "key",
+        "icon_library.icon_library.bgShape": "circle",
+        "icon_library.icon_library.bgColor": "#1A1A2E",
+        "icon_library.icon_library.iconColor": "#0EA5E9",
+        "icon_library.icon_library.bgPadding": "20"
+      }
+    },
+    "viz_s1_15": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "admin_panel_settings",
+        "icon_library.icon_library.bgShape": "circle",
+        "icon_library.icon_library.bgColor": "#164E63",
+        "icon_library.icon_library.iconColor": "#84CC16",
+        "icon_library.icon_library.bgPadding": "20"
+      }
+    },
+    "viz_s1_16": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "policy",
+        "icon_library.icon_library.bgShape": "circle",
+        "icon_library.icon_library.bgColor": "#312E81",
+        "icon_library.icon_library.iconColor": "#D946EF",
+        "icon_library.icon_library.bgPadding": "20"
+      }
+    },
+    "viz_s1_17": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "rule",
+        "icon_library.icon_library.bgShape": "circle",
+        "icon_library.icon_library.bgColor": "#18181B",
+        "icon_library.icon_library.iconColor": "#FB923C",
+        "icon_library.icon_library.bgPadding": "20"
+      }
+    },
+    "viz_hdr_2": {
+      "type": "splunk.markdown",
+      "options": {
+        "markdown": "### Rounded Rectangle Backgrounds\nIcons with rounded rect backgrounds and varying corner radius",
+        "fontColor": "#E2E8F0",
+        "backgroundColor": "transparent"
+      }
+    },
+    "viz_s2_0": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "person",
+        "icon_library.icon_library.bgShape": "rounded_rect",
+        "icon_library.icon_library.bgColor": "#1E293B",
+        "icon_library.icon_library.bgRadius": "8",
+        "icon_library.icon_library.iconColor": "#8B5CF6",
+        "icon_library.icon_library.bgPadding": "18"
+      }
+    },
+    "viz_s2_1": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "group",
+        "icon_library.icon_library.bgShape": "rounded_rect",
+        "icon_library.icon_library.bgColor": "#0F172A",
+        "icon_library.icon_library.bgRadius": "12",
+        "icon_library.icon_library.iconColor": "#EC4899",
+        "icon_library.icon_library.bgPadding": "18"
+      }
+    },
+    "viz_s2_2": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "account_circle",
+        "icon_library.icon_library.bgShape": "rounded_rect",
+        "icon_library.icon_library.bgColor": "#1A1A2E",
+        "icon_library.icon_library.bgRadius": "16",
+        "icon_library.icon_library.iconColor": "#F8FAFC",
+        "icon_library.icon_library.bgPadding": "18"
+      }
+    },
+    "viz_s2_3": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "badge",
+        "icon_library.icon_library.bgShape": "rounded_rect",
+        "icon_library.icon_library.bgColor": "#164E63",
+        "icon_library.icon_library.bgRadius": "20",
+        "icon_library.icon_library.iconColor": "#14B8A6",
+        "icon_library.icon_library.bgPadding": "18"
+      }
+    },
+    "viz_s2_4": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "contacts",
+        "icon_library.icon_library.bgShape": "rounded_rect",
+        "icon_library.icon_library.bgColor": "#312E81",
+        "icon_library.icon_library.bgRadius": "8",
+        "icon_library.icon_library.iconColor": "#F97316",
+        "icon_library.icon_library.bgPadding": "18"
+      }
+    },
+    "viz_s2_5": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "school",
+        "icon_library.icon_library.bgShape": "rounded_rect",
+        "icon_library.icon_library.bgColor": "#18181B",
+        "icon_library.icon_library.bgRadius": "12",
+        "icon_library.icon_library.iconColor": "#A855F7",
+        "icon_library.icon_library.bgPadding": "18"
+      }
+    },
+    "viz_s2_6": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "work",
+        "icon_library.icon_library.bgShape": "rounded_rect",
+        "icon_library.icon_library.bgColor": "#1E293B",
+        "icon_library.icon_library.bgRadius": "16",
+        "icon_library.icon_library.iconColor": "#6366F1",
+        "icon_library.icon_library.bgPadding": "18"
+      }
+    },
+    "viz_s2_7": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "business",
+        "icon_library.icon_library.bgShape": "rounded_rect",
+        "icon_library.icon_library.bgColor": "#0F172A",
+        "icon_library.icon_library.bgRadius": "20",
+        "icon_library.icon_library.iconColor": "#10B981",
+        "icon_library.icon_library.bgPadding": "18"
+      }
+    },
+    "viz_s2_8": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "apartment",
+        "icon_library.icon_library.bgShape": "rounded_rect",
+        "icon_library.icon_library.bgColor": "#1A1A2E",
+        "icon_library.icon_library.bgRadius": "8",
+        "icon_library.icon_library.iconColor": "#E11D48",
+        "icon_library.icon_library.bgPadding": "18"
+      }
+    },
+    "viz_s2_9": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "factory",
+        "icon_library.icon_library.bgShape": "rounded_rect",
+        "icon_library.icon_library.bgColor": "#164E63",
+        "icon_library.icon_library.bgRadius": "12",
+        "icon_library.icon_library.iconColor": "#0EA5E9",
+        "icon_library.icon_library.bgPadding": "18"
+      }
+    },
+    "viz_s2_10": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "store",
+        "icon_library.icon_library.bgShape": "rounded_rect",
+        "icon_library.icon_library.bgColor": "#312E81",
+        "icon_library.icon_library.bgRadius": "16",
+        "icon_library.icon_library.iconColor": "#84CC16",
+        "icon_library.icon_library.bgPadding": "18"
+      }
+    },
+    "viz_s2_11": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "local_hospital",
+        "icon_library.icon_library.bgShape": "rounded_rect",
+        "icon_library.icon_library.bgColor": "#18181B",
+        "icon_library.icon_library.bgRadius": "20",
+        "icon_library.icon_library.iconColor": "#D946EF",
+        "icon_library.icon_library.bgPadding": "18"
+      }
+    },
+    "viz_s2_12": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "science",
+        "icon_library.icon_library.bgShape": "rounded_rect",
+        "icon_library.icon_library.bgColor": "#1E293B",
+        "icon_library.icon_library.bgRadius": "8",
+        "icon_library.icon_library.iconColor": "#FB923C",
+        "icon_library.icon_library.bgPadding": "18"
+      }
+    },
+    "viz_s2_13": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "biotech",
+        "icon_library.icon_library.bgShape": "rounded_rect",
+        "icon_library.icon_library.bgColor": "#0F172A",
+        "icon_library.icon_library.bgRadius": "12",
+        "icon_library.icon_library.iconColor": "#64748B",
+        "icon_library.icon_library.bgPadding": "18"
+      }
+    },
+    "viz_s2_14": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "psychology",
+        "icon_library.icon_library.bgShape": "rounded_rect",
+        "icon_library.icon_library.bgColor": "#1A1A2E",
+        "icon_library.icon_library.bgRadius": "16",
+        "icon_library.icon_library.iconColor": "#FBBF24",
+        "icon_library.icon_library.bgPadding": "18"
+      }
+    },
+    "viz_s2_15": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "health_and_safety",
+        "icon_library.icon_library.bgShape": "rounded_rect",
+        "icon_library.icon_library.bgColor": "#164E63",
+        "icon_library.icon_library.bgRadius": "20",
+        "icon_library.icon_library.iconColor": "#06B6D4",
+        "icon_library.icon_library.bgPadding": "18"
+      }
+    },
+    "viz_hdr_3": {
+      "type": "splunk.markdown",
+      "options": {
+        "markdown": "### Square Backgrounds\nIcons with square background shapes",
+        "fontColor": "#E2E8F0",
+        "backgroundColor": "transparent"
+      }
+    },
+    "viz_s3_0": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "dashboard",
+        "icon_library.icon_library.bgShape": "square",
+        "icon_library.icon_library.bgColor": "#1E293B",
+        "icon_library.icon_library.iconColor": "#F59E0B",
+        "icon_library.icon_library.bgPadding": "16"
+      }
+    },
+    "viz_s3_1": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "analytics",
+        "icon_library.icon_library.bgShape": "square",
+        "icon_library.icon_library.bgColor": "#0F172A",
+        "icon_library.icon_library.iconColor": "#EF4444",
+        "icon_library.icon_library.bgPadding": "16"
+      }
+    },
+    "viz_s3_2": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "insights",
+        "icon_library.icon_library.bgShape": "square",
+        "icon_library.icon_library.bgColor": "#1A1A2E",
+        "icon_library.icon_library.iconColor": "#8B5CF6",
+        "icon_library.icon_library.bgPadding": "16"
+      }
+    },
+    "viz_s3_3": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "trending_up",
+        "icon_library.icon_library.bgShape": "square",
+        "icon_library.icon_library.bgColor": "#164E63",
+        "icon_library.icon_library.iconColor": "#EC4899",
+        "icon_library.icon_library.bgPadding": "16"
+      }
+    },
+    "viz_s3_4": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "trending_down",
+        "icon_library.icon_library.bgShape": "square",
+        "icon_library.icon_library.bgColor": "#312E81",
+        "icon_library.icon_library.iconColor": "#F8FAFC",
+        "icon_library.icon_library.bgPadding": "16"
+      }
+    },
+    "viz_s3_5": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "bar_chart",
+        "icon_library.icon_library.bgShape": "square",
+        "icon_library.icon_library.bgColor": "#18181B",
+        "icon_library.icon_library.iconColor": "#14B8A6",
+        "icon_library.icon_library.bgPadding": "16"
+      }
+    },
+    "viz_s3_6": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "pie_chart",
+        "icon_library.icon_library.bgShape": "square",
+        "icon_library.icon_library.bgColor": "#1E293B",
+        "icon_library.icon_library.iconColor": "#F97316",
+        "icon_library.icon_library.bgPadding": "16"
+      }
+    },
+    "viz_s3_7": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "show_chart",
+        "icon_library.icon_library.bgShape": "square",
+        "icon_library.icon_library.bgColor": "#0F172A",
+        "icon_library.icon_library.iconColor": "#A855F7",
+        "icon_library.icon_library.bgPadding": "16"
+      }
+    },
+    "viz_s3_8": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "monitor_heart",
+        "icon_library.icon_library.bgShape": "square",
+        "icon_library.icon_library.bgColor": "#1A1A2E",
+        "icon_library.icon_library.iconColor": "#6366F1",
+        "icon_library.icon_library.bgPadding": "16"
+      }
+    },
+    "viz_s3_9": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "speed",
+        "icon_library.icon_library.bgShape": "square",
+        "icon_library.icon_library.bgColor": "#164E63",
+        "icon_library.icon_library.iconColor": "#10B981",
+        "icon_library.icon_library.bgPadding": "16"
+      }
+    },
+    "viz_s3_10": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "data_object",
+        "icon_library.icon_library.bgShape": "square",
+        "icon_library.icon_library.bgColor": "#312E81",
+        "icon_library.icon_library.iconColor": "#E11D48",
+        "icon_library.icon_library.bgPadding": "16"
+      }
+    },
+    "viz_s3_11": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "api",
+        "icon_library.icon_library.bgShape": "square",
+        "icon_library.icon_library.bgColor": "#18181B",
+        "icon_library.icon_library.iconColor": "#0EA5E9",
+        "icon_library.icon_library.bgPadding": "16"
+      }
+    },
+    "viz_s3_12": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "schema",
+        "icon_library.icon_library.bgShape": "square",
+        "icon_library.icon_library.bgColor": "#1E293B",
+        "icon_library.icon_library.iconColor": "#84CC16",
+        "icon_library.icon_library.bgPadding": "16"
+      }
+    },
+    "viz_s3_13": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "integration_instructions",
+        "icon_library.icon_library.bgShape": "square",
+        "icon_library.icon_library.bgColor": "#0F172A",
+        "icon_library.icon_library.iconColor": "#D946EF",
+        "icon_library.icon_library.bgPadding": "16"
+      }
+    },
+    "viz_hdr_4": {
+      "type": "splunk.markdown",
+      "options": {
+        "markdown": "### Glow Effects\nIcons with neon glow in various colors and intensities",
+        "fontColor": "#E2E8F0",
+        "backgroundColor": "transparent"
+      }
+    },
+    "viz_s4_0": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "electric_bolt",
+        "icon_library.icon_library.iconColor": "#06B6D4",
+        "icon_library.icon_library.glow": "yes",
+        "icon_library.icon_library.glowColor": "#06B6D4",
+        "icon_library.icon_library.glowSize": "10"
+      }
+    },
+    "viz_s4_1": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "flash_on",
+        "icon_library.icon_library.iconColor": "#3B82F6",
+        "icon_library.icon_library.glow": "yes",
+        "icon_library.icon_library.glowColor": "#3B82F6",
+        "icon_library.icon_library.glowSize": "14"
+      }
+    },
+    "viz_s4_2": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "power",
+        "icon_library.icon_library.iconColor": "#22C55E",
+        "icon_library.icon_library.glow": "yes",
+        "icon_library.icon_library.glowColor": "#22C55E",
+        "icon_library.icon_library.glowSize": "18"
+      }
+    },
+    "viz_s4_3": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "solar_power",
+        "icon_library.icon_library.iconColor": "#F59E0B",
+        "icon_library.icon_library.glow": "yes",
+        "icon_library.icon_library.glowColor": "#F59E0B",
+        "icon_library.icon_library.glowSize": "22"
+      }
+    },
+    "viz_s4_4": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "wind_power",
+        "icon_library.icon_library.iconColor": "#EF4444",
+        "icon_library.icon_library.glow": "yes",
+        "icon_library.icon_library.glowColor": "#EF4444",
+        "icon_library.icon_library.glowSize": "26"
+      }
+    },
+    "viz_s4_5": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "energy_savings_leaf",
+        "icon_library.icon_library.iconColor": "#8B5CF6",
+        "icon_library.icon_library.glow": "yes",
+        "icon_library.icon_library.glowColor": "#8B5CF6",
+        "icon_library.icon_library.glowSize": "10"
+      }
+    },
+    "viz_s4_6": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "battery_charging_full",
+        "icon_library.icon_library.iconColor": "#EC4899",
+        "icon_library.icon_library.glow": "yes",
+        "icon_library.icon_library.glowColor": "#EC4899",
+        "icon_library.icon_library.glowSize": "14"
+      }
+    },
+    "viz_s4_7": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "ev_station",
+        "icon_library.icon_library.iconColor": "#F8FAFC",
+        "icon_library.icon_library.glow": "yes",
+        "icon_library.icon_library.glowColor": "#F8FAFC",
+        "icon_library.icon_library.glowSize": "18"
+      }
+    },
+    "viz_s4_8": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "cell_tower",
+        "icon_library.icon_library.iconColor": "#06B6D4",
+        "icon_library.icon_library.glow": "yes",
+        "icon_library.icon_library.glowColor": "#06B6D4",
+        "icon_library.icon_library.glowSize": "22"
+      }
+    },
+    "viz_s4_9": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "signal_cellular_alt",
+        "icon_library.icon_library.iconColor": "#3B82F6",
+        "icon_library.icon_library.glow": "yes",
+        "icon_library.icon_library.glowColor": "#3B82F6",
+        "icon_library.icon_library.glowSize": "26"
+      }
+    },
+    "viz_s4_10": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "wifi",
+        "icon_library.icon_library.iconColor": "#22C55E",
+        "icon_library.icon_library.glow": "yes",
+        "icon_library.icon_library.glowColor": "#22C55E",
+        "icon_library.icon_library.glowSize": "10"
+      }
+    },
+    "viz_s4_11": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "bluetooth",
+        "icon_library.icon_library.iconColor": "#F59E0B",
+        "icon_library.icon_library.glow": "yes",
+        "icon_library.icon_library.glowColor": "#F59E0B",
+        "icon_library.icon_library.glowSize": "14"
+      }
+    },
+    "viz_s4_12": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "nfc",
+        "icon_library.icon_library.iconColor": "#EF4444",
+        "icon_library.icon_library.glow": "yes",
+        "icon_library.icon_library.glowColor": "#EF4444",
+        "icon_library.icon_library.glowSize": "18"
+      }
+    },
+    "viz_s4_13": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "sensors",
+        "icon_library.icon_library.iconColor": "#8B5CF6",
+        "icon_library.icon_library.glow": "yes",
+        "icon_library.icon_library.glowColor": "#8B5CF6",
+        "icon_library.icon_library.glowSize": "22"
+      }
+    },
+    "viz_s4_14": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "radar",
+        "icon_library.icon_library.iconColor": "#EC4899",
+        "icon_library.icon_library.glow": "yes",
+        "icon_library.icon_library.glowColor": "#EC4899",
+        "icon_library.icon_library.glowSize": "26"
+      }
+    },
+    "viz_s4_15": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "satellite_alt",
+        "icon_library.icon_library.iconColor": "#F8FAFC",
+        "icon_library.icon_library.glow": "yes",
+        "icon_library.icon_library.glowColor": "#F8FAFC",
+        "icon_library.icon_library.glowSize": "10"
+      }
+    },
+    "viz_s4_16": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "hub",
+        "icon_library.icon_library.iconColor": "#06B6D4",
+        "icon_library.icon_library.glow": "yes",
+        "icon_library.icon_library.glowColor": "#06B6D4",
+        "icon_library.icon_library.glowSize": "14"
+      }
+    },
+    "viz_s4_17": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "lan",
+        "icon_library.icon_library.iconColor": "#3B82F6",
+        "icon_library.icon_library.glow": "yes",
+        "icon_library.icon_library.glowColor": "#3B82F6",
+        "icon_library.icon_library.glowSize": "18"
+      }
+    },
+    "viz_hdr_5": {
+      "type": "splunk.markdown",
+      "options": {
+        "markdown": "### Shadow Effects\nIcons with drop shadows of varying depth",
+        "fontColor": "#E2E8F0",
+        "backgroundColor": "transparent"
+      }
+    },
+    "viz_s5_0": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "flight",
+        "icon_library.icon_library.iconColor": "#06B6D4",
+        "icon_library.icon_library.shadow": "yes",
+        "icon_library.icon_library.shadowColor": "#000000",
+        "icon_library.icon_library.shadowBlur": "6",
+        "icon_library.icon_library.shadowOffsetX": "0",
+        "icon_library.icon_library.shadowOffsetY": "2"
+      }
+    },
+    "viz_s5_1": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "local_shipping",
+        "icon_library.icon_library.iconColor": "#3B82F6",
+        "icon_library.icon_library.shadow": "yes",
+        "icon_library.icon_library.shadowColor": "#000000",
+        "icon_library.icon_library.shadowBlur": "9",
+        "icon_library.icon_library.shadowOffsetX": "2",
+        "icon_library.icon_library.shadowOffsetY": "4"
+      }
+    },
+    "viz_s5_2": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "directions_car",
+        "icon_library.icon_library.iconColor": "#22C55E",
+        "icon_library.icon_library.shadow": "yes",
+        "icon_library.icon_library.shadowColor": "#000000",
+        "icon_library.icon_library.shadowBlur": "12",
+        "icon_library.icon_library.shadowOffsetX": "4",
+        "icon_library.icon_library.shadowOffsetY": "6"
+      }
+    },
+    "viz_s5_3": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "train",
+        "icon_library.icon_library.iconColor": "#F59E0B",
+        "icon_library.icon_library.shadow": "yes",
+        "icon_library.icon_library.shadowColor": "#000000",
+        "icon_library.icon_library.shadowBlur": "15",
+        "icon_library.icon_library.shadowOffsetX": "0",
+        "icon_library.icon_library.shadowOffsetY": "8"
+      }
+    },
+    "viz_s5_4": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "directions_boat",
+        "icon_library.icon_library.iconColor": "#EF4444",
+        "icon_library.icon_library.shadow": "yes",
+        "icon_library.icon_library.shadowColor": "#000000",
+        "icon_library.icon_library.shadowBlur": "6",
+        "icon_library.icon_library.shadowOffsetX": "2",
+        "icon_library.icon_library.shadowOffsetY": "2"
+      }
+    },
+    "viz_s5_5": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "two_wheeler",
+        "icon_library.icon_library.iconColor": "#8B5CF6",
+        "icon_library.icon_library.shadow": "yes",
+        "icon_library.icon_library.shadowColor": "#000000",
+        "icon_library.icon_library.shadowBlur": "9",
+        "icon_library.icon_library.shadowOffsetX": "4",
+        "icon_library.icon_library.shadowOffsetY": "4"
+      }
+    },
+    "viz_s5_6": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "pedal_bike",
+        "icon_library.icon_library.iconColor": "#EC4899",
+        "icon_library.icon_library.shadow": "yes",
+        "icon_library.icon_library.shadowColor": "#000000",
+        "icon_library.icon_library.shadowBlur": "12",
+        "icon_library.icon_library.shadowOffsetX": "0",
+        "icon_library.icon_library.shadowOffsetY": "6"
+      }
+    },
+    "viz_s5_7": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "airport_shuttle",
+        "icon_library.icon_library.iconColor": "#F8FAFC",
+        "icon_library.icon_library.shadow": "yes",
+        "icon_library.icon_library.shadowColor": "#000000",
+        "icon_library.icon_library.shadowBlur": "15",
+        "icon_library.icon_library.shadowOffsetX": "2",
+        "icon_library.icon_library.shadowOffsetY": "8"
+      }
+    },
+    "viz_s5_8": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "rocket",
+        "icon_library.icon_library.iconColor": "#14B8A6",
+        "icon_library.icon_library.shadow": "yes",
+        "icon_library.icon_library.shadowColor": "#000000",
+        "icon_library.icon_library.shadowBlur": "6",
+        "icon_library.icon_library.shadowOffsetX": "4",
+        "icon_library.icon_library.shadowOffsetY": "2"
+      }
+    },
+    "viz_s5_9": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "paragliding",
+        "icon_library.icon_library.iconColor": "#F97316",
+        "icon_library.icon_library.shadow": "yes",
+        "icon_library.icon_library.shadowColor": "#000000",
+        "icon_library.icon_library.shadowBlur": "9",
+        "icon_library.icon_library.shadowOffsetX": "0",
+        "icon_library.icon_library.shadowOffsetY": "4"
+      }
+    },
+    "viz_s5_10": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "kitesurfing",
+        "icon_library.icon_library.iconColor": "#A855F7",
+        "icon_library.icon_library.shadow": "yes",
+        "icon_library.icon_library.shadowColor": "#000000",
+        "icon_library.icon_library.shadowBlur": "12",
+        "icon_library.icon_library.shadowOffsetX": "2",
+        "icon_library.icon_library.shadowOffsetY": "6"
+      }
+    },
+    "viz_s5_11": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "surfing",
+        "icon_library.icon_library.iconColor": "#6366F1",
+        "icon_library.icon_library.shadow": "yes",
+        "icon_library.icon_library.shadowColor": "#000000",
+        "icon_library.icon_library.shadowBlur": "15",
+        "icon_library.icon_library.shadowOffsetX": "4",
+        "icon_library.icon_library.shadowOffsetY": "8"
+      }
+    },
+    "viz_s5_12": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "snowboarding",
+        "icon_library.icon_library.iconColor": "#10B981",
+        "icon_library.icon_library.shadow": "yes",
+        "icon_library.icon_library.shadowColor": "#000000",
+        "icon_library.icon_library.shadowBlur": "6",
+        "icon_library.icon_library.shadowOffsetX": "0",
+        "icon_library.icon_library.shadowOffsetY": "2"
+      }
+    },
+    "viz_s5_13": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "skateboarding",
+        "icon_library.icon_library.iconColor": "#E11D48",
+        "icon_library.icon_library.shadow": "yes",
+        "icon_library.icon_library.shadowColor": "#000000",
+        "icon_library.icon_library.shadowBlur": "9",
+        "icon_library.icon_library.shadowOffsetX": "2",
+        "icon_library.icon_library.shadowOffsetY": "4"
+      }
+    },
+    "viz_s5_14": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "sports_esports",
+        "icon_library.icon_library.iconColor": "#0EA5E9",
+        "icon_library.icon_library.shadow": "yes",
+        "icon_library.icon_library.shadowColor": "#000000",
+        "icon_library.icon_library.shadowBlur": "12",
+        "icon_library.icon_library.shadowOffsetX": "4",
+        "icon_library.icon_library.shadowOffsetY": "6"
+      }
+    },
+    "viz_s5_15": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "sports_soccer",
+        "icon_library.icon_library.iconColor": "#84CC16",
+        "icon_library.icon_library.shadow": "yes",
+        "icon_library.icon_library.shadowColor": "#000000",
+        "icon_library.icon_library.shadowBlur": "15",
+        "icon_library.icon_library.shadowOffsetX": "0",
+        "icon_library.icon_library.shadowOffsetY": "8"
+      }
+    },
+    "viz_hdr_6": {
+      "type": "splunk.markdown",
+      "options": {
+        "markdown": "### Icons with Labels\nEvery icon paired with a descriptive label",
+        "fontColor": "#E2E8F0",
+        "backgroundColor": "transparent"
+      }
+    },
+    "viz_s6_0": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "notifications_active",
+        "icon_library.icon_library.iconColor": "#06B6D4",
+        "icon_library.icon_library.showLabel": "yes",
+        "icon_library.icon_library.labelText": "Alerts",
+        "icon_library.icon_library.labelColor": "#94A3B8"
+      }
+    },
+    "viz_s6_1": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "email",
+        "icon_library.icon_library.iconColor": "#3B82F6",
+        "icon_library.icon_library.showLabel": "yes",
+        "icon_library.icon_library.labelText": "Email",
+        "icon_library.icon_library.labelColor": "#94A3B8"
+      }
+    },
+    "viz_s6_2": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "chat",
+        "icon_library.icon_library.iconColor": "#22C55E",
+        "icon_library.icon_library.showLabel": "yes",
+        "icon_library.icon_library.labelText": "Messages",
+        "icon_library.icon_library.labelColor": "#94A3B8"
+      }
+    },
+    "viz_s6_3": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "phone",
+        "icon_library.icon_library.iconColor": "#F59E0B",
+        "icon_library.icon_library.showLabel": "yes",
+        "icon_library.icon_library.labelText": "Calls",
+        "icon_library.icon_library.labelColor": "#94A3B8"
+      }
+    },
+    "viz_s6_4": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "videocam",
+        "icon_library.icon_library.iconColor": "#EF4444",
+        "icon_library.icon_library.showLabel": "yes",
+        "icon_library.icon_library.labelText": "Video",
+        "icon_library.icon_library.labelColor": "#94A3B8"
+      }
+    },
+    "viz_s6_5": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "mic",
+        "icon_library.icon_library.iconColor": "#8B5CF6",
+        "icon_library.icon_library.showLabel": "yes",
+        "icon_library.icon_library.labelText": "Audio",
+        "icon_library.icon_library.labelColor": "#94A3B8"
+      }
+    },
+    "viz_s6_6": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "forum",
+        "icon_library.icon_library.iconColor": "#EC4899",
+        "icon_library.icon_library.showLabel": "yes",
+        "icon_library.icon_library.labelText": "Forums",
+        "icon_library.icon_library.labelColor": "#94A3B8"
+      }
+    },
+    "viz_s6_7": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "campaign",
+        "icon_library.icon_library.iconColor": "#F8FAFC",
+        "icon_library.icon_library.showLabel": "yes",
+        "icon_library.icon_library.labelText": "Campaign",
+        "icon_library.icon_library.labelColor": "#94A3B8"
+      }
+    },
+    "viz_s6_8": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "newspaper",
+        "icon_library.icon_library.iconColor": "#14B8A6",
+        "icon_library.icon_library.showLabel": "yes",
+        "icon_library.icon_library.labelText": "News",
+        "icon_library.icon_library.labelColor": "#94A3B8"
+      }
+    },
+    "viz_s6_9": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "feed",
+        "icon_library.icon_library.iconColor": "#F97316",
+        "icon_library.icon_library.showLabel": "yes",
+        "icon_library.icon_library.labelText": "Feed",
+        "icon_library.icon_library.labelColor": "#94A3B8"
+      }
+    },
+    "viz_s6_10": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "rss_feed",
+        "icon_library.icon_library.iconColor": "#A855F7",
+        "icon_library.icon_library.showLabel": "yes",
+        "icon_library.icon_library.labelText": "RSS",
+        "icon_library.icon_library.labelColor": "#94A3B8"
+      }
+    },
+    "viz_s6_11": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "podcasts",
+        "icon_library.icon_library.iconColor": "#6366F1",
+        "icon_library.icon_library.showLabel": "yes",
+        "icon_library.icon_library.labelText": "Podcasts",
+        "icon_library.icon_library.labelColor": "#94A3B8"
+      }
+    },
+    "viz_s6_12": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "radio",
+        "icon_library.icon_library.iconColor": "#10B981",
+        "icon_library.icon_library.showLabel": "yes",
+        "icon_library.icon_library.labelText": "Radio",
+        "icon_library.icon_library.labelColor": "#94A3B8"
+      }
+    },
+    "viz_s6_13": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "music_note",
+        "icon_library.icon_library.iconColor": "#E11D48",
+        "icon_library.icon_library.showLabel": "yes",
+        "icon_library.icon_library.labelText": "Music",
+        "icon_library.icon_library.labelColor": "#94A3B8"
+      }
+    },
+    "viz_s6_14": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "headphones",
+        "icon_library.icon_library.iconColor": "#0EA5E9",
+        "icon_library.icon_library.showLabel": "yes",
+        "icon_library.icon_library.labelText": "Listen",
+        "icon_library.icon_library.labelColor": "#94A3B8"
+      }
+    },
+    "viz_s6_15": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "volume_up",
+        "icon_library.icon_library.iconColor": "#84CC16",
+        "icon_library.icon_library.showLabel": "yes",
+        "icon_library.icon_library.labelText": "Volume",
+        "icon_library.icon_library.labelColor": "#94A3B8"
+      }
+    },
+    "viz_s6_16": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "graphic_eq",
+        "icon_library.icon_library.iconColor": "#D946EF",
+        "icon_library.icon_library.showLabel": "yes",
+        "icon_library.icon_library.labelText": "Equalizer",
+        "icon_library.icon_library.labelColor": "#94A3B8"
+      }
+    },
+    "viz_s6_17": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "audiotrack",
+        "icon_library.icon_library.iconColor": "#FB923C",
+        "icon_library.icon_library.showLabel": "yes",
+        "icon_library.icon_library.labelText": "Track",
+        "icon_library.icon_library.labelColor": "#94A3B8"
+      }
+    },
+    "viz_s6_18": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "library_music",
+        "icon_library.icon_library.iconColor": "#64748B",
+        "icon_library.icon_library.showLabel": "yes",
+        "icon_library.icon_library.labelText": "Library",
+        "icon_library.icon_library.labelColor": "#94A3B8"
+      }
+    },
+    "viz_s6_19": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "queue_music",
+        "icon_library.icon_library.iconColor": "#FBBF24",
+        "icon_library.icon_library.showLabel": "yes",
+        "icon_library.icon_library.labelText": "Queue",
+        "icon_library.icon_library.labelColor": "#94A3B8"
+      }
+    },
+    "viz_hdr_7": {
+      "type": "splunk.markdown",
+      "options": {
+        "markdown": "### Labels inside Background Shapes\nIcons with labels contained within background shapes",
+        "fontColor": "#E2E8F0",
+        "backgroundColor": "transparent"
+      }
+    },
+    "viz_s7_0": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "memory",
+        "icon_library.icon_library.iconColor": "#22C55E",
+        "icon_library.icon_library.showLabel": "yes",
+        "icon_library.icon_library.labelText": "RAM",
+        "icon_library.icon_library.labelColor": "#CBD5E1",
+        "icon_library.icon_library.bgShape": "circle",
+        "icon_library.icon_library.bgColor": "#1E293B",
+        "icon_library.icon_library.bgPadding": "14"
+      }
+    },
+    "viz_s7_1": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "developer_board",
+        "icon_library.icon_library.iconColor": "#F59E0B",
+        "icon_library.icon_library.showLabel": "yes",
+        "icon_library.icon_library.labelText": "CPU",
+        "icon_library.icon_library.labelColor": "#CBD5E1",
+        "icon_library.icon_library.bgShape": "rounded_rect",
+        "icon_library.icon_library.bgColor": "#0F172A",
+        "icon_library.icon_library.bgPadding": "14"
+      }
+    },
+    "viz_s7_2": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "storage",
+        "icon_library.icon_library.iconColor": "#EF4444",
+        "icon_library.icon_library.showLabel": "yes",
+        "icon_library.icon_library.labelText": "Disk",
+        "icon_library.icon_library.labelColor": "#CBD5E1",
+        "icon_library.icon_library.bgShape": "square",
+        "icon_library.icon_library.bgColor": "#1A1A2E",
+        "icon_library.icon_library.bgPadding": "14"
+      }
+    },
+    "viz_s7_3": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "dns",
+        "icon_library.icon_library.iconColor": "#8B5CF6",
+        "icon_library.icon_library.showLabel": "yes",
+        "icon_library.icon_library.labelText": "DNS",
+        "icon_library.icon_library.labelColor": "#CBD5E1",
+        "icon_library.icon_library.bgShape": "circle",
+        "icon_library.icon_library.bgColor": "#164E63",
+        "icon_library.icon_library.bgPadding": "14"
+      }
+    },
+    "viz_s7_4": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "cloud",
+        "icon_library.icon_library.iconColor": "#EC4899",
+        "icon_library.icon_library.showLabel": "yes",
+        "icon_library.icon_library.labelText": "Cloud",
+        "icon_library.icon_library.labelColor": "#CBD5E1",
+        "icon_library.icon_library.bgShape": "rounded_rect",
+        "icon_library.icon_library.bgColor": "#312E81",
+        "icon_library.icon_library.bgPadding": "14"
+      }
+    },
+    "viz_s7_5": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "database",
+        "icon_library.icon_library.iconColor": "#F8FAFC",
+        "icon_library.icon_library.showLabel": "yes",
+        "icon_library.icon_library.labelText": "DB",
+        "icon_library.icon_library.labelColor": "#CBD5E1",
+        "icon_library.icon_library.bgShape": "square",
+        "icon_library.icon_library.bgColor": "#18181B",
+        "icon_library.icon_library.bgPadding": "14"
+      }
+    },
+    "viz_s7_6": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "terminal",
+        "icon_library.icon_library.iconColor": "#14B8A6",
+        "icon_library.icon_library.showLabel": "yes",
+        "icon_library.icon_library.labelText": "CLI",
+        "icon_library.icon_library.labelColor": "#CBD5E1",
+        "icon_library.icon_library.bgShape": "circle",
+        "icon_library.icon_library.bgColor": "#1E293B",
+        "icon_library.icon_library.bgPadding": "14"
+      }
+    },
+    "viz_s7_7": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "code",
+        "icon_library.icon_library.iconColor": "#F97316",
+        "icon_library.icon_library.showLabel": "yes",
+        "icon_library.icon_library.labelText": "Code",
+        "icon_library.icon_library.labelColor": "#CBD5E1",
+        "icon_library.icon_library.bgShape": "rounded_rect",
+        "icon_library.icon_library.bgColor": "#0F172A",
+        "icon_library.icon_library.bgPadding": "14"
+      }
+    },
+    "viz_s7_8": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "bug_report",
+        "icon_library.icon_library.iconColor": "#A855F7",
+        "icon_library.icon_library.showLabel": "yes",
+        "icon_library.icon_library.labelText": "Bugs",
+        "icon_library.icon_library.labelColor": "#CBD5E1",
+        "icon_library.icon_library.bgShape": "square",
+        "icon_library.icon_library.bgColor": "#1A1A2E",
+        "icon_library.icon_library.bgPadding": "14"
+      }
+    },
+    "viz_s7_9": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "build",
+        "icon_library.icon_library.iconColor": "#6366F1",
+        "icon_library.icon_library.showLabel": "yes",
+        "icon_library.icon_library.labelText": "Build",
+        "icon_library.icon_library.labelColor": "#CBD5E1",
+        "icon_library.icon_library.bgShape": "circle",
+        "icon_library.icon_library.bgColor": "#164E63",
+        "icon_library.icon_library.bgPadding": "14"
+      }
+    },
+    "viz_s7_10": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "construction",
+        "icon_library.icon_library.iconColor": "#10B981",
+        "icon_library.icon_library.showLabel": "yes",
+        "icon_library.icon_library.labelText": "Deploy",
+        "icon_library.icon_library.labelColor": "#CBD5E1",
+        "icon_library.icon_library.bgShape": "rounded_rect",
+        "icon_library.icon_library.bgColor": "#312E81",
+        "icon_library.icon_library.bgPadding": "14"
+      }
+    },
+    "viz_s7_11": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "engineering",
+        "icon_library.icon_library.iconColor": "#E11D48",
+        "icon_library.icon_library.showLabel": "yes",
+        "icon_library.icon_library.labelText": "Eng",
+        "icon_library.icon_library.labelColor": "#CBD5E1",
+        "icon_library.icon_library.bgShape": "square",
+        "icon_library.icon_library.bgColor": "#18181B",
+        "icon_library.icon_library.bgPadding": "14"
+      }
+    },
+    "viz_s7_12": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "troubleshoot",
+        "icon_library.icon_library.iconColor": "#0EA5E9",
+        "icon_library.icon_library.showLabel": "yes",
+        "icon_library.icon_library.labelText": "Debug",
+        "icon_library.icon_library.labelColor": "#CBD5E1",
+        "icon_library.icon_library.bgShape": "circle",
+        "icon_library.icon_library.bgColor": "#1E293B",
+        "icon_library.icon_library.bgPadding": "14"
+      }
+    },
+    "viz_s7_13": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "network_check",
+        "icon_library.icon_library.iconColor": "#84CC16",
+        "icon_library.icon_library.showLabel": "yes",
+        "icon_library.icon_library.labelText": "Net",
+        "icon_library.icon_library.labelColor": "#CBD5E1",
+        "icon_library.icon_library.bgShape": "rounded_rect",
+        "icon_library.icon_library.bgColor": "#0F172A",
+        "icon_library.icon_library.bgPadding": "14"
+      }
+    },
+    "viz_s7_14": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "hub",
+        "icon_library.icon_library.iconColor": "#D946EF",
+        "icon_library.icon_library.showLabel": "yes",
+        "icon_library.icon_library.labelText": "Hub",
+        "icon_library.icon_library.labelColor": "#CBD5E1",
+        "icon_library.icon_library.bgShape": "square",
+        "icon_library.icon_library.bgColor": "#1A1A2E",
+        "icon_library.icon_library.bgPadding": "14"
+      }
+    },
+    "viz_s7_15": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "router",
+        "icon_library.icon_library.iconColor": "#FB923C",
+        "icon_library.icon_library.showLabel": "yes",
+        "icon_library.icon_library.labelText": "Router",
+        "icon_library.icon_library.labelColor": "#CBD5E1",
+        "icon_library.icon_library.bgShape": "circle",
+        "icon_library.icon_library.bgColor": "#164E63",
+        "icon_library.icon_library.bgPadding": "14"
+      }
+    },
+    "viz_hdr_8": {
+      "type": "splunk.markdown",
+      "options": {
+        "markdown": "### Glow with Background\nNeon glow icons on dark circular backgrounds",
+        "fontColor": "#E2E8F0",
+        "backgroundColor": "transparent"
+      }
+    },
+    "viz_s8_0": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "security",
+        "icon_library.icon_library.iconColor": "#06B6D4",
+        "icon_library.icon_library.glow": "yes",
+        "icon_library.icon_library.glowColor": "#06B6D4",
+        "icon_library.icon_library.glowSize": "14",
+        "icon_library.icon_library.bgShape": "circle",
+        "icon_library.icon_library.bgColor": "#0F172A",
+        "icon_library.icon_library.bgPadding": "18"
+      }
+    },
+    "viz_s8_1": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "shield",
+        "icon_library.icon_library.iconColor": "#3B82F6",
+        "icon_library.icon_library.glow": "yes",
+        "icon_library.icon_library.glowColor": "#3B82F6",
+        "icon_library.icon_library.glowSize": "14",
+        "icon_library.icon_library.bgShape": "circle",
+        "icon_library.icon_library.bgColor": "#0F172A",
+        "icon_library.icon_library.bgPadding": "18"
+      }
+    },
+    "viz_s8_2": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "verified_user",
+        "icon_library.icon_library.iconColor": "#22C55E",
+        "icon_library.icon_library.glow": "yes",
+        "icon_library.icon_library.glowColor": "#22C55E",
+        "icon_library.icon_library.glowSize": "14",
+        "icon_library.icon_library.bgShape": "circle",
+        "icon_library.icon_library.bgColor": "#0F172A",
+        "icon_library.icon_library.bgPadding": "18"
+      }
+    },
+    "viz_s8_3": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "lock",
+        "icon_library.icon_library.iconColor": "#F59E0B",
+        "icon_library.icon_library.glow": "yes",
+        "icon_library.icon_library.glowColor": "#F59E0B",
+        "icon_library.icon_library.glowSize": "14",
+        "icon_library.icon_library.bgShape": "circle",
+        "icon_library.icon_library.bgColor": "#0F172A",
+        "icon_library.icon_library.bgPadding": "18"
+      }
+    },
+    "viz_s8_4": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "fingerprint",
+        "icon_library.icon_library.iconColor": "#EF4444",
+        "icon_library.icon_library.glow": "yes",
+        "icon_library.icon_library.glowColor": "#EF4444",
+        "icon_library.icon_library.glowSize": "14",
+        "icon_library.icon_library.bgShape": "circle",
+        "icon_library.icon_library.bgColor": "#0F172A",
+        "icon_library.icon_library.bgPadding": "18"
+      }
+    },
+    "viz_s8_5": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "vpn_key",
+        "icon_library.icon_library.iconColor": "#8B5CF6",
+        "icon_library.icon_library.glow": "yes",
+        "icon_library.icon_library.glowColor": "#8B5CF6",
+        "icon_library.icon_library.glowSize": "14",
+        "icon_library.icon_library.bgShape": "circle",
+        "icon_library.icon_library.bgColor": "#0F172A",
+        "icon_library.icon_library.bgPadding": "18"
+      }
+    },
+    "viz_s8_6": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "gpp_good",
+        "icon_library.icon_library.iconColor": "#EC4899",
+        "icon_library.icon_library.glow": "yes",
+        "icon_library.icon_library.glowColor": "#EC4899",
+        "icon_library.icon_library.glowSize": "14",
+        "icon_library.icon_library.bgShape": "circle",
+        "icon_library.icon_library.bgColor": "#0F172A",
+        "icon_library.icon_library.bgPadding": "18"
+      }
+    },
+    "viz_s8_7": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "admin_panel_settings",
+        "icon_library.icon_library.iconColor": "#F8FAFC",
+        "icon_library.icon_library.glow": "yes",
+        "icon_library.icon_library.glowColor": "#F8FAFC",
+        "icon_library.icon_library.glowSize": "14",
+        "icon_library.icon_library.bgShape": "circle",
+        "icon_library.icon_library.bgColor": "#0F172A",
+        "icon_library.icon_library.bgPadding": "18"
+      }
+    },
+    "viz_s8_8": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "policy",
+        "icon_library.icon_library.iconColor": "#06B6D4",
+        "icon_library.icon_library.glow": "yes",
+        "icon_library.icon_library.glowColor": "#06B6D4",
+        "icon_library.icon_library.glowSize": "14",
+        "icon_library.icon_library.bgShape": "circle",
+        "icon_library.icon_library.bgColor": "#0F172A",
+        "icon_library.icon_library.bgPadding": "18"
+      }
+    },
+    "viz_s8_9": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "emergency",
+        "icon_library.icon_library.iconColor": "#3B82F6",
+        "icon_library.icon_library.glow": "yes",
+        "icon_library.icon_library.glowColor": "#3B82F6",
+        "icon_library.icon_library.glowSize": "14",
+        "icon_library.icon_library.bgShape": "circle",
+        "icon_library.icon_library.bgColor": "#0F172A",
+        "icon_library.icon_library.bgPadding": "18"
+      }
+    },
+    "viz_s8_10": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "crisis_alert",
+        "icon_library.icon_library.iconColor": "#22C55E",
+        "icon_library.icon_library.glow": "yes",
+        "icon_library.icon_library.glowColor": "#22C55E",
+        "icon_library.icon_library.glowSize": "14",
+        "icon_library.icon_library.bgShape": "circle",
+        "icon_library.icon_library.bgColor": "#0F172A",
+        "icon_library.icon_library.bgPadding": "18"
+      }
+    },
+    "viz_s8_11": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "report",
+        "icon_library.icon_library.iconColor": "#F59E0B",
+        "icon_library.icon_library.glow": "yes",
+        "icon_library.icon_library.glowColor": "#F59E0B",
+        "icon_library.icon_library.glowSize": "14",
+        "icon_library.icon_library.bgShape": "circle",
+        "icon_library.icon_library.bgColor": "#0F172A",
+        "icon_library.icon_library.bgPadding": "18"
+      }
+    },
+    "viz_s8_12": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "warning",
+        "icon_library.icon_library.iconColor": "#EF4444",
+        "icon_library.icon_library.glow": "yes",
+        "icon_library.icon_library.glowColor": "#EF4444",
+        "icon_library.icon_library.glowSize": "14",
+        "icon_library.icon_library.bgShape": "circle",
+        "icon_library.icon_library.bgColor": "#0F172A",
+        "icon_library.icon_library.bgPadding": "18"
+      }
+    },
+    "viz_s8_13": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "error",
+        "icon_library.icon_library.iconColor": "#8B5CF6",
+        "icon_library.icon_library.glow": "yes",
+        "icon_library.icon_library.glowColor": "#8B5CF6",
+        "icon_library.icon_library.glowSize": "14",
+        "icon_library.icon_library.bgShape": "circle",
+        "icon_library.icon_library.bgColor": "#0F172A",
+        "icon_library.icon_library.bgPadding": "18"
+      }
+    },
+    "viz_hdr_9": {
+      "type": "splunk.markdown",
+      "options": {
+        "markdown": "### Alignment Grid\nIcons positioned using horizontal and vertical alignment",
+        "fontColor": "#E2E8F0",
+        "backgroundColor": "transparent"
+      }
+    },
+    "viz_s9_0": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "arrow_back",
+        "icon_library.icon_library.iconColor": "#06B6D4",
+        "icon_library.icon_library.hAlign": "left",
+        "icon_library.icon_library.vAlign": "top",
+        "icon_library.icon_library.bgShape": "square",
+        "icon_library.icon_library.bgColor": "#1A1A2E",
+        "icon_library.icon_library.bgPadding": "8"
+      }
+    },
+    "viz_s9_1": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "arrow_upward",
+        "icon_library.icon_library.iconColor": "#3B82F6",
+        "icon_library.icon_library.hAlign": "center",
+        "icon_library.icon_library.vAlign": "top",
+        "icon_library.icon_library.bgShape": "square",
+        "icon_library.icon_library.bgColor": "#1A1A2E",
+        "icon_library.icon_library.bgPadding": "8"
+      }
+    },
+    "viz_s9_2": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "arrow_forward",
+        "icon_library.icon_library.iconColor": "#22C55E",
+        "icon_library.icon_library.hAlign": "right",
+        "icon_library.icon_library.vAlign": "top",
+        "icon_library.icon_library.bgShape": "square",
+        "icon_library.icon_library.bgColor": "#1A1A2E",
+        "icon_library.icon_library.bgPadding": "8"
+      }
+    },
+    "viz_s9_3": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "chevron_left",
+        "icon_library.icon_library.iconColor": "#F59E0B",
+        "icon_library.icon_library.hAlign": "left",
+        "icon_library.icon_library.vAlign": "center",
+        "icon_library.icon_library.bgShape": "square",
+        "icon_library.icon_library.bgColor": "#1A1A2E",
+        "icon_library.icon_library.bgPadding": "8"
+      }
+    },
+    "viz_s9_4": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "adjust",
+        "icon_library.icon_library.iconColor": "#EF4444",
+        "icon_library.icon_library.hAlign": "center",
+        "icon_library.icon_library.vAlign": "center",
+        "icon_library.icon_library.bgShape": "square",
+        "icon_library.icon_library.bgColor": "#1A1A2E",
+        "icon_library.icon_library.bgPadding": "8"
+      }
+    },
+    "viz_s9_5": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "chevron_right",
+        "icon_library.icon_library.iconColor": "#8B5CF6",
+        "icon_library.icon_library.hAlign": "right",
+        "icon_library.icon_library.vAlign": "center",
+        "icon_library.icon_library.bgShape": "square",
+        "icon_library.icon_library.bgColor": "#1A1A2E",
+        "icon_library.icon_library.bgPadding": "8"
+      }
+    },
+    "viz_s9_6": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "south_west",
+        "icon_library.icon_library.iconColor": "#EC4899",
+        "icon_library.icon_library.hAlign": "left",
+        "icon_library.icon_library.vAlign": "bottom",
+        "icon_library.icon_library.bgShape": "square",
+        "icon_library.icon_library.bgColor": "#1A1A2E",
+        "icon_library.icon_library.bgPadding": "8"
+      }
+    },
+    "viz_s9_7": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "arrow_downward",
+        "icon_library.icon_library.iconColor": "#F8FAFC",
+        "icon_library.icon_library.hAlign": "center",
+        "icon_library.icon_library.vAlign": "bottom",
+        "icon_library.icon_library.bgShape": "square",
+        "icon_library.icon_library.bgColor": "#1A1A2E",
+        "icon_library.icon_library.bgPadding": "8"
+      }
+    },
+    "viz_s9_8": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "south_east",
+        "icon_library.icon_library.iconColor": "#14B8A6",
+        "icon_library.icon_library.hAlign": "right",
+        "icon_library.icon_library.vAlign": "bottom",
+        "icon_library.icon_library.bgShape": "square",
+        "icon_library.icon_library.bgColor": "#1A1A2E",
+        "icon_library.icon_library.bgPadding": "8"
+      }
+    },
+    "viz_s9_9": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "north_west",
+        "icon_library.icon_library.iconColor": "#F97316",
+        "icon_library.icon_library.hAlign": "left",
+        "icon_library.icon_library.vAlign": "top",
+        "icon_library.icon_library.bgShape": "square",
+        "icon_library.icon_library.bgColor": "#1A1A2E",
+        "icon_library.icon_library.bgPadding": "8"
+      }
+    },
+    "viz_s9_10": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "south_east",
+        "icon_library.icon_library.iconColor": "#A855F7",
+        "icon_library.icon_library.hAlign": "right",
+        "icon_library.icon_library.vAlign": "bottom",
+        "icon_library.icon_library.bgShape": "square",
+        "icon_library.icon_library.bgColor": "#1A1A2E",
+        "icon_library.icon_library.bgPadding": "8"
+      }
+    },
+    "viz_s9_11": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "center_focus_strong",
+        "icon_library.icon_library.iconColor": "#6366F1",
+        "icon_library.icon_library.hAlign": "center",
+        "icon_library.icon_library.vAlign": "center",
+        "icon_library.icon_library.bgShape": "square",
+        "icon_library.icon_library.bgColor": "#1A1A2E",
+        "icon_library.icon_library.bgPadding": "8"
+      }
+    },
+    "viz_hdr_10": {
+      "type": "splunk.markdown",
+      "options": {
+        "markdown": "### Rotation\nIcons rotated at 30-degree increments (0 to 330)",
+        "fontColor": "#E2E8F0",
+        "backgroundColor": "transparent"
+      }
+    },
+    "viz_s10_0": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "navigation",
+        "icon_library.icon_library.iconColor": "#06B6D4",
+        "icon_library.icon_library.rotation": "0"
+      }
+    },
+    "viz_s10_1": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "arrow_upward",
+        "icon_library.icon_library.iconColor": "#3B82F6",
+        "icon_library.icon_library.rotation": "30"
+      }
+    },
+    "viz_s10_2": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "send",
+        "icon_library.icon_library.iconColor": "#22C55E",
+        "icon_library.icon_library.rotation": "60"
+      }
+    },
+    "viz_s10_3": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "play_arrow",
+        "icon_library.icon_library.iconColor": "#F59E0B",
+        "icon_library.icon_library.rotation": "90"
+      }
+    },
+    "viz_s10_4": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "forward",
+        "icon_library.icon_library.iconColor": "#EF4444",
+        "icon_library.icon_library.rotation": "120"
+      }
+    },
+    "viz_s10_5": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "redo",
+        "icon_library.icon_library.iconColor": "#8B5CF6",
+        "icon_library.icon_library.rotation": "150"
+      }
+    },
+    "viz_s10_6": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "refresh",
+        "icon_library.icon_library.iconColor": "#EC4899",
+        "icon_library.icon_library.rotation": "180"
+      }
+    },
+    "viz_s10_7": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "sync",
+        "icon_library.icon_library.iconColor": "#F8FAFC",
+        "icon_library.icon_library.rotation": "210"
+      }
+    },
+    "viz_s10_8": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "rotate_right",
+        "icon_library.icon_library.iconColor": "#14B8A6",
+        "icon_library.icon_library.rotation": "240"
+      }
+    },
+    "viz_s10_9": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "autorenew",
+        "icon_library.icon_library.iconColor": "#F97316",
+        "icon_library.icon_library.rotation": "270"
+      }
+    },
+    "viz_s10_10": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "loop",
+        "icon_library.icon_library.iconColor": "#A855F7",
+        "icon_library.icon_library.rotation": "300"
+      }
+    },
+    "viz_s10_11": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "cached",
+        "icon_library.icon_library.iconColor": "#6366F1",
+        "icon_library.icon_library.rotation": "330"
+      }
+    },
+    "viz_hdr_11": {
+      "type": "splunk.markdown",
+      "options": {
+        "markdown": "### Network and Cloud\nNetwork infrastructure and cloud service icons",
+        "fontColor": "#E2E8F0",
+        "backgroundColor": "transparent"
+      }
+    },
+    "viz_s11_0": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "wifi",
+        "icon_library.icon_library.iconColor": "#06B6D4",
+        "icon_library.icon_library.bgShape": "rounded_rect",
+        "icon_library.icon_library.bgColor": "#0F172A",
+        "icon_library.icon_library.bgPadding": "14",
+        "icon_library.icon_library.bgRadius": "10"
+      }
+    },
+    "viz_s11_1": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "wifi_off",
+        "icon_library.icon_library.iconColor": "#06B6D4",
+        "icon_library.icon_library.bgShape": "rounded_rect",
+        "icon_library.icon_library.bgColor": "#0F172A",
+        "icon_library.icon_library.bgPadding": "14",
+        "icon_library.icon_library.bgRadius": "10"
+      }
+    },
+    "viz_s11_2": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "signal_cellular_alt",
+        "icon_library.icon_library.iconColor": "#06B6D4",
+        "icon_library.icon_library.bgShape": "rounded_rect",
+        "icon_library.icon_library.bgColor": "#0F172A",
+        "icon_library.icon_library.bgPadding": "14",
+        "icon_library.icon_library.bgRadius": "10"
+      }
+    },
+    "viz_s11_3": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "cell_tower",
+        "icon_library.icon_library.iconColor": "#06B6D4",
+        "icon_library.icon_library.bgShape": "rounded_rect",
+        "icon_library.icon_library.bgColor": "#0F172A",
+        "icon_library.icon_library.bgPadding": "14",
+        "icon_library.icon_library.bgRadius": "10"
+      }
+    },
+    "viz_s11_4": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "lan",
+        "icon_library.icon_library.iconColor": "#06B6D4",
+        "icon_library.icon_library.bgShape": "rounded_rect",
+        "icon_library.icon_library.bgColor": "#0F172A",
+        "icon_library.icon_library.bgPadding": "14",
+        "icon_library.icon_library.bgRadius": "10"
+      }
+    },
+    "viz_s11_5": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "cable",
+        "icon_library.icon_library.iconColor": "#06B6D4",
+        "icon_library.icon_library.bgShape": "rounded_rect",
+        "icon_library.icon_library.bgColor": "#0F172A",
+        "icon_library.icon_library.bgPadding": "14",
+        "icon_library.icon_library.bgRadius": "10"
+      }
+    },
+    "viz_s11_6": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "router",
+        "icon_library.icon_library.iconColor": "#06B6D4",
+        "icon_library.icon_library.bgShape": "rounded_rect",
+        "icon_library.icon_library.bgColor": "#0F172A",
+        "icon_library.icon_library.bgPadding": "14",
+        "icon_library.icon_library.bgRadius": "10"
+      }
+    },
+    "viz_s11_7": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "hub",
+        "icon_library.icon_library.iconColor": "#06B6D4",
+        "icon_library.icon_library.bgShape": "rounded_rect",
+        "icon_library.icon_library.bgColor": "#0F172A",
+        "icon_library.icon_library.bgPadding": "14",
+        "icon_library.icon_library.bgRadius": "10"
+      }
+    },
+    "viz_s11_8": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "cloud",
+        "icon_library.icon_library.iconColor": "#3B82F6",
+        "icon_library.icon_library.bgShape": "rounded_rect",
+        "icon_library.icon_library.bgColor": "#0F172A",
+        "icon_library.icon_library.bgPadding": "14",
+        "icon_library.icon_library.bgRadius": "10"
+      }
+    },
+    "viz_s11_9": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "cloud_upload",
+        "icon_library.icon_library.iconColor": "#3B82F6",
+        "icon_library.icon_library.bgShape": "rounded_rect",
+        "icon_library.icon_library.bgColor": "#0F172A",
+        "icon_library.icon_library.bgPadding": "14",
+        "icon_library.icon_library.bgRadius": "10"
+      }
+    },
+    "viz_s11_10": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "cloud_download",
+        "icon_library.icon_library.iconColor": "#3B82F6",
+        "icon_library.icon_library.bgShape": "rounded_rect",
+        "icon_library.icon_library.bgColor": "#0F172A",
+        "icon_library.icon_library.bgPadding": "14",
+        "icon_library.icon_library.bgRadius": "10"
+      }
+    },
+    "viz_s11_11": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "cloud_off",
+        "icon_library.icon_library.iconColor": "#3B82F6",
+        "icon_library.icon_library.bgShape": "rounded_rect",
+        "icon_library.icon_library.bgColor": "#0F172A",
+        "icon_library.icon_library.bgPadding": "14",
+        "icon_library.icon_library.bgRadius": "10"
+      }
+    },
+    "viz_s11_12": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "public",
+        "icon_library.icon_library.iconColor": "#3B82F6",
+        "icon_library.icon_library.bgShape": "rounded_rect",
+        "icon_library.icon_library.bgColor": "#0F172A",
+        "icon_library.icon_library.bgPadding": "14",
+        "icon_library.icon_library.bgRadius": "10"
+      }
+    },
+    "viz_s11_13": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "language",
+        "icon_library.icon_library.iconColor": "#3B82F6",
+        "icon_library.icon_library.bgShape": "rounded_rect",
+        "icon_library.icon_library.bgColor": "#0F172A",
+        "icon_library.icon_library.bgPadding": "14",
+        "icon_library.icon_library.bgRadius": "10"
+      }
+    },
+    "viz_s11_14": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "dns",
+        "icon_library.icon_library.iconColor": "#3B82F6",
+        "icon_library.icon_library.bgShape": "rounded_rect",
+        "icon_library.icon_library.bgColor": "#0F172A",
+        "icon_library.icon_library.bgPadding": "14",
+        "icon_library.icon_library.bgRadius": "10"
+      }
+    },
+    "viz_s11_15": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "vpn_lock",
+        "icon_library.icon_library.iconColor": "#3B82F6",
+        "icon_library.icon_library.bgShape": "rounded_rect",
+        "icon_library.icon_library.bgColor": "#0F172A",
+        "icon_library.icon_library.bgPadding": "14",
+        "icon_library.icon_library.bgRadius": "10"
+      }
+    },
+    "viz_hdr_12": {
+      "type": "splunk.markdown",
+      "options": {
+        "markdown": "### Devices and Hardware\nDevice icons on indigo backgrounds",
+        "fontColor": "#E2E8F0",
+        "backgroundColor": "transparent"
+      }
+    },
+    "viz_s12_0": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "computer",
+        "icon_library.icon_library.iconColor": "#F8FAFC",
+        "icon_library.icon_library.shadow": "yes",
+        "icon_library.icon_library.shadowBlur": "6",
+        "icon_library.icon_library.shadowOffsetY": "3",
+        "icon_library.icon_library.bgShape": "rounded_rect",
+        "icon_library.icon_library.bgColor": "#312E81",
+        "icon_library.icon_library.bgPadding": "16",
+        "icon_library.icon_library.bgRadius": "12"
+      }
+    },
+    "viz_s12_1": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "laptop",
+        "icon_library.icon_library.iconColor": "#F8FAFC",
+        "icon_library.icon_library.shadow": "yes",
+        "icon_library.icon_library.shadowBlur": "6",
+        "icon_library.icon_library.shadowOffsetY": "3",
+        "icon_library.icon_library.bgShape": "rounded_rect",
+        "icon_library.icon_library.bgColor": "#312E81",
+        "icon_library.icon_library.bgPadding": "16",
+        "icon_library.icon_library.bgRadius": "12"
+      }
+    },
+    "viz_s12_2": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "smartphone",
+        "icon_library.icon_library.iconColor": "#F8FAFC",
+        "icon_library.icon_library.shadow": "yes",
+        "icon_library.icon_library.shadowBlur": "6",
+        "icon_library.icon_library.shadowOffsetY": "3",
+        "icon_library.icon_library.bgShape": "rounded_rect",
+        "icon_library.icon_library.bgColor": "#312E81",
+        "icon_library.icon_library.bgPadding": "16",
+        "icon_library.icon_library.bgRadius": "12"
+      }
+    },
+    "viz_s12_3": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "tablet",
+        "icon_library.icon_library.iconColor": "#F8FAFC",
+        "icon_library.icon_library.shadow": "yes",
+        "icon_library.icon_library.shadowBlur": "6",
+        "icon_library.icon_library.shadowOffsetY": "3",
+        "icon_library.icon_library.bgShape": "rounded_rect",
+        "icon_library.icon_library.bgColor": "#312E81",
+        "icon_library.icon_library.bgPadding": "16",
+        "icon_library.icon_library.bgRadius": "12"
+      }
+    },
+    "viz_s12_4": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "monitor",
+        "icon_library.icon_library.iconColor": "#F8FAFC",
+        "icon_library.icon_library.shadow": "yes",
+        "icon_library.icon_library.shadowBlur": "6",
+        "icon_library.icon_library.shadowOffsetY": "3",
+        "icon_library.icon_library.bgShape": "rounded_rect",
+        "icon_library.icon_library.bgColor": "#312E81",
+        "icon_library.icon_library.bgPadding": "16",
+        "icon_library.icon_library.bgRadius": "12"
+      }
+    },
+    "viz_s12_5": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "tv",
+        "icon_library.icon_library.iconColor": "#F8FAFC",
+        "icon_library.icon_library.shadow": "yes",
+        "icon_library.icon_library.shadowBlur": "6",
+        "icon_library.icon_library.shadowOffsetY": "3",
+        "icon_library.icon_library.bgShape": "rounded_rect",
+        "icon_library.icon_library.bgColor": "#312E81",
+        "icon_library.icon_library.bgPadding": "16",
+        "icon_library.icon_library.bgRadius": "12"
+      }
+    },
+    "viz_s12_6": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "watch",
+        "icon_library.icon_library.iconColor": "#F8FAFC",
+        "icon_library.icon_library.shadow": "yes",
+        "icon_library.icon_library.shadowBlur": "6",
+        "icon_library.icon_library.shadowOffsetY": "3",
+        "icon_library.icon_library.bgShape": "rounded_rect",
+        "icon_library.icon_library.bgColor": "#312E81",
+        "icon_library.icon_library.bgPadding": "16",
+        "icon_library.icon_library.bgRadius": "12"
+      }
+    },
+    "viz_s12_7": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "mouse",
+        "icon_library.icon_library.iconColor": "#F8FAFC",
+        "icon_library.icon_library.shadow": "yes",
+        "icon_library.icon_library.shadowBlur": "6",
+        "icon_library.icon_library.shadowOffsetY": "3",
+        "icon_library.icon_library.bgShape": "rounded_rect",
+        "icon_library.icon_library.bgColor": "#312E81",
+        "icon_library.icon_library.bgPadding": "16",
+        "icon_library.icon_library.bgRadius": "12"
+      }
+    },
+    "viz_s12_8": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "keyboard",
+        "icon_library.icon_library.iconColor": "#F8FAFC",
+        "icon_library.icon_library.shadow": "yes",
+        "icon_library.icon_library.shadowBlur": "6",
+        "icon_library.icon_library.shadowOffsetY": "3",
+        "icon_library.icon_library.bgShape": "rounded_rect",
+        "icon_library.icon_library.bgColor": "#312E81",
+        "icon_library.icon_library.bgPadding": "16",
+        "icon_library.icon_library.bgRadius": "12"
+      }
+    },
+    "viz_s12_9": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "headphones",
+        "icon_library.icon_library.iconColor": "#F8FAFC",
+        "icon_library.icon_library.shadow": "yes",
+        "icon_library.icon_library.shadowBlur": "6",
+        "icon_library.icon_library.shadowOffsetY": "3",
+        "icon_library.icon_library.bgShape": "rounded_rect",
+        "icon_library.icon_library.bgColor": "#312E81",
+        "icon_library.icon_library.bgPadding": "16",
+        "icon_library.icon_library.bgRadius": "12"
+      }
+    },
+    "viz_s12_10": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "camera",
+        "icon_library.icon_library.iconColor": "#F8FAFC",
+        "icon_library.icon_library.shadow": "yes",
+        "icon_library.icon_library.shadowBlur": "6",
+        "icon_library.icon_library.shadowOffsetY": "3",
+        "icon_library.icon_library.bgShape": "rounded_rect",
+        "icon_library.icon_library.bgColor": "#312E81",
+        "icon_library.icon_library.bgPadding": "16",
+        "icon_library.icon_library.bgRadius": "12"
+      }
+    },
+    "viz_s12_11": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "videocam",
+        "icon_library.icon_library.iconColor": "#F8FAFC",
+        "icon_library.icon_library.shadow": "yes",
+        "icon_library.icon_library.shadowBlur": "6",
+        "icon_library.icon_library.shadowOffsetY": "3",
+        "icon_library.icon_library.bgShape": "rounded_rect",
+        "icon_library.icon_library.bgColor": "#312E81",
+        "icon_library.icon_library.bgPadding": "16",
+        "icon_library.icon_library.bgRadius": "12"
+      }
+    },
+    "viz_s12_12": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "print",
+        "icon_library.icon_library.iconColor": "#F8FAFC",
+        "icon_library.icon_library.shadow": "yes",
+        "icon_library.icon_library.shadowBlur": "6",
+        "icon_library.icon_library.shadowOffsetY": "3",
+        "icon_library.icon_library.bgShape": "rounded_rect",
+        "icon_library.icon_library.bgColor": "#312E81",
+        "icon_library.icon_library.bgPadding": "16",
+        "icon_library.icon_library.bgRadius": "12"
+      }
+    },
+    "viz_s12_13": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "speaker",
+        "icon_library.icon_library.iconColor": "#F8FAFC",
+        "icon_library.icon_library.shadow": "yes",
+        "icon_library.icon_library.shadowBlur": "6",
+        "icon_library.icon_library.shadowOffsetY": "3",
+        "icon_library.icon_library.bgShape": "rounded_rect",
+        "icon_library.icon_library.bgColor": "#312E81",
+        "icon_library.icon_library.bgPadding": "16",
+        "icon_library.icon_library.bgRadius": "12"
+      }
+    },
+    "viz_hdr_13": {
+      "type": "splunk.markdown",
+      "options": {
+        "markdown": "### Files and Content\nDocument and file management icons",
+        "fontColor": "#E2E8F0",
+        "backgroundColor": "transparent"
+      }
+    },
+    "viz_s13_0": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "folder",
+        "icon_library.icon_library.iconColor": "#14B8A6"
+      }
+    },
+    "viz_s13_1": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "folder_open",
+        "icon_library.icon_library.iconColor": "#F97316"
+      }
+    },
+    "viz_s13_2": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "folder_shared",
+        "icon_library.icon_library.iconColor": "#A855F7"
+      }
+    },
+    "viz_s13_3": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "create_new_folder",
+        "icon_library.icon_library.iconColor": "#6366F1"
+      }
+    },
+    "viz_s13_4": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "description",
+        "icon_library.icon_library.iconColor": "#10B981"
+      }
+    },
+    "viz_s13_5": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "article",
+        "icon_library.icon_library.iconColor": "#E11D48"
+      }
+    },
+    "viz_s13_6": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "note",
+        "icon_library.icon_library.iconColor": "#0EA5E9"
+      }
+    },
+    "viz_s13_7": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "sticky_note_2",
+        "icon_library.icon_library.iconColor": "#84CC16"
+      }
+    },
+    "viz_s13_8": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "upload_file",
+        "icon_library.icon_library.iconColor": "#D946EF"
+      }
+    },
+    "viz_s13_9": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "download",
+        "icon_library.icon_library.iconColor": "#FB923C"
+      }
+    },
+    "viz_s13_10": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "file_copy",
+        "icon_library.icon_library.iconColor": "#64748B"
+      }
+    },
+    "viz_s13_11": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "attachment",
+        "icon_library.icon_library.iconColor": "#FBBF24"
+      }
+    },
+    "viz_s13_12": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "link",
+        "icon_library.icon_library.iconColor": "#06B6D4"
+      }
+    },
+    "viz_s13_13": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "bookmark",
+        "icon_library.icon_library.iconColor": "#3B82F6"
+      }
+    },
+    "viz_hdr_14": {
+      "type": "splunk.markdown",
+      "options": {
+        "markdown": "### Full Combo: Glow + Shadow + Label + Background\nAll effects combined for maximum visual impact",
+        "fontColor": "#E2E8F0",
+        "backgroundColor": "transparent"
+      }
+    },
+    "viz_s14_0": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "rocket_launch",
+        "icon_library.icon_library.iconColor": "#EF4444",
+        "icon_library.icon_library.glow": "yes",
+        "icon_library.icon_library.glowColor": "#EF4444",
+        "icon_library.icon_library.glowSize": "10",
+        "icon_library.icon_library.shadow": "yes",
+        "icon_library.icon_library.shadowBlur": "8",
+        "icon_library.icon_library.shadowOffsetY": "4",
+        "icon_library.icon_library.showLabel": "yes",
+        "icon_library.icon_library.labelText": "Launch",
+        "icon_library.icon_library.labelColor": "#CBD5E1",
+        "icon_library.icon_library.bgShape": "rounded_rect",
+        "icon_library.icon_library.bgColor": "#0F172A",
+        "icon_library.icon_library.bgPadding": "14",
+        "icon_library.icon_library.bgRadius": "14"
+      }
+    },
+    "viz_s14_1": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "task_alt",
+        "icon_library.icon_library.iconColor": "#22C55E",
+        "icon_library.icon_library.glow": "yes",
+        "icon_library.icon_library.glowColor": "#22C55E",
+        "icon_library.icon_library.glowSize": "10",
+        "icon_library.icon_library.shadow": "yes",
+        "icon_library.icon_library.shadowBlur": "8",
+        "icon_library.icon_library.shadowOffsetY": "4",
+        "icon_library.icon_library.showLabel": "yes",
+        "icon_library.icon_library.labelText": "Complete",
+        "icon_library.icon_library.labelColor": "#CBD5E1",
+        "icon_library.icon_library.bgShape": "rounded_rect",
+        "icon_library.icon_library.bgColor": "#0F172A",
+        "icon_library.icon_library.bgPadding": "14",
+        "icon_library.icon_library.bgRadius": "14"
+      }
+    },
+    "viz_s14_2": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "pending",
+        "icon_library.icon_library.iconColor": "#F59E0B",
+        "icon_library.icon_library.glow": "yes",
+        "icon_library.icon_library.glowColor": "#F59E0B",
+        "icon_library.icon_library.glowSize": "10",
+        "icon_library.icon_library.shadow": "yes",
+        "icon_library.icon_library.shadowBlur": "8",
+        "icon_library.icon_library.shadowOffsetY": "4",
+        "icon_library.icon_library.showLabel": "yes",
+        "icon_library.icon_library.labelText": "Pending",
+        "icon_library.icon_library.labelColor": "#CBD5E1",
+        "icon_library.icon_library.bgShape": "rounded_rect",
+        "icon_library.icon_library.bgColor": "#0F172A",
+        "icon_library.icon_library.bgPadding": "14",
+        "icon_library.icon_library.bgRadius": "14"
+      }
+    },
+    "viz_s14_3": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "hourglass_empty",
+        "icon_library.icon_library.iconColor": "#06B6D4",
+        "icon_library.icon_library.glow": "yes",
+        "icon_library.icon_library.glowColor": "#06B6D4",
+        "icon_library.icon_library.glowSize": "10",
+        "icon_library.icon_library.shadow": "yes",
+        "icon_library.icon_library.shadowBlur": "8",
+        "icon_library.icon_library.shadowOffsetY": "4",
+        "icon_library.icon_library.showLabel": "yes",
+        "icon_library.icon_library.labelText": "Waiting",
+        "icon_library.icon_library.labelColor": "#CBD5E1",
+        "icon_library.icon_library.bgShape": "rounded_rect",
+        "icon_library.icon_library.bgColor": "#0F172A",
+        "icon_library.icon_library.bgPadding": "14",
+        "icon_library.icon_library.bgRadius": "14"
+      }
+    },
+    "viz_s14_4": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "flag",
+        "icon_library.icon_library.iconColor": "#EC4899",
+        "icon_library.icon_library.glow": "yes",
+        "icon_library.icon_library.glowColor": "#EC4899",
+        "icon_library.icon_library.glowSize": "10",
+        "icon_library.icon_library.shadow": "yes",
+        "icon_library.icon_library.shadowBlur": "8",
+        "icon_library.icon_library.shadowOffsetY": "4",
+        "icon_library.icon_library.showLabel": "yes",
+        "icon_library.icon_library.labelText": "Flagged",
+        "icon_library.icon_library.labelColor": "#CBD5E1",
+        "icon_library.icon_library.bgShape": "rounded_rect",
+        "icon_library.icon_library.bgColor": "#0F172A",
+        "icon_library.icon_library.bgPadding": "14",
+        "icon_library.icon_library.bgRadius": "14"
+      }
+    },
+    "viz_s14_5": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "military_tech",
+        "icon_library.icon_library.iconColor": "#FBBF24",
+        "icon_library.icon_library.glow": "yes",
+        "icon_library.icon_library.glowColor": "#FBBF24",
+        "icon_library.icon_library.glowSize": "10",
+        "icon_library.icon_library.shadow": "yes",
+        "icon_library.icon_library.shadowBlur": "8",
+        "icon_library.icon_library.shadowOffsetY": "4",
+        "icon_library.icon_library.showLabel": "yes",
+        "icon_library.icon_library.labelText": "Awarded",
+        "icon_library.icon_library.labelColor": "#CBD5E1",
+        "icon_library.icon_library.bgShape": "rounded_rect",
+        "icon_library.icon_library.bgColor": "#0F172A",
+        "icon_library.icon_library.bgPadding": "14",
+        "icon_library.icon_library.bgRadius": "14"
+      }
+    },
+    "viz_s14_6": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "emoji_events",
+        "icon_library.icon_library.iconColor": "#F97316",
+        "icon_library.icon_library.glow": "yes",
+        "icon_library.icon_library.glowColor": "#F97316",
+        "icon_library.icon_library.glowSize": "10",
+        "icon_library.icon_library.shadow": "yes",
+        "icon_library.icon_library.shadowBlur": "8",
+        "icon_library.icon_library.shadowOffsetY": "4",
+        "icon_library.icon_library.showLabel": "yes",
+        "icon_library.icon_library.labelText": "Winner",
+        "icon_library.icon_library.labelColor": "#CBD5E1",
+        "icon_library.icon_library.bgShape": "rounded_rect",
+        "icon_library.icon_library.bgColor": "#0F172A",
+        "icon_library.icon_library.bgPadding": "14",
+        "icon_library.icon_library.bgRadius": "14"
+      }
+    },
+    "viz_s14_7": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "workspace_premium",
+        "icon_library.icon_library.iconColor": "#8B5CF6",
+        "icon_library.icon_library.glow": "yes",
+        "icon_library.icon_library.glowColor": "#8B5CF6",
+        "icon_library.icon_library.glowSize": "10",
+        "icon_library.icon_library.shadow": "yes",
+        "icon_library.icon_library.shadowBlur": "8",
+        "icon_library.icon_library.shadowOffsetY": "4",
+        "icon_library.icon_library.showLabel": "yes",
+        "icon_library.icon_library.labelText": "Premium",
+        "icon_library.icon_library.labelColor": "#CBD5E1",
+        "icon_library.icon_library.bgShape": "rounded_rect",
+        "icon_library.icon_library.bgColor": "#0F172A",
+        "icon_library.icon_library.bgPadding": "14",
+        "icon_library.icon_library.bgRadius": "14"
+      }
+    },
+    "viz_s14_8": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "token",
+        "icon_library.icon_library.iconColor": "#14B8A6",
+        "icon_library.icon_library.glow": "yes",
+        "icon_library.icon_library.glowColor": "#14B8A6",
+        "icon_library.icon_library.glowSize": "10",
+        "icon_library.icon_library.shadow": "yes",
+        "icon_library.icon_library.shadowBlur": "8",
+        "icon_library.icon_library.shadowOffsetY": "4",
+        "icon_library.icon_library.showLabel": "yes",
+        "icon_library.icon_library.labelText": "Token",
+        "icon_library.icon_library.labelColor": "#CBD5E1",
+        "icon_library.icon_library.bgShape": "rounded_rect",
+        "icon_library.icon_library.bgColor": "#0F172A",
+        "icon_library.icon_library.bgPadding": "14",
+        "icon_library.icon_library.bgRadius": "14"
+      }
+    },
+    "viz_s14_9": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "deployed_code",
+        "icon_library.icon_library.iconColor": "#10B981",
+        "icon_library.icon_library.glow": "yes",
+        "icon_library.icon_library.glowColor": "#10B981",
+        "icon_library.icon_library.glowSize": "10",
+        "icon_library.icon_library.shadow": "yes",
+        "icon_library.icon_library.shadowBlur": "8",
+        "icon_library.icon_library.shadowOffsetY": "4",
+        "icon_library.icon_library.showLabel": "yes",
+        "icon_library.icon_library.labelText": "Deployed",
+        "icon_library.icon_library.labelColor": "#CBD5E1",
+        "icon_library.icon_library.bgShape": "rounded_rect",
+        "icon_library.icon_library.bgColor": "#0F172A",
+        "icon_library.icon_library.bgPadding": "14",
+        "icon_library.icon_library.bgRadius": "14"
+      }
+    },
+    "viz_s14_10": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "celebration",
+        "icon_library.icon_library.iconColor": "#D946EF",
+        "icon_library.icon_library.glow": "yes",
+        "icon_library.icon_library.glowColor": "#D946EF",
+        "icon_library.icon_library.glowSize": "10",
+        "icon_library.icon_library.shadow": "yes",
+        "icon_library.icon_library.shadowBlur": "8",
+        "icon_library.icon_library.shadowOffsetY": "4",
+        "icon_library.icon_library.showLabel": "yes",
+        "icon_library.icon_library.labelText": "Party",
+        "icon_library.icon_library.labelColor": "#CBD5E1",
+        "icon_library.icon_library.bgShape": "rounded_rect",
+        "icon_library.icon_library.bgColor": "#0F172A",
+        "icon_library.icon_library.bgPadding": "14",
+        "icon_library.icon_library.bgRadius": "14"
+      }
+    },
+    "viz_s14_11": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "thumb_up",
+        "icon_library.icon_library.iconColor": "#22C55E",
+        "icon_library.icon_library.glow": "yes",
+        "icon_library.icon_library.glowColor": "#22C55E",
+        "icon_library.icon_library.glowSize": "10",
+        "icon_library.icon_library.shadow": "yes",
+        "icon_library.icon_library.shadowBlur": "8",
+        "icon_library.icon_library.shadowOffsetY": "4",
+        "icon_library.icon_library.showLabel": "yes",
+        "icon_library.icon_library.labelText": "Approved",
+        "icon_library.icon_library.labelColor": "#CBD5E1",
+        "icon_library.icon_library.bgShape": "rounded_rect",
+        "icon_library.icon_library.bgColor": "#0F172A",
+        "icon_library.icon_library.bgPadding": "14",
+        "icon_library.icon_library.bgRadius": "14"
+      }
+    },
+    "viz_s14_12": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "thumb_down",
+        "icon_library.icon_library.iconColor": "#EF4444",
+        "icon_library.icon_library.glow": "yes",
+        "icon_library.icon_library.glowColor": "#EF4444",
+        "icon_library.icon_library.glowSize": "10",
+        "icon_library.icon_library.shadow": "yes",
+        "icon_library.icon_library.shadowBlur": "8",
+        "icon_library.icon_library.shadowOffsetY": "4",
+        "icon_library.icon_library.showLabel": "yes",
+        "icon_library.icon_library.labelText": "Rejected",
+        "icon_library.icon_library.labelColor": "#CBD5E1",
+        "icon_library.icon_library.bgShape": "rounded_rect",
+        "icon_library.icon_library.bgColor": "#0F172A",
+        "icon_library.icon_library.bgPadding": "14",
+        "icon_library.icon_library.bgRadius": "14"
+      }
+    },
+    "viz_s14_13": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "mood",
+        "icon_library.icon_library.iconColor": "#FBBF24",
+        "icon_library.icon_library.glow": "yes",
+        "icon_library.icon_library.glowColor": "#FBBF24",
+        "icon_library.icon_library.glowSize": "10",
+        "icon_library.icon_library.shadow": "yes",
+        "icon_library.icon_library.shadowBlur": "8",
+        "icon_library.icon_library.shadowOffsetY": "4",
+        "icon_library.icon_library.showLabel": "yes",
+        "icon_library.icon_library.labelText": "Happy",
+        "icon_library.icon_library.labelColor": "#CBD5E1",
+        "icon_library.icon_library.bgShape": "rounded_rect",
+        "icon_library.icon_library.bgColor": "#0F172A",
+        "icon_library.icon_library.bgPadding": "14",
+        "icon_library.icon_library.bgRadius": "14"
+      }
+    },
+    "viz_hdr_15": {
+      "type": "splunk.markdown",
+      "options": {
+        "markdown": "### Status Indicators\nRAG status icons with matching glow on dark circles",
+        "fontColor": "#E2E8F0",
+        "backgroundColor": "transparent"
+      }
+    },
+    "viz_s15_0": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "check_circle",
+        "icon_library.icon_library.iconColor": "#22C55E",
+        "icon_library.icon_library.bgShape": "circle",
+        "icon_library.icon_library.bgColor": "#18181B",
+        "icon_library.icon_library.bgPadding": "16",
+        "icon_library.icon_library.glow": "yes",
+        "icon_library.icon_library.glowColor": "#22C55E",
+        "icon_library.icon_library.glowSize": "8"
+      }
+    },
+    "viz_s15_1": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "cancel",
+        "icon_library.icon_library.iconColor": "#EF4444",
+        "icon_library.icon_library.bgShape": "circle",
+        "icon_library.icon_library.bgColor": "#18181B",
+        "icon_library.icon_library.bgPadding": "16",
+        "icon_library.icon_library.glow": "yes",
+        "icon_library.icon_library.glowColor": "#EF4444",
+        "icon_library.icon_library.glowSize": "8"
+      }
+    },
+    "viz_s15_2": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "warning",
+        "icon_library.icon_library.iconColor": "#F59E0B",
+        "icon_library.icon_library.bgShape": "circle",
+        "icon_library.icon_library.bgColor": "#18181B",
+        "icon_library.icon_library.bgPadding": "16",
+        "icon_library.icon_library.glow": "yes",
+        "icon_library.icon_library.glowColor": "#F59E0B",
+        "icon_library.icon_library.glowSize": "8"
+      }
+    },
+    "viz_s15_3": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "error",
+        "icon_library.icon_library.iconColor": "#EF4444",
+        "icon_library.icon_library.bgShape": "circle",
+        "icon_library.icon_library.bgColor": "#18181B",
+        "icon_library.icon_library.bgPadding": "16",
+        "icon_library.icon_library.glow": "yes",
+        "icon_library.icon_library.glowColor": "#EF4444",
+        "icon_library.icon_library.glowSize": "8"
+      }
+    },
+    "viz_s15_4": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "info",
+        "icon_library.icon_library.iconColor": "#3B82F6",
+        "icon_library.icon_library.bgShape": "circle",
+        "icon_library.icon_library.bgColor": "#18181B",
+        "icon_library.icon_library.bgPadding": "16",
+        "icon_library.icon_library.glow": "yes",
+        "icon_library.icon_library.glowColor": "#3B82F6",
+        "icon_library.icon_library.glowSize": "8"
+      }
+    },
+    "viz_s15_5": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "help",
+        "icon_library.icon_library.iconColor": "#8B5CF6",
+        "icon_library.icon_library.bgShape": "circle",
+        "icon_library.icon_library.bgColor": "#18181B",
+        "icon_library.icon_library.bgPadding": "16",
+        "icon_library.icon_library.glow": "yes",
+        "icon_library.icon_library.glowColor": "#8B5CF6",
+        "icon_library.icon_library.glowSize": "8"
+      }
+    },
+    "viz_s15_6": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "pending",
+        "icon_library.icon_library.iconColor": "#64748B",
+        "icon_library.icon_library.bgShape": "circle",
+        "icon_library.icon_library.bgColor": "#18181B",
+        "icon_library.icon_library.bgPadding": "16",
+        "icon_library.icon_library.glow": "yes",
+        "icon_library.icon_library.glowColor": "#64748B",
+        "icon_library.icon_library.glowSize": "8"
+      }
+    },
+    "viz_s15_7": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "schedule",
+        "icon_library.icon_library.iconColor": "#06B6D4",
+        "icon_library.icon_library.bgShape": "circle",
+        "icon_library.icon_library.bgColor": "#18181B",
+        "icon_library.icon_library.bgPadding": "16",
+        "icon_library.icon_library.glow": "yes",
+        "icon_library.icon_library.glowColor": "#06B6D4",
+        "icon_library.icon_library.glowSize": "8"
+      }
+    },
+    "viz_s15_8": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "update",
+        "icon_library.icon_library.iconColor": "#14B8A6",
+        "icon_library.icon_library.bgShape": "circle",
+        "icon_library.icon_library.bgColor": "#18181B",
+        "icon_library.icon_library.bgPadding": "16",
+        "icon_library.icon_library.glow": "yes",
+        "icon_library.icon_library.glowColor": "#14B8A6",
+        "icon_library.icon_library.glowSize": "8"
+      }
+    },
+    "viz_s15_9": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "published_with_changes",
+        "icon_library.icon_library.iconColor": "#F97316",
+        "icon_library.icon_library.bgShape": "circle",
+        "icon_library.icon_library.bgColor": "#18181B",
+        "icon_library.icon_library.bgPadding": "16",
+        "icon_library.icon_library.glow": "yes",
+        "icon_library.icon_library.glowColor": "#F97316",
+        "icon_library.icon_library.glowSize": "8"
+      }
+    },
+    "viz_s15_10": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "do_not_disturb_on",
+        "icon_library.icon_library.iconColor": "#EF4444",
+        "icon_library.icon_library.bgShape": "circle",
+        "icon_library.icon_library.bgColor": "#18181B",
+        "icon_library.icon_library.bgPadding": "16",
+        "icon_library.icon_library.glow": "yes",
+        "icon_library.icon_library.glowColor": "#EF4444",
+        "icon_library.icon_library.glowSize": "8"
+      }
+    },
+    "viz_s15_11": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "new_releases",
+        "icon_library.icon_library.iconColor": "#22C55E",
+        "icon_library.icon_library.bgShape": "circle",
+        "icon_library.icon_library.bgColor": "#18181B",
+        "icon_library.icon_library.bgPadding": "16",
+        "icon_library.icon_library.glow": "yes",
+        "icon_library.icon_library.glowColor": "#22C55E",
+        "icon_library.icon_library.glowSize": "8"
+      }
+    },
+    "viz_hdr_16": {
+      "type": "splunk.markdown",
+      "options": {
+        "markdown": "### Fun and Lifestyle\nPlayful icons for dashboards with personality",
+        "fontColor": "#E2E8F0",
+        "backgroundColor": "transparent"
+      }
+    },
+    "viz_s16_0": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "pets",
+        "icon_library.icon_library.iconColor": "#F97316"
+      }
+    },
+    "viz_s16_1": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "spa",
+        "icon_library.icon_library.iconColor": "#EC4899"
+      }
+    },
+    "viz_s16_2": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "self_improvement",
+        "icon_library.icon_library.iconColor": "#8B5CF6"
+      }
+    },
+    "viz_s16_3": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "cookie",
+        "icon_library.icon_library.iconColor": "#FBBF24"
+      }
+    },
+    "viz_s16_4": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "cake",
+        "icon_library.icon_library.iconColor": "#EC4899"
+      }
+    },
+    "viz_s16_5": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "local_cafe",
+        "icon_library.icon_library.iconColor": "#A0522D"
+      }
+    },
+    "viz_s16_6": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "local_bar",
+        "icon_library.icon_library.iconColor": "#06B6D4"
+      }
+    },
+    "viz_s16_7": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "restaurant",
+        "icon_library.icon_library.iconColor": "#EF4444"
+      }
+    },
+    "viz_s16_8": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "beach_access",
+        "icon_library.icon_library.iconColor": "#F59E0B"
+      }
+    },
+    "viz_s16_9": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "pool",
+        "icon_library.icon_library.iconColor": "#3B82F6"
+      }
+    }
+  },
+  "layout": {
+    "type": "absolute",
+    "options": {
+      "width": 1920,
+      "height": 4636,
+      "display": "auto-scale",
+      "backgroundColor": "#101014"
+    },
+    "globalInputs": [],
+    "structure": [
+      {
+        "item": "viz_hdr_0",
+        "type": "block",
+        "position": {
+          "x": 55,
+          "y": 20,
+          "w": 1810,
+          "h": 50
+        }
+      },
+      {
+        "item": "viz_s0_0",
+        "type": "block",
+        "position": {
+          "x": 55,
+          "y": 74,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s0_1",
+        "type": "block",
+        "position": {
+          "x": 185,
+          "y": 74,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s0_2",
+        "type": "block",
+        "position": {
+          "x": 315,
+          "y": 74,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s0_3",
+        "type": "block",
+        "position": {
+          "x": 445,
+          "y": 74,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s0_4",
+        "type": "block",
+        "position": {
+          "x": 575,
+          "y": 74,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s0_5",
+        "type": "block",
+        "position": {
+          "x": 705,
+          "y": 74,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s0_6",
+        "type": "block",
+        "position": {
+          "x": 835,
+          "y": 74,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s0_7",
+        "type": "block",
+        "position": {
+          "x": 965,
+          "y": 74,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s0_8",
+        "type": "block",
+        "position": {
+          "x": 1095,
+          "y": 74,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s0_9",
+        "type": "block",
+        "position": {
+          "x": 1225,
+          "y": 74,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s0_10",
+        "type": "block",
+        "position": {
+          "x": 1355,
+          "y": 74,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s0_11",
+        "type": "block",
+        "position": {
+          "x": 1485,
+          "y": 74,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s0_12",
+        "type": "block",
+        "position": {
+          "x": 1615,
+          "y": 74,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s0_13",
+        "type": "block",
+        "position": {
+          "x": 1745,
+          "y": 74,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s0_14",
+        "type": "block",
+        "position": {
+          "x": 55,
+          "y": 204,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s0_15",
+        "type": "block",
+        "position": {
+          "x": 185,
+          "y": 204,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s0_16",
+        "type": "block",
+        "position": {
+          "x": 315,
+          "y": 204,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s0_17",
+        "type": "block",
+        "position": {
+          "x": 445,
+          "y": 204,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s0_18",
+        "type": "block",
+        "position": {
+          "x": 575,
+          "y": 204,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s0_19",
+        "type": "block",
+        "position": {
+          "x": 705,
+          "y": 204,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_hdr_1",
+        "type": "block",
+        "position": {
+          "x": 55,
+          "y": 358,
+          "w": 1810,
+          "h": 50
+        }
+      },
+      {
+        "item": "viz_s1_0",
+        "type": "block",
+        "position": {
+          "x": 55,
+          "y": 412,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s1_1",
+        "type": "block",
+        "position": {
+          "x": 185,
+          "y": 412,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s1_2",
+        "type": "block",
+        "position": {
+          "x": 315,
+          "y": 412,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s1_3",
+        "type": "block",
+        "position": {
+          "x": 445,
+          "y": 412,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s1_4",
+        "type": "block",
+        "position": {
+          "x": 575,
+          "y": 412,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s1_5",
+        "type": "block",
+        "position": {
+          "x": 705,
+          "y": 412,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s1_6",
+        "type": "block",
+        "position": {
+          "x": 835,
+          "y": 412,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s1_7",
+        "type": "block",
+        "position": {
+          "x": 965,
+          "y": 412,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s1_8",
+        "type": "block",
+        "position": {
+          "x": 1095,
+          "y": 412,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s1_9",
+        "type": "block",
+        "position": {
+          "x": 1225,
+          "y": 412,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s1_10",
+        "type": "block",
+        "position": {
+          "x": 1355,
+          "y": 412,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s1_11",
+        "type": "block",
+        "position": {
+          "x": 1485,
+          "y": 412,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s1_12",
+        "type": "block",
+        "position": {
+          "x": 1615,
+          "y": 412,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s1_13",
+        "type": "block",
+        "position": {
+          "x": 1745,
+          "y": 412,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s1_14",
+        "type": "block",
+        "position": {
+          "x": 55,
+          "y": 542,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s1_15",
+        "type": "block",
+        "position": {
+          "x": 185,
+          "y": 542,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s1_16",
+        "type": "block",
+        "position": {
+          "x": 315,
+          "y": 542,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s1_17",
+        "type": "block",
+        "position": {
+          "x": 445,
+          "y": 542,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_hdr_2",
+        "type": "block",
+        "position": {
+          "x": 55,
+          "y": 696,
+          "w": 1810,
+          "h": 50
+        }
+      },
+      {
+        "item": "viz_s2_0",
+        "type": "block",
+        "position": {
+          "x": 55,
+          "y": 750,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s2_1",
+        "type": "block",
+        "position": {
+          "x": 185,
+          "y": 750,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s2_2",
+        "type": "block",
+        "position": {
+          "x": 315,
+          "y": 750,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s2_3",
+        "type": "block",
+        "position": {
+          "x": 445,
+          "y": 750,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s2_4",
+        "type": "block",
+        "position": {
+          "x": 575,
+          "y": 750,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s2_5",
+        "type": "block",
+        "position": {
+          "x": 705,
+          "y": 750,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s2_6",
+        "type": "block",
+        "position": {
+          "x": 835,
+          "y": 750,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s2_7",
+        "type": "block",
+        "position": {
+          "x": 965,
+          "y": 750,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s2_8",
+        "type": "block",
+        "position": {
+          "x": 1095,
+          "y": 750,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s2_9",
+        "type": "block",
+        "position": {
+          "x": 1225,
+          "y": 750,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s2_10",
+        "type": "block",
+        "position": {
+          "x": 1355,
+          "y": 750,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s2_11",
+        "type": "block",
+        "position": {
+          "x": 1485,
+          "y": 750,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s2_12",
+        "type": "block",
+        "position": {
+          "x": 1615,
+          "y": 750,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s2_13",
+        "type": "block",
+        "position": {
+          "x": 1745,
+          "y": 750,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s2_14",
+        "type": "block",
+        "position": {
+          "x": 55,
+          "y": 880,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s2_15",
+        "type": "block",
+        "position": {
+          "x": 185,
+          "y": 880,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_hdr_3",
+        "type": "block",
+        "position": {
+          "x": 55,
+          "y": 1034,
+          "w": 1810,
+          "h": 50
+        }
+      },
+      {
+        "item": "viz_s3_0",
+        "type": "block",
+        "position": {
+          "x": 55,
+          "y": 1088,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s3_1",
+        "type": "block",
+        "position": {
+          "x": 185,
+          "y": 1088,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s3_2",
+        "type": "block",
+        "position": {
+          "x": 315,
+          "y": 1088,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s3_3",
+        "type": "block",
+        "position": {
+          "x": 445,
+          "y": 1088,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s3_4",
+        "type": "block",
+        "position": {
+          "x": 575,
+          "y": 1088,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s3_5",
+        "type": "block",
+        "position": {
+          "x": 705,
+          "y": 1088,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s3_6",
+        "type": "block",
+        "position": {
+          "x": 835,
+          "y": 1088,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s3_7",
+        "type": "block",
+        "position": {
+          "x": 965,
+          "y": 1088,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s3_8",
+        "type": "block",
+        "position": {
+          "x": 1095,
+          "y": 1088,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s3_9",
+        "type": "block",
+        "position": {
+          "x": 1225,
+          "y": 1088,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s3_10",
+        "type": "block",
+        "position": {
+          "x": 1355,
+          "y": 1088,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s3_11",
+        "type": "block",
+        "position": {
+          "x": 1485,
+          "y": 1088,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s3_12",
+        "type": "block",
+        "position": {
+          "x": 1615,
+          "y": 1088,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s3_13",
+        "type": "block",
+        "position": {
+          "x": 1745,
+          "y": 1088,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_hdr_4",
+        "type": "block",
+        "position": {
+          "x": 55,
+          "y": 1242,
+          "w": 1810,
+          "h": 50
+        }
+      },
+      {
+        "item": "viz_s4_0",
+        "type": "block",
+        "position": {
+          "x": 55,
+          "y": 1296,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s4_1",
+        "type": "block",
+        "position": {
+          "x": 185,
+          "y": 1296,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s4_2",
+        "type": "block",
+        "position": {
+          "x": 315,
+          "y": 1296,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s4_3",
+        "type": "block",
+        "position": {
+          "x": 445,
+          "y": 1296,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s4_4",
+        "type": "block",
+        "position": {
+          "x": 575,
+          "y": 1296,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s4_5",
+        "type": "block",
+        "position": {
+          "x": 705,
+          "y": 1296,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s4_6",
+        "type": "block",
+        "position": {
+          "x": 835,
+          "y": 1296,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s4_7",
+        "type": "block",
+        "position": {
+          "x": 965,
+          "y": 1296,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s4_8",
+        "type": "block",
+        "position": {
+          "x": 1095,
+          "y": 1296,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s4_9",
+        "type": "block",
+        "position": {
+          "x": 1225,
+          "y": 1296,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s4_10",
+        "type": "block",
+        "position": {
+          "x": 1355,
+          "y": 1296,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s4_11",
+        "type": "block",
+        "position": {
+          "x": 1485,
+          "y": 1296,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s4_12",
+        "type": "block",
+        "position": {
+          "x": 1615,
+          "y": 1296,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s4_13",
+        "type": "block",
+        "position": {
+          "x": 1745,
+          "y": 1296,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s4_14",
+        "type": "block",
+        "position": {
+          "x": 55,
+          "y": 1426,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s4_15",
+        "type": "block",
+        "position": {
+          "x": 185,
+          "y": 1426,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s4_16",
+        "type": "block",
+        "position": {
+          "x": 315,
+          "y": 1426,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s4_17",
+        "type": "block",
+        "position": {
+          "x": 445,
+          "y": 1426,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_hdr_5",
+        "type": "block",
+        "position": {
+          "x": 55,
+          "y": 1580,
+          "w": 1810,
+          "h": 50
+        }
+      },
+      {
+        "item": "viz_s5_0",
+        "type": "block",
+        "position": {
+          "x": 55,
+          "y": 1634,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s5_1",
+        "type": "block",
+        "position": {
+          "x": 185,
+          "y": 1634,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s5_2",
+        "type": "block",
+        "position": {
+          "x": 315,
+          "y": 1634,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s5_3",
+        "type": "block",
+        "position": {
+          "x": 445,
+          "y": 1634,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s5_4",
+        "type": "block",
+        "position": {
+          "x": 575,
+          "y": 1634,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s5_5",
+        "type": "block",
+        "position": {
+          "x": 705,
+          "y": 1634,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s5_6",
+        "type": "block",
+        "position": {
+          "x": 835,
+          "y": 1634,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s5_7",
+        "type": "block",
+        "position": {
+          "x": 965,
+          "y": 1634,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s5_8",
+        "type": "block",
+        "position": {
+          "x": 1095,
+          "y": 1634,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s5_9",
+        "type": "block",
+        "position": {
+          "x": 1225,
+          "y": 1634,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s5_10",
+        "type": "block",
+        "position": {
+          "x": 1355,
+          "y": 1634,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s5_11",
+        "type": "block",
+        "position": {
+          "x": 1485,
+          "y": 1634,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s5_12",
+        "type": "block",
+        "position": {
+          "x": 1615,
+          "y": 1634,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s5_13",
+        "type": "block",
+        "position": {
+          "x": 1745,
+          "y": 1634,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s5_14",
+        "type": "block",
+        "position": {
+          "x": 55,
+          "y": 1764,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s5_15",
+        "type": "block",
+        "position": {
+          "x": 185,
+          "y": 1764,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_hdr_6",
+        "type": "block",
+        "position": {
+          "x": 55,
+          "y": 1918,
+          "w": 1810,
+          "h": 50
+        }
+      },
+      {
+        "item": "viz_s6_0",
+        "type": "block",
+        "position": {
+          "x": 55,
+          "y": 1972,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s6_1",
+        "type": "block",
+        "position": {
+          "x": 185,
+          "y": 1972,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s6_2",
+        "type": "block",
+        "position": {
+          "x": 315,
+          "y": 1972,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s6_3",
+        "type": "block",
+        "position": {
+          "x": 445,
+          "y": 1972,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s6_4",
+        "type": "block",
+        "position": {
+          "x": 575,
+          "y": 1972,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s6_5",
+        "type": "block",
+        "position": {
+          "x": 705,
+          "y": 1972,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s6_6",
+        "type": "block",
+        "position": {
+          "x": 835,
+          "y": 1972,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s6_7",
+        "type": "block",
+        "position": {
+          "x": 965,
+          "y": 1972,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s6_8",
+        "type": "block",
+        "position": {
+          "x": 1095,
+          "y": 1972,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s6_9",
+        "type": "block",
+        "position": {
+          "x": 1225,
+          "y": 1972,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s6_10",
+        "type": "block",
+        "position": {
+          "x": 1355,
+          "y": 1972,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s6_11",
+        "type": "block",
+        "position": {
+          "x": 1485,
+          "y": 1972,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s6_12",
+        "type": "block",
+        "position": {
+          "x": 1615,
+          "y": 1972,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s6_13",
+        "type": "block",
+        "position": {
+          "x": 1745,
+          "y": 1972,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s6_14",
+        "type": "block",
+        "position": {
+          "x": 55,
+          "y": 2102,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s6_15",
+        "type": "block",
+        "position": {
+          "x": 185,
+          "y": 2102,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s6_16",
+        "type": "block",
+        "position": {
+          "x": 315,
+          "y": 2102,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s6_17",
+        "type": "block",
+        "position": {
+          "x": 445,
+          "y": 2102,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s6_18",
+        "type": "block",
+        "position": {
+          "x": 575,
+          "y": 2102,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s6_19",
+        "type": "block",
+        "position": {
+          "x": 705,
+          "y": 2102,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_hdr_7",
+        "type": "block",
+        "position": {
+          "x": 55,
+          "y": 2256,
+          "w": 1810,
+          "h": 50
+        }
+      },
+      {
+        "item": "viz_s7_0",
+        "type": "block",
+        "position": {
+          "x": 55,
+          "y": 2310,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s7_1",
+        "type": "block",
+        "position": {
+          "x": 185,
+          "y": 2310,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s7_2",
+        "type": "block",
+        "position": {
+          "x": 315,
+          "y": 2310,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s7_3",
+        "type": "block",
+        "position": {
+          "x": 445,
+          "y": 2310,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s7_4",
+        "type": "block",
+        "position": {
+          "x": 575,
+          "y": 2310,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s7_5",
+        "type": "block",
+        "position": {
+          "x": 705,
+          "y": 2310,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s7_6",
+        "type": "block",
+        "position": {
+          "x": 835,
+          "y": 2310,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s7_7",
+        "type": "block",
+        "position": {
+          "x": 965,
+          "y": 2310,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s7_8",
+        "type": "block",
+        "position": {
+          "x": 1095,
+          "y": 2310,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s7_9",
+        "type": "block",
+        "position": {
+          "x": 1225,
+          "y": 2310,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s7_10",
+        "type": "block",
+        "position": {
+          "x": 1355,
+          "y": 2310,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s7_11",
+        "type": "block",
+        "position": {
+          "x": 1485,
+          "y": 2310,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s7_12",
+        "type": "block",
+        "position": {
+          "x": 1615,
+          "y": 2310,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s7_13",
+        "type": "block",
+        "position": {
+          "x": 1745,
+          "y": 2310,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s7_14",
+        "type": "block",
+        "position": {
+          "x": 55,
+          "y": 2440,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s7_15",
+        "type": "block",
+        "position": {
+          "x": 185,
+          "y": 2440,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_hdr_8",
+        "type": "block",
+        "position": {
+          "x": 55,
+          "y": 2594,
+          "w": 1810,
+          "h": 50
+        }
+      },
+      {
+        "item": "viz_s8_0",
+        "type": "block",
+        "position": {
+          "x": 55,
+          "y": 2648,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s8_1",
+        "type": "block",
+        "position": {
+          "x": 185,
+          "y": 2648,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s8_2",
+        "type": "block",
+        "position": {
+          "x": 315,
+          "y": 2648,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s8_3",
+        "type": "block",
+        "position": {
+          "x": 445,
+          "y": 2648,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s8_4",
+        "type": "block",
+        "position": {
+          "x": 575,
+          "y": 2648,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s8_5",
+        "type": "block",
+        "position": {
+          "x": 705,
+          "y": 2648,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s8_6",
+        "type": "block",
+        "position": {
+          "x": 835,
+          "y": 2648,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s8_7",
+        "type": "block",
+        "position": {
+          "x": 965,
+          "y": 2648,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s8_8",
+        "type": "block",
+        "position": {
+          "x": 1095,
+          "y": 2648,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s8_9",
+        "type": "block",
+        "position": {
+          "x": 1225,
+          "y": 2648,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s8_10",
+        "type": "block",
+        "position": {
+          "x": 1355,
+          "y": 2648,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s8_11",
+        "type": "block",
+        "position": {
+          "x": 1485,
+          "y": 2648,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s8_12",
+        "type": "block",
+        "position": {
+          "x": 1615,
+          "y": 2648,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s8_13",
+        "type": "block",
+        "position": {
+          "x": 1745,
+          "y": 2648,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_hdr_9",
+        "type": "block",
+        "position": {
+          "x": 55,
+          "y": 2802,
+          "w": 1810,
+          "h": 50
+        }
+      },
+      {
+        "item": "viz_s9_0",
+        "type": "block",
+        "position": {
+          "x": 55,
+          "y": 2856,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s9_1",
+        "type": "block",
+        "position": {
+          "x": 185,
+          "y": 2856,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s9_2",
+        "type": "block",
+        "position": {
+          "x": 315,
+          "y": 2856,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s9_3",
+        "type": "block",
+        "position": {
+          "x": 445,
+          "y": 2856,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s9_4",
+        "type": "block",
+        "position": {
+          "x": 575,
+          "y": 2856,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s9_5",
+        "type": "block",
+        "position": {
+          "x": 705,
+          "y": 2856,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s9_6",
+        "type": "block",
+        "position": {
+          "x": 835,
+          "y": 2856,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s9_7",
+        "type": "block",
+        "position": {
+          "x": 965,
+          "y": 2856,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s9_8",
+        "type": "block",
+        "position": {
+          "x": 1095,
+          "y": 2856,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s9_9",
+        "type": "block",
+        "position": {
+          "x": 1225,
+          "y": 2856,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s9_10",
+        "type": "block",
+        "position": {
+          "x": 1355,
+          "y": 2856,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s9_11",
+        "type": "block",
+        "position": {
+          "x": 1485,
+          "y": 2856,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_hdr_10",
+        "type": "block",
+        "position": {
+          "x": 55,
+          "y": 3010,
+          "w": 1810,
+          "h": 50
+        }
+      },
+      {
+        "item": "viz_s10_0",
+        "type": "block",
+        "position": {
+          "x": 55,
+          "y": 3064,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s10_1",
+        "type": "block",
+        "position": {
+          "x": 185,
+          "y": 3064,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s10_2",
+        "type": "block",
+        "position": {
+          "x": 315,
+          "y": 3064,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s10_3",
+        "type": "block",
+        "position": {
+          "x": 445,
+          "y": 3064,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s10_4",
+        "type": "block",
+        "position": {
+          "x": 575,
+          "y": 3064,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s10_5",
+        "type": "block",
+        "position": {
+          "x": 705,
+          "y": 3064,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s10_6",
+        "type": "block",
+        "position": {
+          "x": 835,
+          "y": 3064,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s10_7",
+        "type": "block",
+        "position": {
+          "x": 965,
+          "y": 3064,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s10_8",
+        "type": "block",
+        "position": {
+          "x": 1095,
+          "y": 3064,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s10_9",
+        "type": "block",
+        "position": {
+          "x": 1225,
+          "y": 3064,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s10_10",
+        "type": "block",
+        "position": {
+          "x": 1355,
+          "y": 3064,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s10_11",
+        "type": "block",
+        "position": {
+          "x": 1485,
+          "y": 3064,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_hdr_11",
+        "type": "block",
+        "position": {
+          "x": 55,
+          "y": 3218,
+          "w": 1810,
+          "h": 50
+        }
+      },
+      {
+        "item": "viz_s11_0",
+        "type": "block",
+        "position": {
+          "x": 55,
+          "y": 3272,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s11_1",
+        "type": "block",
+        "position": {
+          "x": 185,
+          "y": 3272,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s11_2",
+        "type": "block",
+        "position": {
+          "x": 315,
+          "y": 3272,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s11_3",
+        "type": "block",
+        "position": {
+          "x": 445,
+          "y": 3272,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s11_4",
+        "type": "block",
+        "position": {
+          "x": 575,
+          "y": 3272,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s11_5",
+        "type": "block",
+        "position": {
+          "x": 705,
+          "y": 3272,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s11_6",
+        "type": "block",
+        "position": {
+          "x": 835,
+          "y": 3272,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s11_7",
+        "type": "block",
+        "position": {
+          "x": 965,
+          "y": 3272,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s11_8",
+        "type": "block",
+        "position": {
+          "x": 1095,
+          "y": 3272,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s11_9",
+        "type": "block",
+        "position": {
+          "x": 1225,
+          "y": 3272,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s11_10",
+        "type": "block",
+        "position": {
+          "x": 1355,
+          "y": 3272,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s11_11",
+        "type": "block",
+        "position": {
+          "x": 1485,
+          "y": 3272,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s11_12",
+        "type": "block",
+        "position": {
+          "x": 1615,
+          "y": 3272,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s11_13",
+        "type": "block",
+        "position": {
+          "x": 1745,
+          "y": 3272,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s11_14",
+        "type": "block",
+        "position": {
+          "x": 55,
+          "y": 3402,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s11_15",
+        "type": "block",
+        "position": {
+          "x": 185,
+          "y": 3402,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_hdr_12",
+        "type": "block",
+        "position": {
+          "x": 55,
+          "y": 3556,
+          "w": 1810,
+          "h": 50
+        }
+      },
+      {
+        "item": "viz_s12_0",
+        "type": "block",
+        "position": {
+          "x": 55,
+          "y": 3610,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s12_1",
+        "type": "block",
+        "position": {
+          "x": 185,
+          "y": 3610,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s12_2",
+        "type": "block",
+        "position": {
+          "x": 315,
+          "y": 3610,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s12_3",
+        "type": "block",
+        "position": {
+          "x": 445,
+          "y": 3610,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s12_4",
+        "type": "block",
+        "position": {
+          "x": 575,
+          "y": 3610,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s12_5",
+        "type": "block",
+        "position": {
+          "x": 705,
+          "y": 3610,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s12_6",
+        "type": "block",
+        "position": {
+          "x": 835,
+          "y": 3610,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s12_7",
+        "type": "block",
+        "position": {
+          "x": 965,
+          "y": 3610,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s12_8",
+        "type": "block",
+        "position": {
+          "x": 1095,
+          "y": 3610,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s12_9",
+        "type": "block",
+        "position": {
+          "x": 1225,
+          "y": 3610,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s12_10",
+        "type": "block",
+        "position": {
+          "x": 1355,
+          "y": 3610,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s12_11",
+        "type": "block",
+        "position": {
+          "x": 1485,
+          "y": 3610,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s12_12",
+        "type": "block",
+        "position": {
+          "x": 1615,
+          "y": 3610,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s12_13",
+        "type": "block",
+        "position": {
+          "x": 1745,
+          "y": 3610,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_hdr_13",
+        "type": "block",
+        "position": {
+          "x": 55,
+          "y": 3764,
+          "w": 1810,
+          "h": 50
+        }
+      },
+      {
+        "item": "viz_s13_0",
+        "type": "block",
+        "position": {
+          "x": 55,
+          "y": 3818,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s13_1",
+        "type": "block",
+        "position": {
+          "x": 185,
+          "y": 3818,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s13_2",
+        "type": "block",
+        "position": {
+          "x": 315,
+          "y": 3818,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s13_3",
+        "type": "block",
+        "position": {
+          "x": 445,
+          "y": 3818,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s13_4",
+        "type": "block",
+        "position": {
+          "x": 575,
+          "y": 3818,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s13_5",
+        "type": "block",
+        "position": {
+          "x": 705,
+          "y": 3818,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s13_6",
+        "type": "block",
+        "position": {
+          "x": 835,
+          "y": 3818,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s13_7",
+        "type": "block",
+        "position": {
+          "x": 965,
+          "y": 3818,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s13_8",
+        "type": "block",
+        "position": {
+          "x": 1095,
+          "y": 3818,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s13_9",
+        "type": "block",
+        "position": {
+          "x": 1225,
+          "y": 3818,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s13_10",
+        "type": "block",
+        "position": {
+          "x": 1355,
+          "y": 3818,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s13_11",
+        "type": "block",
+        "position": {
+          "x": 1485,
+          "y": 3818,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s13_12",
+        "type": "block",
+        "position": {
+          "x": 1615,
+          "y": 3818,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s13_13",
+        "type": "block",
+        "position": {
+          "x": 1745,
+          "y": 3818,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_hdr_14",
+        "type": "block",
+        "position": {
+          "x": 55,
+          "y": 3972,
+          "w": 1810,
+          "h": 50
+        }
+      },
+      {
+        "item": "viz_s14_0",
+        "type": "block",
+        "position": {
+          "x": 55,
+          "y": 4026,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s14_1",
+        "type": "block",
+        "position": {
+          "x": 185,
+          "y": 4026,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s14_2",
+        "type": "block",
+        "position": {
+          "x": 315,
+          "y": 4026,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s14_3",
+        "type": "block",
+        "position": {
+          "x": 445,
+          "y": 4026,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s14_4",
+        "type": "block",
+        "position": {
+          "x": 575,
+          "y": 4026,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s14_5",
+        "type": "block",
+        "position": {
+          "x": 705,
+          "y": 4026,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s14_6",
+        "type": "block",
+        "position": {
+          "x": 835,
+          "y": 4026,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s14_7",
+        "type": "block",
+        "position": {
+          "x": 965,
+          "y": 4026,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s14_8",
+        "type": "block",
+        "position": {
+          "x": 1095,
+          "y": 4026,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s14_9",
+        "type": "block",
+        "position": {
+          "x": 1225,
+          "y": 4026,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s14_10",
+        "type": "block",
+        "position": {
+          "x": 1355,
+          "y": 4026,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s14_11",
+        "type": "block",
+        "position": {
+          "x": 1485,
+          "y": 4026,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s14_12",
+        "type": "block",
+        "position": {
+          "x": 1615,
+          "y": 4026,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s14_13",
+        "type": "block",
+        "position": {
+          "x": 1745,
+          "y": 4026,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_hdr_15",
+        "type": "block",
+        "position": {
+          "x": 55,
+          "y": 4180,
+          "w": 1810,
+          "h": 50
+        }
+      },
+      {
+        "item": "viz_s15_0",
+        "type": "block",
+        "position": {
+          "x": 55,
+          "y": 4234,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s15_1",
+        "type": "block",
+        "position": {
+          "x": 185,
+          "y": 4234,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s15_2",
+        "type": "block",
+        "position": {
+          "x": 315,
+          "y": 4234,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s15_3",
+        "type": "block",
+        "position": {
+          "x": 445,
+          "y": 4234,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s15_4",
+        "type": "block",
+        "position": {
+          "x": 575,
+          "y": 4234,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s15_5",
+        "type": "block",
+        "position": {
+          "x": 705,
+          "y": 4234,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s15_6",
+        "type": "block",
+        "position": {
+          "x": 835,
+          "y": 4234,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s15_7",
+        "type": "block",
+        "position": {
+          "x": 965,
+          "y": 4234,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s15_8",
+        "type": "block",
+        "position": {
+          "x": 1095,
+          "y": 4234,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s15_9",
+        "type": "block",
+        "position": {
+          "x": 1225,
+          "y": 4234,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s15_10",
+        "type": "block",
+        "position": {
+          "x": 1355,
+          "y": 4234,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s15_11",
+        "type": "block",
+        "position": {
+          "x": 1485,
+          "y": 4234,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_hdr_16",
+        "type": "block",
+        "position": {
+          "x": 55,
+          "y": 4388,
+          "w": 1810,
+          "h": 50
+        }
+      },
+      {
+        "item": "viz_s16_0",
+        "type": "block",
+        "position": {
+          "x": 55,
+          "y": 4442,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s16_1",
+        "type": "block",
+        "position": {
+          "x": 185,
+          "y": 4442,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s16_2",
+        "type": "block",
+        "position": {
+          "x": 315,
+          "y": 4442,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s16_3",
+        "type": "block",
+        "position": {
+          "x": 445,
+          "y": 4442,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s16_4",
+        "type": "block",
+        "position": {
+          "x": 575,
+          "y": 4442,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s16_5",
+        "type": "block",
+        "position": {
+          "x": 705,
+          "y": 4442,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s16_6",
+        "type": "block",
+        "position": {
+          "x": 835,
+          "y": 4442,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s16_7",
+        "type": "block",
+        "position": {
+          "x": 965,
+          "y": 4442,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s16_8",
+        "type": "block",
+        "position": {
+          "x": 1095,
+          "y": 4442,
+          "w": 120,
+          "h": 120
+        }
+      },
+      {
+        "item": "viz_s16_9",
+        "type": "block",
+        "position": {
+          "x": 1225,
+          "y": 4442,
+          "w": 120,
+          "h": 120
+        }
+      }
+    ]
+  }
+}
+]]></definition>
+</dashboard>

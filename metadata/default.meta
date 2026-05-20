@@ -1,0 +1,10 @@
+[]
+access = read : [ * ], write : [ sc_admin ]
+export = system
+
+[views]
+access = read : [ * ], write : [ sc_admin ]
+export = system
+
+[visualizations/icon_library]
+export = system

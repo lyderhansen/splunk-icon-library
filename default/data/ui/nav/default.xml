@@ -1,0 +1,7 @@
+<nav>
+  <default>
+    <view name="readme" />
+  </default>
+  <view name="readme" label="README" />
+  <view name="showcase" label="Icon Showcase" />
+</nav>

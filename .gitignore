@@ -1,0 +1,22 @@
+# Build output
+dist/
+*.tar.gz
+
+# Node dependencies
+node_modules/
+
+# macOS
+.DS_Store
+._*
+__MACOSX/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*

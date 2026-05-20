@@ -1,0 +1,29 @@
+# Icon Library visualization settings
+
+display.visualizations.custom.icon_library.icon_library.iconName = <string>
+display.visualizations.custom.icon_library.icon_library.customIcon = <string>
+display.visualizations.custom.icon_library.icon_library.iconColor = <string>
+display.visualizations.custom.icon_library.icon_library.iconSize = <string>
+display.visualizations.custom.icon_library.icon_library.hAlign = <string>
+display.visualizations.custom.icon_library.icon_library.vAlign = <string>
+display.visualizations.custom.icon_library.icon_library.rotation = <string>
+display.visualizations.custom.icon_library.icon_library.showLabel = <string>
+display.visualizations.custom.icon_library.icon_library.labelText = <string>
+display.visualizations.custom.icon_library.icon_library.labelSize = <string>
+display.visualizations.custom.icon_library.icon_library.labelColor = <string>
+display.visualizations.custom.icon_library.icon_library.drilldown = <string>
+display.visualizations.custom.icon_library.icon_library.drilldownUrl = <string>
+display.visualizations.custom.icon_library.icon_library.drilldownNewTab = <string>
+display.visualizations.custom.icon_library.icon_library.bgShape = <string>
+display.visualizations.custom.icon_library.icon_library.bgColor = <string>
+display.visualizations.custom.icon_library.icon_library.bgOpacity = <string>
+display.visualizations.custom.icon_library.icon_library.bgPadding = <string>
+display.visualizations.custom.icon_library.icon_library.bgRadius = <string>
+display.visualizations.custom.icon_library.icon_library.shadow = <string>
+display.visualizations.custom.icon_library.icon_library.shadowColor = <string>
+display.visualizations.custom.icon_library.icon_library.shadowBlur = <string>
+display.visualizations.custom.icon_library.icon_library.shadowOffsetX = <string>
+display.visualizations.custom.icon_library.icon_library.shadowOffsetY = <string>
+display.visualizations.custom.icon_library.icon_library.glow = <string>
+display.visualizations.custom.icon_library.icon_library.glowColor = <string>
+display.visualizations.custom.icon_library.icon_library.glowSize = <string>
