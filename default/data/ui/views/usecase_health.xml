@@ -1,0 +1,283 @@
+<dashboard version="2" theme="dark">
+  <label>Service Health — Use Case</label>
+  <description>Realistic service-health dashboard demonstrating threshold colors, threshold effects (icon swap + glow scale + pulse), and click drilldown via setToken</description>
+  <definition><![CDATA[
+{
+  "title": "Service Health — Production",
+  "description": "Six service tiles driven by makeresults SPL. Each tile uses the threshold engine to swap icon (error/warning/check_circle), scale glow size, and pulse on the critical band. Click any tile to capture the service name into the selected_service token.",
+  "dataSources": {
+    "ds_api":   { "type": "ds.search", "options": { "query": "| makeresults | eval value=99.2, label=\"API\"" },   "name": "API service health" },
+    "ds_auth":  { "type": "ds.search", "options": { "query": "| makeresults | eval value=100,  label=\"Auth\"" },  "name": "Auth service health" },
+    "ds_db":    { "type": "ds.search", "options": { "query": "| makeresults | eval value=87.4, label=\"DB\"" },    "name": "DB service health" },
+    "ds_queue": { "type": "ds.search", "options": { "query": "| makeresults | eval value=42.1, label=\"Queue\"" }, "name": "Queue service health" },
+    "ds_cache": { "type": "ds.search", "options": { "query": "| makeresults | eval value=98.7, label=\"Cache\"" }, "name": "Cache service health" },
+    "ds_cdn":   { "type": "ds.search", "options": { "query": "| makeresults | eval value=100,  label=\"CDN\"" },   "name": "CDN service health" }
+  },
+  "defaults": {
+    "tokens": {
+      "default": {
+        "selected_service": { "value": "(click a service tile)" }
+      }
+    }
+  },
+  "inputs": {},
+  "visualizations": {
+
+    "viz_title": {
+      "type": "splunk.markdown",
+      "options": {
+        "markdown": "# Service Health — Production\nLive status across the six core services. Click any tile to drill into recent events. **Queue** is in the critical band — note the pulsing red glow.",
+        "fontColor": "#E2E8F0",
+        "backgroundColor": "transparent",
+        "fontSize": "default"
+      }
+    },
+
+    "viz_api": {
+      "type": "icon_library.icon_library",
+      "dataSources": { "primary": "ds_api" },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "monitor_heart",
+        "icon_library.icon_library.bgShape": "circle",
+        "icon_library.icon_library.bgColor": "#0F172A",
+        "icon_library.icon_library.bgPadding": "22",
+        "icon_library.icon_library.glow": "yes",
+        "icon_library.icon_library.glowSize": "14",
+        "icon_library.icon_library.colorGlow": "yes",
+        "icon_library.icon_library.showLabel": "yes",
+        "icon_library.icon_library.labelColor": "#CBD5E1",
+        "icon_library.icon_library.thresholdLow": "70",
+        "icon_library.icon_library.thresholdHigh": "95",
+        "icon_library.icon_library.thresholdDirection": "high_good",
+        "icon_library.icon_library.thresholdIconLow": "error",
+        "icon_library.icon_library.thresholdIconMid": "warning",
+        "icon_library.icon_library.thresholdIconHigh": "check_circle",
+        "icon_library.icon_library.thresholdGlowScaleLow": "2",
+        "icon_library.icon_library.thresholdGlowScaleMid": "1",
+        "icon_library.icon_library.thresholdGlowScaleHigh": "0.6",
+        "icon_library.icon_library.thresholdPulse": "critical",
+        "icon_library.icon_library.thresholdPulseSpeed": "1.2",
+        "drilldown": "all"
+      },
+      "eventHandlers": [{
+        "type": "drilldown.setToken",
+        "options": { "tokens": [{ "token": "selected_service", "key": "label" }] }
+      }]
+    },
+    "viz_auth": {
+      "type": "icon_library.icon_library",
+      "dataSources": { "primary": "ds_auth" },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "monitor_heart",
+        "icon_library.icon_library.bgShape": "circle",
+        "icon_library.icon_library.bgColor": "#0F172A",
+        "icon_library.icon_library.bgPadding": "22",
+        "icon_library.icon_library.glow": "yes",
+        "icon_library.icon_library.glowSize": "14",
+        "icon_library.icon_library.colorGlow": "yes",
+        "icon_library.icon_library.showLabel": "yes",
+        "icon_library.icon_library.labelColor": "#CBD5E1",
+        "icon_library.icon_library.thresholdLow": "70",
+        "icon_library.icon_library.thresholdHigh": "95",
+        "icon_library.icon_library.thresholdDirection": "high_good",
+        "icon_library.icon_library.thresholdIconLow": "error",
+        "icon_library.icon_library.thresholdIconMid": "warning",
+        "icon_library.icon_library.thresholdIconHigh": "check_circle",
+        "icon_library.icon_library.thresholdGlowScaleLow": "2",
+        "icon_library.icon_library.thresholdGlowScaleMid": "1",
+        "icon_library.icon_library.thresholdGlowScaleHigh": "0.6",
+        "icon_library.icon_library.thresholdPulse": "critical",
+        "icon_library.icon_library.thresholdPulseSpeed": "1.2",
+        "drilldown": "all"
+      },
+      "eventHandlers": [{
+        "type": "drilldown.setToken",
+        "options": { "tokens": [{ "token": "selected_service", "key": "label" }] }
+      }]
+    },
+    "viz_db": {
+      "type": "icon_library.icon_library",
+      "dataSources": { "primary": "ds_db" },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "monitor_heart",
+        "icon_library.icon_library.bgShape": "circle",
+        "icon_library.icon_library.bgColor": "#0F172A",
+        "icon_library.icon_library.bgPadding": "22",
+        "icon_library.icon_library.glow": "yes",
+        "icon_library.icon_library.glowSize": "14",
+        "icon_library.icon_library.colorGlow": "yes",
+        "icon_library.icon_library.showLabel": "yes",
+        "icon_library.icon_library.labelColor": "#CBD5E1",
+        "icon_library.icon_library.thresholdLow": "70",
+        "icon_library.icon_library.thresholdHigh": "95",
+        "icon_library.icon_library.thresholdDirection": "high_good",
+        "icon_library.icon_library.thresholdIconLow": "error",
+        "icon_library.icon_library.thresholdIconMid": "warning",
+        "icon_library.icon_library.thresholdIconHigh": "check_circle",
+        "icon_library.icon_library.thresholdGlowScaleLow": "2",
+        "icon_library.icon_library.thresholdGlowScaleMid": "1",
+        "icon_library.icon_library.thresholdGlowScaleHigh": "0.6",
+        "icon_library.icon_library.thresholdPulse": "critical",
+        "icon_library.icon_library.thresholdPulseSpeed": "1.2",
+        "drilldown": "all"
+      },
+      "eventHandlers": [{
+        "type": "drilldown.setToken",
+        "options": { "tokens": [{ "token": "selected_service", "key": "label" }] }
+      }]
+    },
+    "viz_queue": {
+      "type": "icon_library.icon_library",
+      "dataSources": { "primary": "ds_queue" },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "monitor_heart",
+        "icon_library.icon_library.bgShape": "circle",
+        "icon_library.icon_library.bgColor": "#0F172A",
+        "icon_library.icon_library.bgPadding": "22",
+        "icon_library.icon_library.glow": "yes",
+        "icon_library.icon_library.glowSize": "14",
+        "icon_library.icon_library.colorGlow": "yes",
+        "icon_library.icon_library.showLabel": "yes",
+        "icon_library.icon_library.labelColor": "#CBD5E1",
+        "icon_library.icon_library.thresholdLow": "70",
+        "icon_library.icon_library.thresholdHigh": "95",
+        "icon_library.icon_library.thresholdDirection": "high_good",
+        "icon_library.icon_library.thresholdIconLow": "error",
+        "icon_library.icon_library.thresholdIconMid": "warning",
+        "icon_library.icon_library.thresholdIconHigh": "check_circle",
+        "icon_library.icon_library.thresholdGlowScaleLow": "2",
+        "icon_library.icon_library.thresholdGlowScaleMid": "1",
+        "icon_library.icon_library.thresholdGlowScaleHigh": "0.6",
+        "icon_library.icon_library.thresholdPulse": "critical",
+        "icon_library.icon_library.thresholdPulseSpeed": "1.2",
+        "drilldown": "all"
+      },
+      "eventHandlers": [{
+        "type": "drilldown.setToken",
+        "options": { "tokens": [{ "token": "selected_service", "key": "label" }] }
+      }]
+    },
+    "viz_cache": {
+      "type": "icon_library.icon_library",
+      "dataSources": { "primary": "ds_cache" },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "monitor_heart",
+        "icon_library.icon_library.bgShape": "circle",
+        "icon_library.icon_library.bgColor": "#0F172A",
+        "icon_library.icon_library.bgPadding": "22",
+        "icon_library.icon_library.glow": "yes",
+        "icon_library.icon_library.glowSize": "14",
+        "icon_library.icon_library.colorGlow": "yes",
+        "icon_library.icon_library.showLabel": "yes",
+        "icon_library.icon_library.labelColor": "#CBD5E1",
+        "icon_library.icon_library.thresholdLow": "70",
+        "icon_library.icon_library.thresholdHigh": "95",
+        "icon_library.icon_library.thresholdDirection": "high_good",
+        "icon_library.icon_library.thresholdIconLow": "error",
+        "icon_library.icon_library.thresholdIconMid": "warning",
+        "icon_library.icon_library.thresholdIconHigh": "check_circle",
+        "icon_library.icon_library.thresholdGlowScaleLow": "2",
+        "icon_library.icon_library.thresholdGlowScaleMid": "1",
+        "icon_library.icon_library.thresholdGlowScaleHigh": "0.6",
+        "icon_library.icon_library.thresholdPulse": "critical",
+        "icon_library.icon_library.thresholdPulseSpeed": "1.2",
+        "drilldown": "all"
+      },
+      "eventHandlers": [{
+        "type": "drilldown.setToken",
+        "options": { "tokens": [{ "token": "selected_service", "key": "label" }] }
+      }]
+    },
+    "viz_cdn": {
+      "type": "icon_library.icon_library",
+      "dataSources": { "primary": "ds_cdn" },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "monitor_heart",
+        "icon_library.icon_library.bgShape": "circle",
+        "icon_library.icon_library.bgColor": "#0F172A",
+        "icon_library.icon_library.bgPadding": "22",
+        "icon_library.icon_library.glow": "yes",
+        "icon_library.icon_library.glowSize": "14",
+        "icon_library.icon_library.colorGlow": "yes",
+        "icon_library.icon_library.showLabel": "yes",
+        "icon_library.icon_library.labelColor": "#CBD5E1",
+        "icon_library.icon_library.thresholdLow": "70",
+        "icon_library.icon_library.thresholdHigh": "95",
+        "icon_library.icon_library.thresholdDirection": "high_good",
+        "icon_library.icon_library.thresholdIconLow": "error",
+        "icon_library.icon_library.thresholdIconMid": "warning",
+        "icon_library.icon_library.thresholdIconHigh": "check_circle",
+        "icon_library.icon_library.thresholdGlowScaleLow": "2",
+        "icon_library.icon_library.thresholdGlowScaleMid": "1",
+        "icon_library.icon_library.thresholdGlowScaleHigh": "0.6",
+        "icon_library.icon_library.thresholdPulse": "critical",
+        "icon_library.icon_library.thresholdPulseSpeed": "1.2",
+        "drilldown": "all"
+      },
+      "eventHandlers": [{
+        "type": "drilldown.setToken",
+        "options": { "tokens": [{ "token": "selected_service", "key": "label" }] }
+      }]
+    },
+
+    "viz_detail_hdr": {
+      "type": "splunk.markdown",
+      "options": {
+        "markdown": "## Selected: `$selected_service$`\n\nThe `selected_service` token is set by the `drilldown.setToken` handler on each tile, keyed on the `label` field of the click payload. Wire it into downstream searches:\n\n```spl\nindex=app service=\"$selected_service$\" | stats count by status\n```",
+        "fontColor": "#E2E8F0",
+        "backgroundColor": "transparent",
+        "fontSize": "default"
+      }
+    },
+
+    "viz_footer": {
+      "type": "splunk.markdown",
+      "options": {
+        "markdown": "---\n\n**Features in this dashboard:** threshold colors (Low=70 / High=95 / direction=high_good) · per-band icon swap (`error` / `warning` / `check_circle`) · per-band glow scale (×2 / ×1 / ×0.6) · pulse animation on critical (1.2 Hz) · `drilldown.setToken` with `key: \"label\"` capturing the SPL `label` column.\n\n**To use with real data:** replace each `\\| makeresults` query with a real search (e.g. `index=app service=api \\| stats avg(uptime_pct) as value, latest(service) as label`).",
+        "fontColor": "#94A3B8",
+        "backgroundColor": "transparent",
+        "fontSize": "default"
+      }
+    }
+  },
+
+  "layout": {
+    "tabs": {
+      "items": [{ "label": "Service Health", "layoutId": "layout_1" }]
+    },
+    "layoutDefinitions": {
+      "layout_1": {
+        "type": "absolute",
+        "options": {
+          "width": 1440,
+          "height": 800,
+          "display": "auto-scale",
+          "backgroundColor": "transparent"
+        },
+        "globalInputs": [],
+        "structure": [
+          { "item": "viz_title",       "type": "block", "position": { "x": 40,  "y": 20,  "w": 1360, "h": 100 } },
+
+          { "item": "viz_api",         "type": "block", "position": { "x": 40,  "y": 150, "w": 200,  "h": 240 } },
+          { "item": "viz_auth",        "type": "block", "position": { "x": 264, "y": 150, "w": 200,  "h": 240 } },
+          { "item": "viz_db",          "type": "block", "position": { "x": 488, "y": 150, "w": 200,  "h": 240 } },
+          { "item": "viz_queue",       "type": "block", "position": { "x": 712, "y": 150, "w": 200,  "h": 240 } },
+          { "item": "viz_cache",       "type": "block", "position": { "x": 936, "y": 150, "w": 200,  "h": 240 } },
+          { "item": "viz_cdn",         "type": "block", "position": { "x": 1160, "y": 150, "w": 200, "h": 240 } },
+
+          { "item": "viz_detail_hdr",  "type": "block", "position": { "x": 40,  "y": 420, "w": 1360, "h": 220 } },
+          { "item": "viz_footer",      "type": "block", "position": { "x": 40,  "y": 660, "w": 1360, "h": 120 } }
+        ]
+      }
+    }
+  },
+  "applicationProperties": { "theme": "dark" }
+}
+]]></definition>
+</dashboard>

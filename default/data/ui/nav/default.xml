@@ -3,5 +3,6 @@
     <view name="readme" />
   </default>
   <view name="readme" label="README" />
+  <view name="usecase_health" label="Service Health (Use Case)" />
   <view name="showcase" label="Icon Showcase" />
 </nav>

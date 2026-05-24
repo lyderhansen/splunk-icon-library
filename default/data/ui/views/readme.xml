@@ -1,10 +1,10 @@
 <dashboard version="2" theme="dark">
   <label>Icon Library &#8212; README</label>
-  <description>Complete guide to configuring the Icon Library visualization</description>
+  <description>Complete guide to configuring the Icon Library visualization, with live demos for drilldown, threshold colors, and threshold effects</description>
   <definition><![CDATA[
 {
   "title": "Icon Library — README",
-  "description": "Complete guide to configuring the Icon Library visualization",
+  "description": "Complete guide to configuring the Icon Library visualization, with live demos for drilldown, threshold colors, and threshold effects.",
   "dataSources": {
     "ds_stub": {
       "type": "ds.test",
@@ -36,27 +36,41 @@
       "options": { "data": { "fields": [{"name":"value"}], "columns": [["97"]] } },
       "name": "Threshold demo — value=97 (high band)"
     },
+    "ds_fx_critical": {
+      "type": "ds.test",
+      "options": { "data": { "fields": [{"name":"value"},{"name":"label"}], "columns": [["25"],["value=25"]] } },
+      "name": "Effects demo — critical band"
+    },
+    "ds_fx_warning": {
+      "type": "ds.test",
+      "options": { "data": { "fields": [{"name":"value"},{"name":"label"}], "columns": [["70"],["value=70"]] } },
+      "name": "Effects demo — warning band"
+    },
+    "ds_fx_healthy": {
+      "type": "ds.test",
+      "options": { "data": { "fields": [{"name":"value"},{"name":"label"}], "columns": [["95"],["value=95"]] } },
+      "name": "Effects demo — healthy band"
+    },
     "ds_drilldown_icons": {
       "type": "ds.search",
-      "options": {
-        "query": "| makeresults | eval icon=\"security\", label=\"Click me\""
-      },
-      "name": "Drilldown demo source"
+      "options": { "query": "| makeresults | eval icon=\"security\", label=\"Click me\"" },
+      "name": "Drilldown demo source (real ds.search)"
     }
   },
   "defaults": {
     "tokens": {
       "default": {
-        "selected_icon": { "value": "(click an icon below)" }
+        "selected_icon": { "value": "(click the icon below)" }
       }
     }
   },
+  "inputs": {},
   "visualizations": {
 
     "viz_title": {
       "type": "splunk.markdown",
       "options": {
-        "markdown": "# Icon Library for Splunk Dashboard Studio\n\nA custom visualization that renders **2,500+ Material Symbols** icons with configurable color, size, background, glow, shadow, labels, alignment, rotation, click drilldown, and **threshold-driven coloring**.\n\n**Font:** [Material Symbols Outlined](https://fonts.google.com/icons) — base64-embedded, no external requests.",
+        "markdown": "# Icon Library for Splunk Dashboard Studio\n\nA custom visualization that renders **2,500+ Material Symbols** icons with configurable color, size, background, glow, shadow, labels, alignment, rotation, click drilldown, **threshold-driven coloring**, and **per-band effects** (icon swap / glow scale / pulse animation).\n\n**Font:** [Material Symbols Outlined](https://fonts.google.com/icons) — base64-embedded, no external requests.",
         "fontColor": "#E2E8F0",
         "backgroundColor": "transparent",
         "fontSize": "default"
@@ -133,48 +147,43 @@
       }
     },
 
-    "viz_sec1_hdr": {
+    "viz_sec1": {
       "type": "splunk.markdown",
       "options": {
-        "markdown": "## 1. Quick Start\n\n1. Add an **Icon Library** visualization to your Dashboard Studio panel\n2. Set **`\"backgroundColor\": \"transparent\"`** in the panel options (Dashboard Studio defaults to a dark panel background for custom vizs)\n3. Pick an icon from the **Icon (Popular)** dropdown — or type a custom name\n4. Adjust color, background, glow, label, drilldown, and threshold colors in the formatter sidebar\n\nThe visualization works **with or without** an attached search. Without a search, it renders purely from config.\n\n> **Important:** Always add `\"backgroundColor\": \"transparent\"` to the panel `options` — otherwise the panel renders with a black/dark background.",
+        "markdown": "## 1. Quick Start\n\n1. Open Dashboard Studio and create or edit a dashboard.\n2. Add a panel and set its visualization type to **Icon Library** (`icon_library.icon_library`).\n3. In the panel `options`, add `\"backgroundColor\": \"transparent\"` — Dashboard Studio defaults custom-viz panels to a dark fill that hides the icon behind a black box.\n4. Pick an icon from the **Icon (Popular)** dropdown — or type any Material Symbols name (e.g. `mode_heat_off`) in the **Custom Icon Name** field.\n5. Adjust color, background, glow, label, drilldown, threshold colors, and threshold effects in the formatter sidebar.\n\nThe visualization works **with or without** an attached search. Without one, it renders purely from formatter config.\n\n### Minimal panel JSON\n\n```json\n\"viz_status\": {\n  \"type\": \"icon_library.icon_library\",\n  \"options\": {\n    \"backgroundColor\": \"transparent\",\n    \"icon_library.icon_library.iconName\": \"rocket_launch\",\n    \"icon_library.icon_library.iconColor\": \"#06B6D4\"\n  }\n}\n```\n\n> The four demo tiles in the top right of this dashboard render with the configurations shown in `viz_demo_basic`, `viz_demo_labeled`, `viz_demo_glow`, and `viz_demo_combo`.",
         "fontColor": "#E2E8F0",
-        "backgroundColor": "transparent"
+        "backgroundColor": "transparent",
+        "fontSize": "default"
       }
     },
 
-    "viz_sec2_hdr": {
+    "viz_sec2": {
       "type": "splunk.markdown",
       "options": {
-        "markdown": "## 2. Finding Icon Names\n\nBrowse all 2,500+ icons at **[fonts.google.com/icons](https://fonts.google.com/icons)**\n\n### Syntax Rules\n\n- Use **lowercase_with_underscores** only\n- Examples: `home`, `rocket_launch`, `mode_heat_off`, `nest_thermostat`\n- Invalid characters are stripped automatically\n- Set via the **Custom Icon Name** field (overrides the dropdown)\n\n### In Dashboard Studio JSON\n\n```json\n\"options\": {\n  \"icon_library.icon_library.customIcon\": \"mode_heat_off\",\n  \"icon_library.icon_library.iconColor\": \"#EF4444\"\n}\n```\n\n### Via SPL (data-driven)\n\n```spl\n| makeresults\n| eval icon=\"security\", color=\"#22C55E\", label=\"Healthy\"\n```\n\nThe `icon`, `color`, and `label` fields override config when present.",
+        "markdown": "## 2. Finding Icon Names\n\nBrowse all 2,500+ icons at **[fonts.google.com/icons](https://fonts.google.com/icons)**\n\n### Syntax rules\n\n- Use **lowercase_with_underscores** only\n- Examples: `home`, `rocket_launch`, `mode_heat_off`, `nest_thermostat`, `monitor_heart`\n- Invalid characters are stripped automatically by the viz (e.g. `Mode Heat Off` → `modeheatoff`)\n- Set via the **Custom Icon Name** formatter field (which overrides the dropdown), or via the SPL `icon` column (which overrides both)\n\n### Three ways to set the icon, in priority order\n\n**1. SPL `icon` column (highest priority — data-driven):**\n\n```spl\n| makeresults | eval icon=\"security\"\n```\n\n**2. `customIcon` formatter option (JSON or sidebar field):**\n\n```json\n\"options\": {\n  \"icon_library.icon_library.customIcon\": \"mode_heat_off\",\n  \"icon_library.icon_library.iconColor\": \"#EF4444\"\n}\n```\n\n**3. `iconName` formatter dropdown (fallback, only ~150 popular icons):**\n\n```json\n\"options\": { \"icon_library.icon_library.iconName\": \"home\" }\n```\n\n### Threshold effects can also override the icon\n\nWhen the Threshold colors engine is active and the `thresholdIconLow/Mid/High` formatter fields are non-empty, the icon swaps based on the value band (see Section 6).",
         "fontColor": "#E2E8F0",
-        "backgroundColor": "transparent"
+        "backgroundColor": "transparent",
+        "fontSize": "default"
       }
     },
 
-    "viz_sec3_hdr": {
+    "viz_sec3": {
       "type": "splunk.markdown",
       "options": {
-        "markdown": "## 3. All Configuration Options\n\n### Data configurations\n\n- **`iconName`** (default: `home`) — Select from 150+ popular icons via dropdown\n- **`customIcon`** (default: empty) — Any Material Symbols name. Overrides dropdown.\n\n### Data display\n\n- **`iconSize`** (default: `0` = auto) — Fixed pixel size, or `0` to auto-scale to panel\n- **`hAlign`** (default: `center`) — Horizontal position: `left`, `center`, `right`\n- **`vAlign`** (default: `center`) — Vertical position: `top`, `center`, `bottom`\n- **`rotation`** (default: `0`) — Rotation angle in degrees (0–360)\n- **`showLabel`** (default: `no`) — Show text label below icon: `yes` / `no`\n- **`labelText`** (default: empty) — The label text to display\n- **`labelSize`** (default: `0` = auto) — Label font size in pixels, `0` for auto\n- **`labelColor`** (default: `#94A3B8`) — Label text hex color\n- **`drilldownUrl`** (default: empty) — Optional URL with `$icon$`, `$label$`, `$color$` tokens (see Section 4)\n- **`drilldownNewTab`** (default: `yes`) — Open URL in new tab\n\n> Drilldown auto-activates when the panel has `\"drilldown\": \"all\"` (eventHandlers path) or a Drilldown URL is set — there is no per-viz toggle.",
+        "markdown": "## 3. Configuration Reference\n\nAll options are namespaced **`icon_library.icon_library.<key>`** in Dashboard Studio JSON. The formatter sidebar accepts the bare key without the prefix.\n\n### Data configurations\n\n| Key | Default | Description |\n|---|---|---|\n| `iconName` | `home` | Popular-icon dropdown selection |\n| `customIcon` | _(empty)_ | Any Material Symbols name. Overrides `iconName` when set. |\n\n### Data display\n\n| Key | Default | Description / Example |\n|---|---|---|\n| `iconSize` | `0` | Pixels; `0` = auto-scale. Example: `\"icon_library.icon_library.iconSize\": \"48\"` |\n| `hAlign` | `center` | `left` / `center` / `right` |\n| `vAlign` | `center` | `top` / `center` / `bottom` |\n| `rotation` | `0` | Degrees 0–360 |\n| `showLabel` | `no` | `yes` shows label below icon |\n| `labelText` | _(empty)_ | Static label text (overridden by SPL `label` column) |\n| `labelSize` | `0` | Pixels; `0` = auto-scale |\n| `labelColor` | `#94A3B8` | Hex |\n| `drilldownUrl` | _(empty)_ | URL with `$icon$` / `$label$` / `$color$` placeholders |\n| `drilldownNewTab` | `yes` | Only applies when `drilldownUrl` is set |\n\n### Icon style\n\n| Key | Default | Description / Example |\n|---|---|---|\n| `iconColor` | `#06B6D4` | Hex color of the icon |\n| `bgShape` | `none` | `none` / `circle` / `rounded_rect` / `square` |\n| `bgColor` | `#1E293B` | Background fill hex |\n| `bgOpacity` | `1` | 0–1 |\n| `bgPadding` | `16` | Pixels between icon and bg edge |\n| `bgRadius` | `12` | Corner radius (rounded_rect only) |\n| `shadow` | `no` | Drop shadow toggle |\n| `shadowColor` / `Blur` / `OffsetX` / `OffsetY` | `#000000` / `8` / `0` / `4` | Shadow controls |\n| `glow` | `no` | Glow toggle |\n| `glowColor` | `#06B6D4` | Glow hex |\n| `glowSize` | `12` | Glow radius (px) |\n\n### Threshold colors (Section 5)\n\n| Key | Default | Description |\n|---|---|---|\n| `thresholdField` | `value` | SPL column name driving the band |\n| `thresholdLow` / `High` | `50` / `90` | Two breakpoints |\n| `thresholdDirection` | `high_good` | `high_good` or `high_bad` |\n| `thresholdColorLow/Mid/High` | red/amber/green | Per-band colors |\n| `colorIcon` / `Label` / `Glow` / `Bg` | `yes`/`no`/`no`/`no` | Apply band color to that element |\n\n### Threshold effects (Section 6)\n\n| Key | Default | Description |\n|---|---|---|\n| `thresholdIconLow/Mid/High` | _(empty)_ | Per-band icon-name override. Empty = no swap. |\n| `thresholdGlowScaleLow/Mid/High` | `1` | Multiplier on glow size when in that band. `0` disables glow. |\n| `thresholdPulse` | `no` | `no` / `critical` / `warning` / `critical_and_warning` |\n| `thresholdPulseSpeed` | `1` | Pulses per second |",
         "fontColor": "#E2E8F0",
-        "backgroundColor": "transparent"
+        "backgroundColor": "transparent",
+        "fontSize": "default"
       }
     },
 
-    "viz_sec3b_hdr": {
+    "viz_sec4": {
       "type": "splunk.markdown",
       "options": {
-        "markdown": "### Icon style\n\n- **`iconColor`** (default: `#06B6D4`) — Hex color of the icon\n- **`bgShape`** (default: `none`) — Background shape: `none`, `circle`, `rounded_rect`, `square`\n- **`bgColor`** (default: `#1E293B`) — Background fill color (hex)\n- **`bgOpacity`** (default: `1`) — Background opacity, 0 (transparent) to 1 (opaque)\n- **`bgPadding`** (default: `16`) — Space between icon and background edge (px)\n- **`bgRadius`** (default: `12`) — Corner radius for `rounded_rect` only (px)\n- **`shadow`** (default: `no`) — Drop shadow: `yes` / `no`\n- **`shadowColor`** (default: `#000000`) — Shadow hex color\n- **`shadowBlur`** (default: `8`) — Shadow blur radius (px)\n- **`shadowOffsetX/Y`** (default: `0` / `4`) — Shadow offset (px)\n- **`glow`** (default: `no`) — Glow effect: `yes` / `no`\n- **`glowColor`** (default: `#06B6D4`) — Glow hex color\n- **`glowSize`** (default: `12`) — Glow radius (px)\n\n### Threshold colors (see Section 5)\n\n- **`thresholdField`** (default: `value`), **`thresholdLow`** (`50`), **`thresholdHigh`** (`90`), **`thresholdDirection`** (`high_good`)\n- **`thresholdColorLow/Mid/High`** (`#EF4444` / `#F59E0B` / `#22C55E`)\n- **`colorIcon`** (`yes`), **`colorLabel`** (`no`), **`colorGlow`** (`no`), **`colorBg`** (`no`)\n\n> **Key prefix:** All options use `icon_library.icon_library.` in Dashboard Studio JSON.",
+        "markdown": "## 4. Drilldown / Click Interactions\n\nDrilldown is **automatic** — there is no per-viz toggle. The viz fires a click event on every click; the dashboard decides what to do with it.\n\n### Option A — Dashboard Studio eventHandlers + setToken (recommended)\n\nThree things must line up:\n\n1. The panel must be backed by a **real `ds.search`** (e.g. `| makeresults | eval icon=\"security\"`). `ds.test` mock data does NOT propagate drilldown context to setToken.\n2. Panel `options` must include `\"drilldown\": \"all\"` — without it, Studio silently drops the click.\n3. `eventHandlers` array with `drilldown.setToken` using `\"key\": \"icon\"` (or `\"label\"` / `\"color\"`).\n\n```json\n\"viz_my_icon\": {\n  \"type\": \"icon_library.icon_library\",\n  \"dataSources\": { \"primary\": \"ds_event\" },\n  \"options\": {\n    \"backgroundColor\": \"transparent\",\n    \"drilldown\": \"all\"\n  },\n  \"eventHandlers\": [{\n    \"type\": \"drilldown.setToken\",\n    \"options\": {\n      \"tokens\": [{ \"token\": \"selected_icon\", \"key\": \"icon\" }]\n    }\n  }]\n}\n```\n\n### Click payload — what setToken can capture\n\nThe viz emits `{icon, label?, color?}`. The `setToken` `key` field reads literal members of that object:\n\n| `key` | Resolves to |\n|---|---|\n| `\"icon\"` | The resolved icon name |\n| `\"label\"` | The label text (only present if a label is rendered) |\n| `\"color\"` | The resolved icon color (hex) |\n\n> **Wrong patterns to avoid:** `\"key\": \"click.value\"` (native chart syntax) and `\"key\": \"row.icon.value\"` (native table syntax) both do not work for custom-viz `FIELD_VALUE_DRILLDOWN` payloads.\n\n### Capturing multiple values in one click\n\n```json\n\"eventHandlers\": [{\n  \"type\": \"drilldown.setToken\",\n  \"options\": {\n    \"tokens\": [\n      { \"token\": \"selected_icon\",  \"key\": \"icon\"  },\n      { \"token\": \"selected_label\", \"key\": \"label\" },\n      { \"token\": \"selected_color\", \"key\": \"color\" }\n    ]\n  }\n}]\n```\n\n### Option B — URL navigation\n\nSet **Drilldown URL** in the formatter to a URL with token placeholders. All three placeholders are URL-encoded by the viz before substitution.\n\n```\nhttps://splunk.example.com/app/search/search?q=index%3Dmain%20icon%3D$icon$\n```\n\n### Live demo (right column)\n\nClick the icon. The panel below it shows the captured `$selected_icon$` token, set via `drilldown.setToken` with `key: \"icon\"`.",
         "fontColor": "#E2E8F0",
-        "backgroundColor": "transparent"
-      }
-    },
-
-    "viz_sec4_hdr": {
-      "type": "splunk.markdown",
-      "options": {
-        "markdown": "## 4. Drilldown / Click Interactions\n\nDrilldown is automatic — no per-viz toggle. The visualization fires a click event on every click; the dashboard decides what to do with it.\n\n### A) Dashboard Studio eventHandlers (recommended)\n\nThree things must be set for `setToken` to fire:\n\n1. The panel must be backed by a **real `ds.search`** (e.g. `| makeresults | eval icon=\"security\"`). `ds.test` mock data does NOT propagate drilldown context.\n2. Panel `options` must include `\"drilldown\": \"all\"` — without it, Studio swallows the click silently.\n3. `eventHandlers` array with `drilldown.setToken` using `\"key\": \"icon\"`. The `key` references a literal field of the click payload — NOT the older `click.value` syntax (which is for native chart vizs).\n\n```json\n\"viz_my_icon\": {\n  \"type\": \"icon_library.icon_library\",\n  \"dataSources\": { \"primary\": \"ds_event\" },\n  \"options\": {\n    \"backgroundColor\": \"transparent\",\n    \"drilldown\": \"all\"\n  },\n  \"eventHandlers\": [{\n    \"type\": \"drilldown.setToken\",\n    \"options\": {\n      \"tokens\": [\n        { \"token\": \"selected_icon\", \"key\": \"icon\" }\n      ]\n    }\n  }]\n}\n```\n\n**What the payload fields resolve to:**\n\n| `key` | Value |\n|---|---|\n| `value` | The resolved icon name (from the icon column override or the formatter setting) |\n| `name`  | The literal string `\"icon\"` |\n\n### B) Direct URL navigation\n\nSet **Drilldown URL** in the formatter to a URL with token placeholders. Available tokens: `$icon$`, `$label$`, `$color$` — all URL-encoded by the viz.\n\n```\nhttps://mysplunk.com/app/search/search?q=index%3Dmain%20icon%3D$icon$\n```\n\n### Live demo\n\nClick the icon on the right. The panel below it shows the value of `$selected_icon$` captured by `setToken`.",
-        "fontColor": "#E2E8F0",
-        "backgroundColor": "transparent"
+        "backgroundColor": "transparent",
+        "fontSize": "default"
       }
     },
 
@@ -194,9 +203,7 @@
       },
       "eventHandlers": [{
         "type": "drilldown.setToken",
-        "options": {
-          "tokens": [{ "token": "selected_icon", "key": "click.value" }]
-        }
+        "options": { "tokens": [{ "token": "selected_icon", "key": "icon" }] }
       }]
     },
     "viz_drilldown_consumer": {
@@ -209,12 +216,13 @@
       }
     },
 
-    "viz_sec5_hdr": {
+    "viz_sec5": {
       "type": "splunk.markdown",
       "options": {
-        "markdown": "## 5. Threshold Colors\n\nThe **Threshold colors** formatter section drives icon, label, glow, and/or background color from a numeric SPL column.\n\n### Settings\n\n| Setting | Default | Description |\n|---|---|---|\n| Source field | `value` | SPL column whose numeric value picks the band |\n| Low / High threshold | `50` / `90` | Two breakpoints define three bands |\n| Direction | `High = good` | `High = bad` flips the band order (errors, latency) |\n| Low / Mid / High band color | `#EF4444` / `#F59E0B` / `#22C55E` | Three color pickers |\n| Apply to icon / label / glow / background | icon=Yes, others=No | Per-element opt-in |\n\nThe live demo to the right shows the same icon driven by three different `value` rows: **20** (low band), **65** (mid band), **97** (high band).\n\n### Search-driven coloring via DOS (power users)\n\nAny of `iconColor`, `labelColor`, `glowColor`, `bgColor` also accepts Dashboard Studio Dynamic Options Syntax — the same mechanism Splunk's native single-value uses behind its gradient widget:\n\n```json\n\"options\": {\n  \"icon_library.icon_library.iconColor\":\n    \"> primary | seriesByName('uptime_pct') | lastPoint() | rangeValue(colors)\",\n  \"icon_library.icon_library.colorIcon\": \"no\"\n},\n\"context\": {\n  \"colors\": [\n    { \"to\": 95,             \"value\": \"#EF4444\" },\n    { \"from\": 95, \"to\": 99, \"value\": \"#F59E0B\" },\n    { \"from\": 99,           \"value\": \"#22C55E\" }\n  ]\n}\n```\n\nWhen driving a color via DOS, set the matching **Apply to … color** toggle to **No** so the formatter thresholds don't override the DOS-resolved value.\n\n### Precedence\n\n1. Explicit `color` SPL column — always wins\n2. Formatter threshold band — wins over the static formatter color when its element toggle is `yes`\n3. DOS expression on `iconColor` / `labelColor` / `glowColor` / `bgColor` — flows through unchanged when the matching toggle is `no`\n4. Static formatter color picker — the default fallback",
+        "markdown": "## 5. Threshold Colors\n\nThe **Threshold colors** formatter section drives icon, label, glow, and/or background color from a numeric SPL column. Two breakpoints define three bands.\n\n### How it works\n\nValue < `thresholdLow` → low band\nValue ∈ `[thresholdLow, thresholdHigh)` → mid band\nValue ≥ `thresholdHigh` → high band\n\nWith `thresholdDirection = high_good`: low band gets the *low color* (red by default), high band gets the *high color* (green). Flip to `high_bad` for metrics where high values are worse (errors, latency).\n\n### Minimal example — color the icon by `value`\n\n```spl\n| makeresults | eval value=97\n```\n\nFormatter defaults (`thresholdLow=50`, `thresholdHigh=90`, `direction=high_good`, `colorIcon=yes`) classify value 97 in the **high band** → green icon. No JSON changes needed.\n\n### Coloring multiple elements at once\n\n```json\n\"options\": {\n  \"icon_library.icon_library.colorIcon\":  \"yes\",\n  \"icon_library.icon_library.colorGlow\":  \"yes\",\n  \"icon_library.icon_library.colorBg\":    \"no\",\n  \"icon_library.icon_library.colorLabel\": \"no\"\n}\n```\n\n### Custom thresholds — high=bad latency metric\n\n```json\n\"options\": {\n  \"icon_library.icon_library.thresholdField\":  \"latency_ms\",\n  \"icon_library.icon_library.thresholdLow\":    \"200\",\n  \"icon_library.icon_library.thresholdHigh\":   \"500\",\n  \"icon_library.icon_library.thresholdDirection\": \"high_bad\"\n}\n```\n\n### Power user — DOS expression instead of formatter\n\nFor 5+ bands, gradient interpolation, or exact-match coloring, use Dashboard Studio's Dynamic Options Syntax on any color option. Set the matching `colorIcon/Label/Glow/Bg` toggle to `no` so the formatter engine doesn't override DOS.\n\n```json\n\"options\": {\n  \"icon_library.icon_library.iconColor\":\n    \"> primary | seriesByName('uptime_pct') | lastPoint() | rangeValue(colors)\",\n  \"icon_library.icon_library.colorIcon\": \"no\"\n},\n\"context\": {\n  \"colors\": [\n    { \"to\": 95,             \"value\": \"#EF4444\" },\n    { \"from\": 95, \"to\": 99, \"value\": \"#F59E0B\" },\n    { \"from\": 99,           \"value\": \"#22C55E\" }\n  ]\n}\n```\n\n### Precedence (highest wins)\n\n1. Explicit SPL `color` column — always wins\n2. Formatter threshold band (when `colorIcon`/etc. is yes)\n3. DOS expression on `iconColor`/`labelColor`/`glowColor`/`bgColor`\n4. Static formatter color picker\n\n### Live demo (right column)\n\nThree tiles, same configuration, different `value` rows — `20`, `65`, `97`. `colorGlow=yes` so the glow takes the band color too.",
         "fontColor": "#E2E8F0",
-        "backgroundColor": "transparent"
+        "backgroundColor": "transparent",
+        "fontSize": "default"
       }
     },
 
@@ -267,70 +275,177 @@
       }
     },
 
-    "viz_sec6_hdr": {
+    "viz_sec6": {
       "type": "splunk.markdown",
       "options": {
-        "markdown": "## 6. Data-Driven Icons\n\nAttach a search that returns columns named `icon`, `color`, `label`, or your configured threshold field.\n\n```spl\n| stats count AS value BY src_ip\n| eval icon=if(value>100, \"warning\", \"check_circle\"),\n       label=src_ip\n| head 1\n```\n\n**SPL column effects:**\n\n- **`icon`** — Overrides the icon name (sanitized to `lowercase_underscores`)\n- **`color`** — Overrides icon color (hex). Wins over the threshold engine.\n- **`label`** — Sets label text and auto-enables label display\n- **`value`** (or whatever you set in **Source field**) — Drives the threshold engine. Band color picked from the formatter settings.",
+        "markdown": "## 6. Threshold Effects (new in 1.5.0)\n\nThree non-color effects driven by the same band determination as Threshold colors: **per-band icon swap**, **per-band glow scaling**, and **pulse animation** on the critical/warning band.\n\n### Effect 1 — Per-band icon swap\n\nEach band can override the icon name. When the band-specific input is non-empty, it replaces the resolved icon after sanitization.\n\n```json\n\"options\": {\n  \"icon_library.icon_library.thresholdIconLow\":  \"error\",\n  \"icon_library.icon_library.thresholdIconMid\":  \"warning\",\n  \"icon_library.icon_library.thresholdIconHigh\": \"check_circle\"\n}\n```\n\nThe single largest UX win for status dashboards — a glance tells you the severity without color interpretation.\n\n### Effect 2 — Per-band glow scaling\n\nMultiplies the base `glowSize` by a band-specific factor. Set `0` to disable glow entirely for that band.\n\n```json\n\"options\": {\n  \"icon_library.icon_library.glow\": \"yes\",\n  \"icon_library.icon_library.glowSize\": \"14\",\n  \"icon_library.icon_library.thresholdGlowScaleLow\":  \"2\",\n  \"icon_library.icon_library.thresholdGlowScaleMid\":  \"1\",\n  \"icon_library.icon_library.thresholdGlowScaleHigh\": \"0.6\"\n}\n```\n\nResult: glow doubles in the critical band and shrinks to 60% when healthy.\n\n### Effect 3 — Pulse animation\n\nAnimates the glow radius via `requestAnimationFrame`. The \"critical\" band auto-tracks direction:\n\n| `thresholdDirection` | Critical band |\n|---|---|\n| `high_good` | Low band (value below `thresholdLow`) |\n| `high_bad` | High band (value at or above `thresholdHigh`) |\n\n```json\n\"options\": {\n  \"icon_library.icon_library.glow\": \"yes\",\n  \"icon_library.icon_library.thresholdPulse\":      \"critical\",\n  \"icon_library.icon_library.thresholdPulseSpeed\": \"1.2\"\n}\n```\n\n`thresholdPulse` accepts `no` / `critical` / `warning` / `critical_and_warning`. Pulse requires `glow=yes`.\n\n### All three effects combined — production SOC tile\n\n```json\n\"options\": {\n  \"backgroundColor\": \"transparent\",\n  \"icon_library.icon_library.bgShape\": \"circle\",\n  \"icon_library.icon_library.bgColor\": \"#0F172A\",\n  \"icon_library.icon_library.bgPadding\": \"20\",\n  \"icon_library.icon_library.glow\": \"yes\",\n  \"icon_library.icon_library.glowSize\": \"14\",\n  \"icon_library.icon_library.colorGlow\": \"yes\",\n  \"icon_library.icon_library.thresholdIconLow\":  \"error\",\n  \"icon_library.icon_library.thresholdIconMid\":  \"warning\",\n  \"icon_library.icon_library.thresholdIconHigh\": \"check_circle\",\n  \"icon_library.icon_library.thresholdGlowScaleLow\":  \"2\",\n  \"icon_library.icon_library.thresholdGlowScaleHigh\": \"0.6\",\n  \"icon_library.icon_library.thresholdPulse\": \"critical\"\n}\n```\n\n### Live demo (right column)\n\nThree tiles, **identical configuration**, fed `value` = 25, 70, 95. Watch icon, glow size, and pulse change with the band. The Service Health dashboard (in the app nav) uses the same pattern with real service data.",
         "fontColor": "#E2E8F0",
-        "backgroundColor": "transparent"
+        "backgroundColor": "transparent",
+        "fontSize": "default"
       }
     },
 
-    "viz_sec7_hdr": {
-      "type": "splunk.markdown",
+    "viz_fx_critical": {
+      "type": "icon_library.icon_library",
+      "dataSources": { "primary": "ds_fx_critical" },
       "options": {
-        "markdown": "## 7. Full Dashboard Studio JSON Example\n\nA single panel using every feature — drilldown, threshold colors, glow:\n\n```json\n\"viz_status_icon\": {\n  \"type\": \"icon_library.icon_library\",\n  \"dataSources\": { \"primary\": \"ds_health\" },\n  \"options\": {\n    \"backgroundColor\": \"transparent\",\n    \"icon_library.icon_library.customIcon\": \"monitor_heart\",\n    \"icon_library.icon_library.iconSize\": \"0\",\n    \"icon_library.icon_library.showLabel\": \"yes\",\n    \"icon_library.icon_library.labelText\": \"Service health\",\n    \"icon_library.icon_library.labelColor\": \"#94A3B8\",\n    \"icon_library.icon_library.bgShape\": \"circle\",\n    \"icon_library.icon_library.bgColor\": \"#0F172A\",\n    \"icon_library.icon_library.bgPadding\": \"20\",\n    \"icon_library.icon_library.glow\": \"yes\",\n    \"icon_library.icon_library.glowSize\": \"14\",\n    \"icon_library.icon_library.colorGlow\": \"yes\",\n    \"icon_library.icon_library.thresholdLow\": \"60\",\n    \"icon_library.icon_library.thresholdHigh\": \"90\",\n    \"icon_library.icon_library.thresholdDirection\": \"high_good\",\n    \"drilldown\": \"all\"\n  },\n  \"eventHandlers\": [{\n    \"type\": \"drilldown.setToken\",\n    \"options\": {\n      \"tokens\": [{ \"token\": \"selected_icon\", \"key\": \"icon\" }]\n    }\n  }]\n}\n```\n\n> **Reminder:** `\"backgroundColor\": \"transparent\"` and `\"drilldown\": \"all\"` are **panel-level** Studio options (not namespaced). All other options use the `icon_library.icon_library.` prefix.",
-        "fontColor": "#E2E8F0",
-        "backgroundColor": "transparent"
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "monitor_heart",
+        "icon_library.icon_library.bgShape": "circle",
+        "icon_library.icon_library.bgColor": "#0F172A",
+        "icon_library.icon_library.bgPadding": "20",
+        "icon_library.icon_library.glow": "yes",
+        "icon_library.icon_library.glowSize": "14",
+        "icon_library.icon_library.colorGlow": "yes",
+        "icon_library.icon_library.showLabel": "yes",
+        "icon_library.icon_library.labelColor": "#94A3B8",
+        "icon_library.icon_library.thresholdLow": "50",
+        "icon_library.icon_library.thresholdHigh": "90",
+        "icon_library.icon_library.thresholdDirection": "high_good",
+        "icon_library.icon_library.thresholdIconLow": "error",
+        "icon_library.icon_library.thresholdIconMid": "warning",
+        "icon_library.icon_library.thresholdIconHigh": "check_circle",
+        "icon_library.icon_library.thresholdGlowScaleLow": "2",
+        "icon_library.icon_library.thresholdGlowScaleMid": "1",
+        "icon_library.icon_library.thresholdGlowScaleHigh": "0.6",
+        "icon_library.icon_library.thresholdPulse": "critical",
+        "icon_library.icon_library.thresholdPulseSpeed": "1.2"
+      }
+    },
+    "viz_fx_warning": {
+      "type": "icon_library.icon_library",
+      "dataSources": { "primary": "ds_fx_warning" },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "monitor_heart",
+        "icon_library.icon_library.bgShape": "circle",
+        "icon_library.icon_library.bgColor": "#0F172A",
+        "icon_library.icon_library.bgPadding": "20",
+        "icon_library.icon_library.glow": "yes",
+        "icon_library.icon_library.glowSize": "14",
+        "icon_library.icon_library.colorGlow": "yes",
+        "icon_library.icon_library.showLabel": "yes",
+        "icon_library.icon_library.labelColor": "#94A3B8",
+        "icon_library.icon_library.thresholdLow": "50",
+        "icon_library.icon_library.thresholdHigh": "90",
+        "icon_library.icon_library.thresholdDirection": "high_good",
+        "icon_library.icon_library.thresholdIconLow": "error",
+        "icon_library.icon_library.thresholdIconMid": "warning",
+        "icon_library.icon_library.thresholdIconHigh": "check_circle",
+        "icon_library.icon_library.thresholdGlowScaleLow": "2",
+        "icon_library.icon_library.thresholdGlowScaleMid": "1",
+        "icon_library.icon_library.thresholdGlowScaleHigh": "0.6",
+        "icon_library.icon_library.thresholdPulse": "critical",
+        "icon_library.icon_library.thresholdPulseSpeed": "1.2"
+      }
+    },
+    "viz_fx_healthy": {
+      "type": "icon_library.icon_library",
+      "dataSources": { "primary": "ds_fx_healthy" },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "monitor_heart",
+        "icon_library.icon_library.bgShape": "circle",
+        "icon_library.icon_library.bgColor": "#0F172A",
+        "icon_library.icon_library.bgPadding": "20",
+        "icon_library.icon_library.glow": "yes",
+        "icon_library.icon_library.glowSize": "14",
+        "icon_library.icon_library.colorGlow": "yes",
+        "icon_library.icon_library.showLabel": "yes",
+        "icon_library.icon_library.labelColor": "#94A3B8",
+        "icon_library.icon_library.thresholdLow": "50",
+        "icon_library.icon_library.thresholdHigh": "90",
+        "icon_library.icon_library.thresholdDirection": "high_good",
+        "icon_library.icon_library.thresholdIconLow": "error",
+        "icon_library.icon_library.thresholdIconMid": "warning",
+        "icon_library.icon_library.thresholdIconHigh": "check_circle",
+        "icon_library.icon_library.thresholdGlowScaleLow": "2",
+        "icon_library.icon_library.thresholdGlowScaleMid": "1",
+        "icon_library.icon_library.thresholdGlowScaleHigh": "0.6",
+        "icon_library.icon_library.thresholdPulse": "critical",
+        "icon_library.icon_library.thresholdPulseSpeed": "1.2"
       }
     },
 
-    "viz_sec8_hdr": {
+    "viz_sec7": {
       "type": "splunk.markdown",
       "options": {
-        "markdown": "## 8. Tips\n\n- **Auto-scaling:** Set `iconSize` and `labelSize` to `0` — the icon scales to fill the panel\n- **No search required:** The icon renders from config alone; attach a search only for data-driven overrides\n- **Background shapes** automatically encompass the icon and label\n- **Glow + Shadow** can be combined for depth effects\n- **Rotation** applies to the icon (and background if present)\n- **Alignment** lets you anchor icons in corners for layout compositions\n- **Threshold colors** can drive multiple elements at once — try `colorIcon=yes, colorGlow=yes` for an emphatic status tile\n- **Custom icons:** Any name from [fonts.google.com/icons](https://fonts.google.com/icons) works — just use `lowercase_with_underscores`\n\n---\n\n*Version 1.4.3 — Icon Library for Splunk Dashboard Studio*",
+        "markdown": "## 7. Data-Driven Icons\n\nAttach a search that returns one row. The viz reads four specific column names:\n\n| SPL Column | Effect |\n|---|---|\n| `icon` | Overrides the icon name (sanitized to `lowercase_underscores`). Wins over `iconName` / `customIcon` / threshold-effect icon swap. |\n| `color` | Overrides icon color (hex). **Beats the threshold engine.** |\n| `label` | Sets label text and auto-enables label display. |\n| `<thresholdField>` (default `value`) | Drives the threshold engine. Band picked from formatter settings. |\n\n### Example — value drives band, label shows hostname, icon swaps via threshold\n\n```spl\n| stats avg(uptime) AS value, latest(host) AS label BY service\n| head 1\n```\n\nFormatter set to `thresholdIconLow=error`, `thresholdIconMid=warning`, `thresholdIconHigh=check_circle` → the icon swaps per-row based on which band `value` falls into.\n\n### Example — explicit icon + color from SPL\n\n```spl\n| makeresults\n| eval icon=if(failed_logins>10, \"warning\", \"check_circle\"),\n       color=if(failed_logins>10, \"#EF4444\", \"#22C55E\"),\n       label=\"Auth subsystem\"\n```\n\nThe explicit `color` column wins over the threshold engine, so the formatter threshold settings are ignored for icon color. Useful when you want full SPL control of every visual property.\n\n### Renaming the threshold field\n\nIf your SPL column isn't called `value`, point the engine at the right name:\n\n```json\n\"options\": {\n  \"icon_library.icon_library.thresholdField\": \"cpu_pct\"\n}\n```",
         "fontColor": "#E2E8F0",
-        "backgroundColor": "transparent"
+        "backgroundColor": "transparent",
+        "fontSize": "default"
+      }
+    },
+
+    "viz_sec8": {
+      "type": "splunk.markdown",
+      "options": {
+        "markdown": "## 8. Full Dashboard Studio JSON Example\n\nA single panel using every major feature — data-driven via `ds.search`, threshold engine, threshold effects, glow, label, and `setToken` drilldown.\n\n```json\n\"dataSources\": {\n  \"ds_health\": {\n    \"type\": \"ds.search\",\n    \"options\": { \"query\": \"| makeresults | eval value=42.1, label=\\\"Queue\\\"\" }\n  }\n},\n\"visualizations\": {\n  \"viz_status_icon\": {\n    \"type\": \"icon_library.icon_library\",\n    \"dataSources\": { \"primary\": \"ds_health\" },\n    \"options\": {\n      \"backgroundColor\": \"transparent\",\n      \"icon_library.icon_library.iconName\": \"monitor_heart\",\n      \"icon_library.icon_library.showLabel\": \"yes\",\n      \"icon_library.icon_library.labelColor\": \"#CBD5E1\",\n      \"icon_library.icon_library.bgShape\": \"circle\",\n      \"icon_library.icon_library.bgColor\": \"#0F172A\",\n      \"icon_library.icon_library.bgPadding\": \"22\",\n      \"icon_library.icon_library.glow\": \"yes\",\n      \"icon_library.icon_library.glowSize\": \"14\",\n      \"icon_library.icon_library.colorGlow\": \"yes\",\n      \"icon_library.icon_library.thresholdLow\": \"70\",\n      \"icon_library.icon_library.thresholdHigh\": \"95\",\n      \"icon_library.icon_library.thresholdDirection\": \"high_good\",\n      \"icon_library.icon_library.thresholdIconLow\": \"error\",\n      \"icon_library.icon_library.thresholdIconMid\": \"warning\",\n      \"icon_library.icon_library.thresholdIconHigh\": \"check_circle\",\n      \"icon_library.icon_library.thresholdGlowScaleLow\": \"2\",\n      \"icon_library.icon_library.thresholdGlowScaleHigh\": \"0.6\",\n      \"icon_library.icon_library.thresholdPulse\": \"critical\",\n      \"icon_library.icon_library.thresholdPulseSpeed\": \"1.2\",\n      \"drilldown\": \"all\"\n    },\n    \"eventHandlers\": [{\n      \"type\": \"drilldown.setToken\",\n      \"options\": {\n        \"tokens\": [\n          { \"token\": \"selected_service\", \"key\": \"label\" }\n        ]\n      }\n    }]\n  }\n}\n```\n\n> **Reminder:** `\"backgroundColor\": \"transparent\"` and `\"drilldown\": \"all\"` are **panel-level** Studio options (no `icon_library.icon_library.` prefix). All other options use the prefix.",
+        "fontColor": "#E2E8F0",
+        "backgroundColor": "transparent",
+        "fontSize": "default"
+      }
+    },
+
+    "viz_sec9": {
+      "type": "splunk.markdown",
+      "options": {
+        "markdown": "## 9. Tips & See Also\n\n### Tips\n\n- **Auto-scaling:** Set `iconSize` and `labelSize` to `0` — the icon scales to fill the panel.\n- **No search required:** The icon renders from config alone; attach a search only for data-driven overrides or threshold-driven coloring.\n- **Background shapes** automatically encompass the icon and label together.\n- **Glow + Shadow** can be combined for depth effects.\n- **Rotation** applies to the icon (and background if present).\n- **Threshold colors + effects** can drive multiple elements at once — try `colorIcon=yes, colorGlow=yes` with `thresholdGlowScaleLow=2` for an emphatic critical-status tile.\n- **DOS expressions** on `iconColor` / `labelColor` / `glowColor` / `bgColor` flow through unchanged when the matching `colorIcon` / etc. toggle is set to `no` — use DOS for 5+ color bands.\n- **For drilldown to fire `setToken`**, the panel must use `ds.search` (not `ds.test`) and declare `\"drilldown\": \"all\"`.\n- **Custom icons:** Any name from [fonts.google.com/icons](https://fonts.google.com/icons) works — use `lowercase_with_underscores`.\n\n### See Also (bundled dashboards in this app)\n\n- **Service Health (Use Case)** — A realistic 6-tile service-status dashboard demonstrating threshold colors, threshold effects, and drilldown setToken in a production-style scenario. Look for it in the left-side nav.\n- **Icon Showcase** — All 256 popular icons across 17 themed sections, plus live demos of threshold colors, threshold effects, and drilldown. Useful as a visual catalog when picking an icon.\n\n---\n\n*Version 1.5.6 — Icon Library for Splunk Dashboard Studio*",
+        "fontColor": "#E2E8F0",
+        "backgroundColor": "transparent",
+        "fontSize": "default"
       }
     }
   },
 
   "layout": {
-    "type": "absolute",
-    "options": {
-      "width": 1440,
-      "height": 5800,
-      "display": "auto-scale",
-      "backgroundColor": "transparent"
+    "tabs": {
+      "items": [{ "label": "README", "layoutId": "layout_1" }]
     },
-    "globalInputs": [],
-    "structure": [
-      { "item": "viz_title",              "type": "block", "position": { "x": 40,   "y": 20,   "w": 900,  "h": 120 } },
-      { "item": "viz_demo_basic",         "type": "block", "position": { "x": 960,  "y": 20,   "w": 100,  "h": 100 } },
-      { "item": "viz_demo_labeled",       "type": "block", "position": { "x": 1070, "y": 20,   "w": 100,  "h": 100 } },
-      { "item": "viz_demo_glow",          "type": "block", "position": { "x": 1180, "y": 20,   "w": 100,  "h": 100 } },
-      { "item": "viz_demo_combo",         "type": "block", "position": { "x": 1290, "y": 20,   "w": 120,  "h": 120 } },
+    "layoutDefinitions": {
+      "layout_1": {
+        "type": "absolute",
+        "options": {
+          "width": 1440,
+          "height": 8900,
+          "display": "auto-scale",
+          "backgroundColor": "transparent"
+        },
+        "globalInputs": [],
+        "structure": [
+          { "item": "viz_title",              "type": "block", "position": { "x": 40,   "y": 20,   "w": 900,  "h": 120 } },
+          { "item": "viz_demo_basic",         "type": "block", "position": { "x": 960,  "y": 20,   "w": 100,  "h": 100 } },
+          { "item": "viz_demo_labeled",       "type": "block", "position": { "x": 1070, "y": 20,   "w": 100,  "h": 100 } },
+          { "item": "viz_demo_glow",          "type": "block", "position": { "x": 1180, "y": 20,   "w": 100,  "h": 100 } },
+          { "item": "viz_demo_combo",         "type": "block", "position": { "x": 1290, "y": 20,   "w": 120,  "h": 120 } },
 
-      { "item": "viz_sec1_hdr",           "type": "block", "position": { "x": 40,   "y": 160,  "w": 1240, "h": 280 } },
-      { "item": "viz_demo_data",          "type": "block", "position": { "x": 1300, "y": 160,  "w": 110,  "h": 110 } },
+          { "item": "viz_sec1",               "type": "block", "position": { "x": 40,   "y": 160,  "w": 1240, "h": 560 } },
+          { "item": "viz_demo_data",          "type": "block", "position": { "x": 1300, "y": 180, "w": 110,  "h": 110 } },
 
-      { "item": "viz_sec2_hdr",           "type": "block", "position": { "x": 40,   "y": 460,  "w": 1360, "h": 620 } },
-      { "item": "viz_sec3_hdr",           "type": "block", "position": { "x": 40,   "y": 1100, "w": 1360, "h": 620 } },
-      { "item": "viz_sec3b_hdr",          "type": "block", "position": { "x": 40,   "y": 1740, "w": 1360, "h": 820 } },
+          { "item": "viz_sec2",               "type": "block", "position": { "x": 40,   "y": 750,  "w": 1360, "h": 800 } },
 
-      { "item": "viz_sec4_hdr",           "type": "block", "position": { "x": 40,   "y": 2580, "w": 1100, "h": 980 } },
-      { "item": "viz_drilldown_demo",     "type": "block", "position": { "x": 1160, "y": 2610, "w": 240,  "h": 240 } },
-      { "item": "viz_drilldown_consumer", "type": "block", "position": { "x": 1160, "y": 2870, "w": 240,  "h": 100 } },
+          { "item": "viz_sec3",               "type": "block", "position": { "x": 40,   "y": 1580, "w": 1360, "h": 1250 } },
 
-      { "item": "viz_sec5_hdr",           "type": "block", "position": { "x": 40,   "y": 3580, "w": 1100, "h": 980 } },
-      { "item": "viz_thr_low",            "type": "block", "position": { "x": 1160, "y": 3610, "w": 240,  "h": 180 } },
-      { "item": "viz_thr_mid",            "type": "block", "position": { "x": 1160, "y": 3800, "w": 240,  "h": 180 } },
-      { "item": "viz_thr_high",           "type": "block", "position": { "x": 1160, "y": 3990, "w": 240,  "h": 180 } },
+          { "item": "viz_sec4",               "type": "block", "position": { "x": 40,   "y": 2860, "w": 1100, "h": 1120 } },
+          { "item": "viz_drilldown_demo",     "type": "block", "position": { "x": 1160, "y": 2890, "w": 240,  "h": 240 } },
+          { "item": "viz_drilldown_consumer", "type": "block", "position": { "x": 1160, "y": 3150, "w": 240,  "h": 100 } },
 
-      { "item": "viz_sec6_hdr",           "type": "block", "position": { "x": 40,   "y": 4580, "w": 1360, "h": 480 } },
-      { "item": "viz_sec7_hdr",           "type": "block", "position": { "x": 40,   "y": 5080, "w": 1360, "h": 740 } },
-      { "item": "viz_sec8_hdr",           "type": "block", "position": { "x": 40,   "y": 5840, "w": 1360, "h": 340 } }
-    ]
+          { "item": "viz_sec5",               "type": "block", "position": { "x": 40,   "y": 4010, "w": 1100, "h": 1200 } },
+          { "item": "viz_thr_low",            "type": "block", "position": { "x": 1160, "y": 4040, "w": 240,  "h": 200 } },
+          { "item": "viz_thr_mid",            "type": "block", "position": { "x": 1160, "y": 4260, "w": 240,  "h": 200 } },
+          { "item": "viz_thr_high",           "type": "block", "position": { "x": 1160, "y": 4480, "w": 240,  "h": 200 } },
+
+          { "item": "viz_sec6",               "type": "block", "position": { "x": 40,   "y": 5240, "w": 1100, "h": 1180 } },
+          { "item": "viz_fx_critical",        "type": "block", "position": { "x": 1160, "y": 5270, "w": 240,  "h": 240 } },
+          { "item": "viz_fx_warning",         "type": "block", "position": { "x": 1160, "y": 5530, "w": 240,  "h": 240 } },
+          { "item": "viz_fx_healthy",         "type": "block", "position": { "x": 1160, "y": 5790, "w": 240,  "h": 240 } },
+
+          { "item": "viz_sec7",               "type": "block", "position": { "x": 40,   "y": 6450, "w": 1360, "h": 700 } },
+          { "item": "viz_sec8",               "type": "block", "position": { "x": 40,   "y": 7180, "w": 1360, "h": 1100 } },
+          { "item": "viz_sec9",               "type": "block", "position": { "x": 40,   "y": 8310, "w": 1360, "h": 540 } }
+        ]
+      }
+    }
   },
   "applicationProperties": { "theme": "dark" }
 }
