@@ -64,11 +64,27 @@ define([
         if (_fontPending) return;
         _fontPending = true;
 
+        // Stagger callbacks across animation frames instead of firing all in
+        // one tick. On the 256-icon showcase, slamming 256 _render() calls
+        // back-to-back when the font resolves freezes the main thread for
+        // a noticeable beat. Spreading them lets the browser paint and stay
+        // responsive while panels fill in.
         function notifyAll() {
             _fontReady = true;
             var cbs = _fontCallbacks;
             _fontCallbacks = [];
-            for (var i = 0; i < cbs.length; i++) cbs[i]();
+            var BATCH = 8; // panels per frame
+            var raf = (typeof requestAnimationFrame === 'function')
+                ? requestAnimationFrame
+                : function(f) { setTimeout(f, 16); };
+            function drain(i) {
+                var end = Math.min(i + BATCH, cbs.length);
+                for (var j = i; j < end; j++) {
+                    try { cbs[j](); } catch (e) { /* keep draining */ }
+                }
+                if (end < cbs.length) raf(function() { drain(end); });
+            }
+            drain(0);
         }
 
         if (typeof document === 'undefined' || !document.fonts || !document.fonts.load) {
@@ -150,26 +166,33 @@ define([
         },
 
         _setupNoDataObserver: function() {
-            if (typeof MutationObserver !== 'undefined' && this.el) {
-                this._placeholderObs = new MutationObserver(function(mutations) {
-                    for (var i = 0; i < mutations.length; i++) {
-                        for (var j = 0; j < mutations[i].addedNodes.length; j++) {
-                            var node = mutations[i].addedNodes[j];
-                            if (node.nodeType === 1) {
-                                var msg = node.querySelector
-                                    ? node.querySelector('.viz-empty-placeholder, .splunk-no-results-message, [data-test="no-results"]')
-                                    : null;
-                                if (msg) msg.style.display = 'none';
-                                if (node.classList &&
-                                    (node.classList.contains('viz-empty-placeholder') ||
-                                     node.classList.contains('splunk-no-results-message'))) {
-                                    node.style.display = 'none';
-                                }
-                            }
+            // Hides Splunk's "no results" overlay so the icon viz can render
+            // without data attached. Narrowed scope (childList only, no subtree)
+            // since Splunk injects the placeholder as a direct child of this.el.
+            // Self-disconnects after the first successful render to avoid running
+            // 256 observers indefinitely on the showcase dashboard.
+            if (typeof MutationObserver === 'undefined' || !this.el) return;
+            var self = this;
+            this._placeholderObs = new MutationObserver(function(mutations) {
+                for (var i = 0; i < mutations.length; i++) {
+                    for (var j = 0; j < mutations[i].addedNodes.length; j++) {
+                        var node = mutations[i].addedNodes[j];
+                        if (node.nodeType !== 1) continue;
+                        if (node.classList && (
+                            node.classList.contains('viz-empty-placeholder') ||
+                            node.classList.contains('splunk-no-results-message'))) {
+                            node.style.display = 'none';
                         }
                     }
-                });
-                this._placeholderObs.observe(this.el, { childList: true, subtree: true });
+                }
+            });
+            this._placeholderObs.observe(this.el, { childList: true, subtree: false });
+        },
+
+        _disconnectPlaceholderObs: function() {
+            if (this._placeholderObs) {
+                this._placeholderObs.disconnect();
+                this._placeholderObs = null;
             }
         },
 
@@ -222,9 +245,12 @@ define([
         },
 
         getInitialDataParams: function() {
+            // The viz only ever reads data.rows[0] — request a single row instead
+            // of the default 10k. On dashboards with many icon panels (e.g. the
+            // 256-icon showcase) this avoids transferring ~2.5M unused rows.
             return {
                 outputMode: SplunkVisualizationBase.ROW_MAJOR_OUTPUT_MODE,
-                count: 10000
+                count: 1
             };
         },
 
@@ -233,10 +259,22 @@ define([
         },
 
         updateView: function(data, config) {
+            // Splunk re-invokes updateView on a wide variety of events (panel
+            // resize, dashboard refresh, neighbor-panel updates). When the actual
+            // inputs haven't changed, skip the full canvas redraw. Cheap identity
+            // check — Splunk hands us the same object reference when nothing changed.
+            if (config === this._lastConfig && data === this._lastData && this._fontDone) {
+                return;
+            }
             this._lastConfig = config;
             this._lastData = data;
             var self = this;
             if (!this._fontDone) {
+                // Render once with the browser's fallback font right away so the
+                // panel has SOMETHING visible during font load. Then re-render
+                // with Material Symbols once the font resolves. Eliminates the
+                // 0–2 second blank period on slow Docker installs.
+                this._render(data, config);
                 loadFont(function() {
                     self._fontDone = true;
                     self._render(data, config);
@@ -286,10 +324,7 @@ define([
                 clearTimeout(this._reflowTimer);
                 this._reflowTimer = null;
             }
-            if (this._placeholderObs) {
-                this._placeholderObs.disconnect();
-                this._placeholderObs = null;
-            }
+            this._disconnectPlaceholderObs();
             if (this._clickHandler && this.el) {
                 this.el.removeEventListener('click', this._clickHandler);
             }
@@ -314,7 +349,11 @@ define([
             var h = el.offsetHeight;
             if (w <= 0 || h <= 0) return;
 
-            var dpr = window.devicePixelRatio || 1;
+            // Cap devicePixelRatio at 2. On 4K/5K/HiDPI displays dpr can be 3+,
+            // which quadruples the canvas backing buffer. For 256 panels at 120px
+            // each that's ~130MB of canvas memory — clamping to 2 still looks
+            // crisp on Retina and roughly halves allocation on extreme displays.
+            var dpr = Math.min(window.devicePixelRatio || 1, 2);
             var canvas = this._canvas;
             if (!canvas) return;
             canvas.width = w * dpr;
@@ -672,6 +711,10 @@ define([
                 ctx.fillText(labelText, cx, labelY);
                 ctx.restore();
             }
+
+            // Successful render — Splunk has either not shown the no-results
+            // overlay or we've already hidden it. The observer's job is done.
+            this._disconnectPlaceholderObs();
         }
     });
 });
