@@ -596,7 +596,7 @@ visualizations[dd_hdr_id] = {
             "Click any of the four icons below. Each panel sets `selected_icon` via "
             "`drilldown.setToken`. The status panel underneath shows the captured "
             "`$selected_icon$` token. Required wiring: panel option `\"drilldown\": \"all\"` "
-            "+ `eventHandlers` with `\"key\": \"icon\"`."
+            "+ `eventHandlers` with `\"key\": \"row.icon.value\"`."
         ),
         "fontColor": "#E2E8F0",
         "backgroundColor": "transparent",
@@ -617,7 +617,7 @@ dd_start_x = (CANVAS_W - dd_total_w) // 2
 dd_event_handlers = [{
     "type": "drilldown.setToken",
     "options": {
-        "tokens": [{"token": "selected_icon", "key": "icon"}],
+        "tokens": [{"token": "selected_icon", "key": "row.icon.value"}],
     },
 }]
 

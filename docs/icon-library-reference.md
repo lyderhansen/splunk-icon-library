@@ -85,7 +85,7 @@ Two things must be set:
 
 1. Panel options include `"drilldown": "all"`. Without it, Studio silently drops the click event.
 2. The panel must be backed by a **real `ds.search`** (e.g. `| makeresults | eval icon="security"`). `ds.test` mock data does not propagate drilldown context — the click fires but no payload reaches the `setToken` handler.
-3. An `eventHandlers` array with `drilldown.setToken` keyed on **`icon`** (the literal field name emitted in the payload). The viz emits `{icon: <iconName>, label?: <labelText>, color?: <hexColor>}` — Studio's setToken reads `key` against the literal payload-object key names. The older `click.value` syntax (native chart vizs) and `row.<field>.value` syntax (native table vizs) don't apply because we emit a different payload shape.
+3. An `eventHandlers` array with `drilldown.setToken` keyed on **`row.<field>.value`**. The viz emits `{icon: <iconName>, label?: <labelText>, color?: <hexColor>}` — Splunk's runtime maps that data object to a synthetic click-row, and the `row.<field>.value` syntax reads each field's value back out. The older `click.value` syntax (for native chart vizs) does not apply to custom-viz `FIELD_VALUE_DRILLDOWN` payloads.
 
 Canonical pattern:
 
@@ -102,22 +102,22 @@ Canonical pattern:
     "type": "drilldown.setToken",
     "options": {
       "tokens": [
-        { "token": "selected_icon", "key": "icon" }
+        { "token": "selected_icon", "key": "row.icon.value" }
       ]
     }
   }]
 }
 ```
 
-The `tokens` array can declare multiple entries. The viz emits a payload with literal field-name → field-value pairs, and `key` in each token entry references a field name directly:
+The `tokens` array can declare multiple entries. The viz emits a payload with literal field-name → field-value pairs, and Splunk's runtime maps that to a synthetic row for `setToken` resolution. Reference each field using `row.<field>.value`:
 
-| Payload field (use as `key`) | Resolves to |
+| `key` | Resolves to |
 |---|---|
-| `icon` | The resolved icon name (data-driven if SPL has an `icon` column, otherwise the formatter value) |
-| `label` | The label text — only present when a label is rendered |
-| `color` | The resolved icon color (hex) |
+| `row.icon.value` | The resolved icon name (data-driven if SPL has an `icon` column, otherwise the formatter value) |
+| `row.label.value` | The label text — only present when a label is rendered |
+| `row.color.value` | The resolved icon color (hex) |
 
-**Why not `click.value` / `row.<field>.value`?** The `click.*` namespace exists for Splunk's native chart visualizations (which emit a different payload shape). The `row.<field>.value` namespace exists for native table row clicks. Custom-viz `FIELD_VALUE_DRILLDOWN` payloads expose their literal data-object keys directly — `key: "icon"`, not `key: "value"`, not `key: "row.icon.value"`.
+**Why not `click.value`?** The `click.*` namespace exists for Splunk's native chart visualizations which emit a different payload shape. Custom-viz `FIELD_VALUE_DRILLDOWN` payloads need the `row.<field>.value` syntax because they're matched to a row context, not a single-value click context.
 
 For tokens that need to survive across dashboard sessions, declare a default:
 
@@ -140,7 +140,7 @@ this.drilldown({
 }, event);
 ```
 
-This is the canonical Splunk shape — Studio reads the literal data-object keys (`name`, `value`) when resolving `setToken` `key` references.
+This is the canonical Splunk shape — Studio matches the data-object keys to a synthetic row, and `setToken` references each field with `row.<field>.value`.
 
 ### Path B — URL navigation
 
@@ -176,7 +176,7 @@ Otherwise the cursor remains default and clicks are no-ops.
 ### Gotchas
 
 - **Missing `"drilldown": "all"` on the panel** is the #1 reason setToken doesn't fire. The viz emits the click but Studio drops it.
-- **`"value": "$row.icon.value$"` in setToken tokens does NOT work.** `$row.*` is for native table-style vizs. Custom-viz drilldown exposes the payload as a flat object with literal field-name keys: `{icon, label?, color?}`. Use `{"token": "...", "key": "icon"}` to capture the icon name. The `click.value` form (from older Splunk docs) is also wrong for custom vizs.
+- **`"value": "$row.icon.value$"` (the dollar-wrapped string form) in setToken does NOT work.** Use `{"token": "...", "key": "row.icon.value"}` (the bare `key` form) instead. The `click.value` form is also wrong here — that's for native chart vizs.
 - **`tokens` is an array of `{token, key}`** — not `{token, value}` with a `$...$` string. The `key` is bare (no dollar wrapping).
 - **`javascript:` URLs** in `drilldownUrl` will execute on click. The viz does not currently filter URL schemes. If you're authoring shared dashboards, validate URLs externally.
 
@@ -535,7 +535,7 @@ See the dedicated **Threshold colors** section above for the full table.
     "type": "drilldown.setToken",
     "options": {
       "tokens": [
-        { "token": "selected_icon", "key": "icon" }
+        { "token": "selected_icon", "key": "row.icon.value" }
       ]
     }
   }]
@@ -613,7 +613,7 @@ index=main icon=$selected_icon|s$
   "eventHandlers": [{
     "type": "drilldown.setToken",
     "options": {
-      "tokens": [{ "token": "selected_service", "key": "icon" }]
+      "tokens": [{ "token": "selected_service", "key": "row.icon.value" }]
     }
   }]
 }
@@ -625,7 +625,7 @@ index=main icon=$selected_icon|s$
 
 1. **Black box behind the icon.** Missing `"backgroundColor": "transparent"` in the panel `options`.
 2. **Drilldown setToken silently does nothing.** Missing `"drilldown": "all"` in the panel `options`.
-3. **`$row.icon.value$` doesn't resolve, and neither does `$click.value$`.** Custom-viz drilldown emits a `{icon, label?, color?}` payload — the setToken `key` references a literal field of that object directly. Use `{"token": "...", "key": "icon"}`.
+3. **`$click.value$` doesn't resolve for custom-viz drilldown.** Use the bare-key form: `{"token": "...", "key": "row.icon.value"}`. The viz emits `{icon, label?, color?}` which Splunk maps to a synthetic row, so each field is referenced as `row.<field>.value`.
 4. **Threshold colors don't change.** Either the SPL doesn't include the configured `thresholdField`, or the per-element toggle (`colorIcon` etc.) is set to `no`, or an explicit `color` SPL column is overriding it.
 5. **DOS expression overridden.** The matching toggle (`colorIcon`/`colorLabel`/`colorGlow`/`colorBg`) is set to `yes` and the threshold engine is rewriting the DOS-resolved color. Set it to `no` when DOS is in use.
 6. **Icon name not recognized.** Names must be `lowercase_with_underscores`. The sanitizer strips other characters silently. Use `mode_heat_off`, not `Mode Heat Off` or `mode-heat-off`.

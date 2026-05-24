@@ -170,7 +170,7 @@ When you drive a color via DOS, set the matching **Apply to … color** toggle t
 Drilldown is automatic — no per-viz toggle. Two things must line up for setToken to fire:
 
 1. The panel must declare `"drilldown": "all"` in its `options` — without this, Dashboard Studio swallows the click silently
-2. An `eventHandlers` array with a `drilldown.setToken` entry. The `key` field references a literal field name in the payload — the viz emits `{icon: "<resolved icon name>", label: "<label>"?, color: "<hex>"?}`. **Use `"key": "icon"`** to capture the icon name. The `click.value` syntax from native chart vizs and the `row.<field>.value` syntax from table vizs both do not work for our payload shape.
+2. An `eventHandlers` array with a `drilldown.setToken` entry. The viz emits `{icon, label?, color?}`, and Splunk treats those keys as fields of a synthetic click-row. Reference values with **`row.<field>.value`**: `"key": "row.icon.value"` captures the icon name, `"row.label.value"` captures the label, `"row.color.value"` captures the hex color. The older `click.value` syntax (for native chart vizs) does not apply here.
 
 ```json
 "viz_my_icon": {
@@ -185,7 +185,7 @@ Drilldown is automatic — no per-viz toggle. Two things must line up for setTok
     "type": "drilldown.setToken",
     "options": {
       "tokens": [
-        { "token": "selected_icon", "key": "icon" }
+        { "token": "selected_icon", "key": "row.icon.value" }
       ]
     }
   }]
@@ -196,9 +196,9 @@ What gets populated:
 
 | Studio token | Value |
 |---|---|
-| `icon` (in payload) | The resolved icon name (or the value of the `icon` SPL column if data-driven). Reference with `"key": "icon"`. |
-| `label` (in payload) | The label text — only present when a label is rendered. Reference with `"key": "label"`. |
-| `color` (in payload) | The resolved icon color (hex). Reference with `"key": "color"`. |
+| `icon` (in payload) | The resolved icon name (or the value of the `icon` SPL column if data-driven). Reference with `"key": "row.icon.value"`. |
+| `label` (in payload) | The label text — only present when a label is rendered. Reference with `"key": "row.label.value"`. |
+| `color` (in payload) | The resolved icon color (hex). Reference with `"key": "row.color.value"`. |
 | `click.name` | `"icon"` |
 
 The visualization renders a single click target per panel, so the payload `value` field is always the icon name. To capture label/color too, use Option B with a multi-token URL, or wire a separate `setToken` handler from your data source.
@@ -243,7 +243,7 @@ All custom option keys use the prefix `icon_library.icon_library.` in Dashboard 
   "eventHandlers": [{
     "type": "drilldown.setToken",
     "options": {
-      "tokens": [{ "token": "selected_icon", "key": "icon" }]
+      "tokens": [{ "token": "selected_icon", "key": "row.icon.value" }]
     }
   }]
 }
@@ -285,10 +285,11 @@ icon_library/
 
 | Version | Changes |
 |---|---|
+| 1.5.8 | Fix `drilldown.setToken` to use `"key": "row.icon.value"` (or `row.label.value` / `row.color.value`) instead of the bare field name — Splunk maps the custom-viz `{icon, label?, color?}` payload to a synthetic row and resolves token keys via `row.<field>.value`. Also moved `globalInputs` outside `layoutDefinitions` and removed unsupported `display` / `backgroundColor` from `layout_1.options` so the README and Service Health dashboards pass the strict Dashboard Studio Source-view schema validator. |
 | 1.5.7 | Mirror app icons into `appserver/static/` so Splunk's REST static endpoint (`/servicesNS/nobody/icon_library/static/appIcon_2x.png`) serves them instead of returning 404. Top-level `static/` icons (used by the launcher) are unchanged. |
 | 1.5.6 | Rewrite the in-app **README** dashboard: nine sections each with inline JSON / SPL examples, new dedicated section for Threshold Effects (icon swap, glow scale, pulse) with three live demo tiles, modernized Dashboard Studio schema (`tabs` + `layoutDefinitions`), generously sized markdown panels to eliminate scrollbars, and a "See Also" section pointing to the Service Health and Icon Showcase dashboards. |
 | 1.5.5 | Add bundled **Service Health** use-case dashboard — six service tiles backed by `\| makeresults` SPL, demonstrating threshold colors, threshold effects (icon swap + glow scale + pulse on critical), and `drilldown.setToken` capturing the SPL `label` column into a token. Realistic 8-panel dashboard that loads in 2-3 seconds and gives Splunkbase visitors an immediate "I'd use this" example. |
-| 1.5.4 | **Threshold effects** — per-band icon swap (e.g. `error` / `warning` / `check_circle` driven by the value), per-band glow-size scaling, and pulse animation on the critical band (configurable speed and band). Drilldown via Dashboard Studio `drilldown.setToken` now uses `"key": "icon"` (or `"label"` / `"color"`) to read the resolved values from a `{icon, label?, color?}` click payload. Pointer cursor auto-appears on panels with attached search data — no per-viz toggle. Refreshed in-app README dashboard and 256-icon showcase, each with live drilldown + threshold-effect demos. AppInspect-ready packaging. **Rendering performance pass**: data request reduced to `count: 1` (was `10000`), redundant re-renders skipped when config and data are unchanged, fallback-font render shows the panel immediately while Material Symbols loads (no blank period), font-load callbacks staggered across animation frames (8 panels per frame) to keep the main thread responsive on multi-panel dashboards, `devicePixelRatio` capped at 2, and the no-data placeholder observer narrowed to direct children + self-disconnects after first successful render. |
+| 1.5.4 | **Threshold effects** — per-band icon swap (e.g. `error` / `warning` / `check_circle` driven by the value), per-band glow-size scaling, and pulse animation on the critical band (configurable speed and band). Drilldown via Dashboard Studio `drilldown.setToken` now uses `"key": "row.icon.value"` (or `"label"` / `"color"`) to read the resolved values from a `{icon, label?, color?}` click payload. Pointer cursor auto-appears on panels with attached search data — no per-viz toggle. Refreshed in-app README dashboard and 256-icon showcase, each with live drilldown + threshold-effect demos. AppInspect-ready packaging. **Rendering performance pass**: data request reduced to `count: 1` (was `10000`), redundant re-renders skipped when config and data are unchanged, fallback-font render shows the panel immediately while Material Symbols loads (no blank period), font-load callbacks staggered across animation frames (8 panels per frame) to keep the main thread responsive on multi-panel dashboards, `devicePixelRatio` capped at 2, and the no-data placeholder observer narrowed to direct children + self-disconnects after first successful render. |
 | 1.4.0 | **Threshold colors engine** — formatter section drives icon, label, glow, and background color from a numeric SPL column. Two configurable thresholds × three color pickers × direction (`high = good` or `high = bad`). Per-element apply toggles let Dashboard Studio DOS expressions on `iconColor` / `labelColor` / `glowColor` / `bgColor` flow through unchanged. Explicit SPL `color` column wins over the threshold engine. |
 | 1.3.0 | **Initial public release** — 2,500+ Material Symbols icons rendered on Canvas 2D, with the icon font base64-embedded in `visualization.css` (no external network requests, Splunk Cloud compatible). Formatter controls for icon picker, custom icon name, color, background shape (circle / rounded rectangle / square), glow, shadow, label, alignment, rotation, and drilldown URL. Apache 2.0 license with full Material Symbols attribution in NOTICE. |
 

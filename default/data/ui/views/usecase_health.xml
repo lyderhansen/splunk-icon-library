@@ -62,7 +62,7 @@
       },
       "eventHandlers": [{
         "type": "drilldown.setToken",
-        "options": { "tokens": [{ "token": "selected_service", "key": "label" }] }
+        "options": { "tokens": [{ "token": "selected_service", "key": "row.label.value" }] }
       }]
     },
     "viz_auth": {
@@ -94,7 +94,7 @@
       },
       "eventHandlers": [{
         "type": "drilldown.setToken",
-        "options": { "tokens": [{ "token": "selected_service", "key": "label" }] }
+        "options": { "tokens": [{ "token": "selected_service", "key": "row.label.value" }] }
       }]
     },
     "viz_db": {
@@ -126,7 +126,7 @@
       },
       "eventHandlers": [{
         "type": "drilldown.setToken",
-        "options": { "tokens": [{ "token": "selected_service", "key": "label" }] }
+        "options": { "tokens": [{ "token": "selected_service", "key": "row.label.value" }] }
       }]
     },
     "viz_queue": {
@@ -158,7 +158,7 @@
       },
       "eventHandlers": [{
         "type": "drilldown.setToken",
-        "options": { "tokens": [{ "token": "selected_service", "key": "label" }] }
+        "options": { "tokens": [{ "token": "selected_service", "key": "row.label.value" }] }
       }]
     },
     "viz_cache": {
@@ -190,7 +190,7 @@
       },
       "eventHandlers": [{
         "type": "drilldown.setToken",
-        "options": { "tokens": [{ "token": "selected_service", "key": "label" }] }
+        "options": { "tokens": [{ "token": "selected_service", "key": "row.label.value" }] }
       }]
     },
     "viz_cdn": {
@@ -222,7 +222,7 @@
       },
       "eventHandlers": [{
         "type": "drilldown.setToken",
-        "options": { "tokens": [{ "token": "selected_service", "key": "label" }] }
+        "options": { "tokens": [{ "token": "selected_service", "key": "row.label.value" }] }
       }]
     },
 
@@ -248,19 +248,18 @@
   },
 
   "layout": {
+    "globalInputs": [],
     "tabs": {
-      "items": [{ "label": "Service Health", "layoutId": "layout_1" }]
+      "items": [{ "label": "Service Health", "layoutId": "layout_1" }],
+      "options": { "showTabBar": false }
     },
     "layoutDefinitions": {
       "layout_1": {
         "type": "absolute",
         "options": {
           "width": 1440,
-          "height": 800,
-          "display": "auto-scale",
-          "backgroundColor": "transparent"
+          "height": 800
         },
-        "globalInputs": [],
         "structure": [
           { "item": "viz_title",       "type": "block", "position": { "x": 40,  "y": 20,  "w": 1360, "h": 100 } },
 
