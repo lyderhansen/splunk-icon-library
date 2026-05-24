@@ -63,9 +63,8 @@ Browse all icons at **[fonts.google.com/icons](https://fonts.google.com/icons)**
 | Label Text | `labelText` | _(empty)_ | Text below the icon |
 | Label Size | `labelSize` | `0` (auto) | Fixed pixel size, or `0` to auto-scale |
 | Label Color | `labelColor` | `#94A3B8` | Hex color |
-| Enable Drilldown | `drilldown` | `no` | `yes` / `no` — enables click events |
-| Drilldown URL | `drilldownUrl` | _(empty)_ | URL with `$icon$`, `$label$`, `$color$` tokens |
-| Drilldown New Tab | `drilldownNewTab` | `yes` | `yes` / `no` |
+| Drilldown URL | `drilldownUrl` | _(empty)_ | Optional URL with `$icon$`, `$label$`, `$color$` tokens. Leaving empty falls through to Dashboard Studio eventHandlers when the panel has `"drilldown": "all"`. |
+| Drilldown New Tab | `drilldownNewTab` | `yes` | `yes` / `no` — only applies when `drilldownUrl` is set |
 
 ### Color and style
 
@@ -101,35 +100,108 @@ Attach a search that returns columns named `icon`, `color`, `label`, or `value`:
 | SPL Column | Effect |
 |---|---|
 | `icon` | Overrides the icon name (sanitized to `lowercase_underscores`) |
-| `color` | Overrides icon color (hex) |
+| `color` | Overrides icon color (hex). Wins over the threshold engine. |
 | `label` | Sets label text and auto-enables label display |
-| `value` | Threshold coloring: ≥90 green, ≥50 amber, <50 red |
+| `value` | Drives the threshold engine (see below) — band picked from formatter settings |
+
+## Threshold Colors
+
+The formatter's **Threshold colors** section drives icon/label/glow/background color from a numeric SPL column.
+
+| Setting | Default | Description |
+|---|---|---|
+| Source field | `value` | SPL column name whose numeric value picks the band |
+| Low threshold | `50` | Values strictly below this fall in the low band |
+| High threshold | `90` | Values at or above this fall in the high band; in-between → mid band |
+| Direction | `High = good` | Flips the band order (use `High = bad` for errors, latency) |
+| Low / Mid / High band color | `#EF4444` / `#F59E0B` / `#22C55E` | Three color pickers |
+| Apply to icon / label / glow / background | icon=Yes, others=No | Per-element opt-in |
+
+## Threshold Effects (per band)
+
+The **Threshold effects** formatter section drives non-color visual changes per band — icon swap, glow scaling, and pulse animation.
+
+| Setting | Default | Description |
+|---|---|---|
+| Icon (low / mid / high band) | _(empty)_ | Override the icon name when in that band. Empty = use the formatter icon. Example: `error` / `warning` / `check_circle`. |
+| Glow scale (low / mid / high band) | `1` / `1` / `1` | Multiplier applied to `glowSize` for that band. `2` doubles glow, `0` removes it. |
+| Pulse animation | `Off` | `Off`, `Critical band only`, `Warning (mid) band only`, or `Critical + warning`. **Critical band** = low band when `High=good`, high band when `High=bad`. Requires Glow enabled. |
+| Pulse speed | `1` | Pulses per second. `2` = faster, `0.5` = slower. |
+
+The pulse animation modulates the glow radius by ±45% around its base size via a `requestAnimationFrame` loop. The loop cancels itself when the band changes (or on viz destroy) — no leaked animation frames.
+
+### Beyond 3 bands
+
+The native formatter exposes 3 bands. For more (5-band heatmaps, 10-band gradients, exact-string matching), use Dashboard Studio DOS on `iconColor` / `labelColor` / `glowColor` / `bgColor` with `rangeValue`, `gradient`, or `matchValue` — the same mechanism Splunk's built-in single-value uses behind its gradient widget. The DOS path supports arbitrary band counts; see the JSON example below.
+
+### Two ways to drive search-based color
+
+**A) Formatter thresholds (no JSON required).** Enable the per-element toggles and configure the thresholds. Defaults reproduce the classic RAG scheme (red <50, amber 50–89, green ≥90).
+
+**B) Splunk DOS in dashboard JSON (power users).** Any of `iconColor`, `labelColor`, `glowColor`, `bgColor` accept the full Dashboard Studio Dynamic Options Syntax:
+
+```json
+"viz_status": {
+  "type": "icon_library.icon_library",
+  "dataSources": { "primary": "ds_health" },
+  "options": {
+    "backgroundColor": "transparent",
+    "icon_library.icon_library.customIcon": "monitor_heart",
+    "icon_library.icon_library.iconColor":
+      "> primary | seriesByName('uptime_pct') | lastPoint() | rangeValue(colors)",
+    "icon_library.icon_library.colorIcon": "no"
+  },
+  "context": {
+    "colors": [
+      { "to": 95,             "value": "#EF4444" },
+      { "from": 95, "to": 99, "value": "#F59E0B" },
+      { "from": 99,           "value": "#22C55E" }
+    ]
+  }
+}
+```
+
+When you drive a color via DOS, set the matching **Apply to … color** toggle to **No** so the formatter thresholds don't override your DOS-resolved value.
 
 ## Drilldown / Click Interactions
 
 ### Option A: Dashboard Studio eventHandlers (recommended)
 
-Set **Enable Drilldown = Yes** and leave **Drilldown URL** empty. Add `eventHandlers` in the JSON:
+Drilldown is automatic — no per-viz toggle. Two things must line up for setToken to fire:
+
+1. The panel must declare `"drilldown": "all"` in its `options` — without this, Dashboard Studio swallows the click silently
+2. An `eventHandlers` array with a `drilldown.setToken` entry. The `key` field references a literal field name in the payload — the viz emits `{icon: "<resolved icon name>", label: "<label>"?, color: "<hex>"?}`. **Use `"key": "icon"`** to capture the icon name. The `click.value` syntax from native chart vizs and the `row.<field>.value` syntax from table vizs both do not work for our payload shape.
 
 ```json
 "viz_my_icon": {
   "type": "icon_library.icon_library",
   "dataSources": { "primary": "ds_search" },
   "options": {
+    "backgroundColor": "transparent",
     "icon_library.icon_library.customIcon": "security",
-    "icon_library.icon_library.drilldown": "yes"
+    "drilldown": "all"
   },
   "eventHandlers": [{
     "type": "drilldown.setToken",
     "options": {
-      "tokens": [{
-        "token": "selected_icon",
-        "value": "$row.icon.value$"
-      }]
+      "tokens": [
+        { "token": "selected_icon", "key": "icon" }
+      ]
     }
   }]
 }
 ```
+
+What gets populated:
+
+| Studio token | Value |
+|---|---|
+| `icon` (in payload) | The resolved icon name (or the value of the `icon` SPL column if data-driven). Reference with `"key": "icon"`. |
+| `label` (in payload) | The label text — only present when a label is rendered. Reference with `"key": "label"`. |
+| `color` (in payload) | The resolved icon color (hex). Reference with `"key": "color"`. |
+| `click.name` | `"icon"` |
+
+The visualization renders a single click target per panel, so the payload `value` field is always the icon name. To capture label/color too, use Option B with a multi-token URL, or wire a separate `setToken` handler from your data source.
 
 ### Option B: Direct URL navigation
 
@@ -139,7 +211,7 @@ Set **Drilldown URL** to any URL with token placeholders:
 https://mysplunk.com/app/search/search?q=index%3Dmain%20icon%3D$icon$
 ```
 
-Available tokens: `$icon$`, `$label$`, `$color$` (URL-encoded).
+Available tokens: `$icon$`, `$label$`, `$color$` — all URL-encoded by the viz before substitution.
 
 ## Dashboard Studio JSON Example
 
@@ -166,8 +238,14 @@ All custom option keys use the prefix `icon_library.icon_library.` in Dashboard 
     "icon_library.icon_library.shadow": "yes",
     "icon_library.icon_library.shadowBlur": "8",
     "icon_library.icon_library.shadowOffsetY": "4",
-    "icon_library.icon_library.drilldown": "yes"
-  }
+    "drilldown": "all"
+  },
+  "eventHandlers": [{
+    "type": "drilldown.setToken",
+    "options": {
+      "tokens": [{ "token": "selected_icon", "key": "icon" }]
+    }
+  }]
 }
 ```
 
@@ -207,12 +285,9 @@ icon_library/
 
 | Version | Changes |
 |---|---|
-| 1.3.3 | Add LICENSE + NOTICE; relicense to Apache 2.0 with proper Material Symbols attribution |
-| 1.3.1 | Code cleanup, remove unused import, transparent background docs |
-| 1.3.0 | README dashboard, AppInspect fixes, icon name corrections |
-| 1.2.0 | Drilldown support, 256-icon showcase dashboard |
-| 1.1.0 | Alignment controls, label-inside-background, icon name sanitization |
-| 1.0.0 | Initial release with 2,500+ Material Symbols icons |
+| 1.5.4 | **Threshold effects** — per-band icon swap (e.g. `error` / `warning` / `check_circle` driven by the value), per-band glow-size scaling, and pulse animation on the critical band (configurable speed and band). Drilldown via Dashboard Studio `drilldown.setToken` now uses `"key": "icon"` (or `"label"` / `"color"`) to read the resolved values from a `{icon, label?, color?}` click payload. Pointer cursor auto-appears on panels with attached search data — no per-viz toggle. Refreshed in-app README dashboard and 256-icon showcase, each with live drilldown + threshold-effect demos. AppInspect-ready packaging. |
+| 1.4.0 | **Threshold colors engine** — formatter section drives icon, label, glow, and background color from a numeric SPL column. Two configurable thresholds × three color pickers × direction (`high = good` or `high = bad`). Per-element apply toggles let Dashboard Studio DOS expressions on `iconColor` / `labelColor` / `glowColor` / `bgColor` flow through unchanged. Explicit SPL `color` column wins over the threshold engine. |
+| 1.3.0 | **Initial public release** — 2,500+ Material Symbols icons rendered on Canvas 2D, with the icon font base64-embedded in `visualization.css` (no external network requests, Splunk Cloud compatible). Formatter controls for icon picker, custom icon name, color, background shape (circle / rounded rectangle / square), glow, shadow, label, alignment, rotation, and drilldown URL. Apache 2.0 license with full Material Symbols attribution in NOTICE. |
 
 ## License
 

@@ -4,7 +4,7 @@
   <definition><![CDATA[
 {
   "title": "Icon Library Showcase \u2014 250 Icons",
-  "description": "Comprehensive showcase of icon_library visualization settings: colors, backgrounds, glow, shadow, labels, alignment, rotation, and combined effects.",
+  "description": "Comprehensive showcase of icon_library visualization settings: colors, backgrounds, glow, shadow, labels, alignment, rotation, drilldown, threshold colors, and combined effects.",
   "dataSources": {
     "ds_stub": {
       "type": "ds.test",
@@ -23,9 +23,156 @@
         }
       },
       "name": "Stub for icon rendering"
+    },
+    "ds_thr_10": {
+      "type": "ds.test",
+      "options": {
+        "data": {
+          "fields": [
+            {
+              "name": "value"
+            }
+          ],
+          "columns": [
+            [
+              "10"
+            ]
+          ]
+        }
+      },
+      "name": "Threshold demo \u2014 value=10"
+    },
+    "ds_thr_35": {
+      "type": "ds.test",
+      "options": {
+        "data": {
+          "fields": [
+            {
+              "name": "value"
+            }
+          ],
+          "columns": [
+            [
+              "35"
+            ]
+          ]
+        }
+      },
+      "name": "Threshold demo \u2014 value=35"
+    },
+    "ds_thr_60": {
+      "type": "ds.test",
+      "options": {
+        "data": {
+          "fields": [
+            {
+              "name": "value"
+            }
+          ],
+          "columns": [
+            [
+              "60"
+            ]
+          ]
+        }
+      },
+      "name": "Threshold demo \u2014 value=60"
+    },
+    "ds_thr_85": {
+      "type": "ds.test",
+      "options": {
+        "data": {
+          "fields": [
+            {
+              "name": "value"
+            }
+          ],
+          "columns": [
+            [
+              "85"
+            ]
+          ]
+        }
+      },
+      "name": "Threshold demo \u2014 value=85"
+    },
+    "ds_thr_99": {
+      "type": "ds.test",
+      "options": {
+        "data": {
+          "fields": [
+            {
+              "name": "value"
+            }
+          ],
+          "columns": [
+            [
+              "99"
+            ]
+          ]
+        }
+      },
+      "name": "Threshold demo \u2014 value=99"
+    },
+    "ds_drill_security": {
+      "type": "ds.search",
+      "options": {
+        "query": "| makeresults | eval icon=\"security\""
+      },
+      "name": "Drilldown demo \u2014 security"
+    },
+    "ds_drill_monitor_heart": {
+      "type": "ds.search",
+      "options": {
+        "query": "| makeresults | eval icon=\"monitor_heart\""
+      },
+      "name": "Drilldown demo \u2014 monitor_heart"
+    },
+    "ds_drill_warning": {
+      "type": "ds.search",
+      "options": {
+        "query": "| makeresults | eval icon=\"warning\""
+      },
+      "name": "Drilldown demo \u2014 warning"
+    },
+    "ds_drill_lock": {
+      "type": "ds.search",
+      "options": {
+        "query": "| makeresults | eval icon=\"lock\""
+      },
+      "name": "Drilldown demo \u2014 lock"
+    },
+    "ds_fx_25": {
+      "type": "ds.search",
+      "options": {
+        "query": "| makeresults | eval value=25"
+      },
+      "name": "Threshold effects demo \u2014 value=25"
+    },
+    "ds_fx_70": {
+      "type": "ds.search",
+      "options": {
+        "query": "| makeresults | eval value=70"
+      },
+      "name": "Threshold effects demo \u2014 value=70"
+    },
+    "ds_fx_95": {
+      "type": "ds.search",
+      "options": {
+        "query": "| makeresults | eval value=95"
+      },
+      "name": "Threshold effects demo \u2014 value=95"
     }
   },
-  "defaults": {},
+  "defaults": {
+    "tokens": {
+      "default": {
+        "selected_icon": {
+          "value": "(click an icon above)"
+        }
+      }
+    }
+  },
   "visualizations": {
     "viz_hdr_0": {
       "type": "splunk.markdown",
@@ -4000,13 +4147,351 @@
         "icon_library.icon_library.iconName": "pool",
         "icon_library.icon_library.iconColor": "#3B82F6"
       }
+    },
+    "viz_hdr_threshold_demo": {
+      "type": "splunk.markdown",
+      "options": {
+        "markdown": "### Live Demo: Threshold colors\nFive panels of the same `monitor_heart` icon fed `value` = 10, 35, 60, 85, 99. Default thresholds (50, 90) bucket them into low (red), mid (amber), high (green). `colorIcon=yes` (default) tints the icon; `colorGlow=yes` makes the glow follow the band.",
+        "fontColor": "#E2E8F0",
+        "backgroundColor": "transparent"
+      }
+    },
+    "viz_thr_demo_10": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_thr_10"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "monitor_heart",
+        "icon_library.icon_library.bgShape": "circle",
+        "icon_library.icon_library.bgColor": "#0F172A",
+        "icon_library.icon_library.bgPadding": "16",
+        "icon_library.icon_library.glow": "yes",
+        "icon_library.icon_library.glowSize": "16",
+        "icon_library.icon_library.colorGlow": "yes",
+        "icon_library.icon_library.showLabel": "yes",
+        "icon_library.icon_library.labelText": "value = 10",
+        "icon_library.icon_library.labelColor": "#94A3B8"
+      }
+    },
+    "viz_thr_demo_35": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_thr_35"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "monitor_heart",
+        "icon_library.icon_library.bgShape": "circle",
+        "icon_library.icon_library.bgColor": "#0F172A",
+        "icon_library.icon_library.bgPadding": "16",
+        "icon_library.icon_library.glow": "yes",
+        "icon_library.icon_library.glowSize": "16",
+        "icon_library.icon_library.colorGlow": "yes",
+        "icon_library.icon_library.showLabel": "yes",
+        "icon_library.icon_library.labelText": "value = 35",
+        "icon_library.icon_library.labelColor": "#94A3B8"
+      }
+    },
+    "viz_thr_demo_60": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_thr_60"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "monitor_heart",
+        "icon_library.icon_library.bgShape": "circle",
+        "icon_library.icon_library.bgColor": "#0F172A",
+        "icon_library.icon_library.bgPadding": "16",
+        "icon_library.icon_library.glow": "yes",
+        "icon_library.icon_library.glowSize": "16",
+        "icon_library.icon_library.colorGlow": "yes",
+        "icon_library.icon_library.showLabel": "yes",
+        "icon_library.icon_library.labelText": "value = 60",
+        "icon_library.icon_library.labelColor": "#94A3B8"
+      }
+    },
+    "viz_thr_demo_85": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_thr_85"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "monitor_heart",
+        "icon_library.icon_library.bgShape": "circle",
+        "icon_library.icon_library.bgColor": "#0F172A",
+        "icon_library.icon_library.bgPadding": "16",
+        "icon_library.icon_library.glow": "yes",
+        "icon_library.icon_library.glowSize": "16",
+        "icon_library.icon_library.colorGlow": "yes",
+        "icon_library.icon_library.showLabel": "yes",
+        "icon_library.icon_library.labelText": "value = 85",
+        "icon_library.icon_library.labelColor": "#94A3B8"
+      }
+    },
+    "viz_thr_demo_99": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_thr_99"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "monitor_heart",
+        "icon_library.icon_library.bgShape": "circle",
+        "icon_library.icon_library.bgColor": "#0F172A",
+        "icon_library.icon_library.bgPadding": "16",
+        "icon_library.icon_library.glow": "yes",
+        "icon_library.icon_library.glowSize": "16",
+        "icon_library.icon_library.colorGlow": "yes",
+        "icon_library.icon_library.showLabel": "yes",
+        "icon_library.icon_library.labelText": "value = 99",
+        "icon_library.icon_library.labelColor": "#94A3B8"
+      }
+    },
+    "viz_hdr_threshold_effects_demo": {
+      "type": "splunk.markdown",
+      "options": {
+        "markdown": "### Live Demo: Threshold effects (per-band icon swap, glow scaling, pulse)\nThree panels share **identical configuration** but receive different `value` rows. Watch the icon, glow size, and pulse animation change based on which band the value falls in:\n\n- `value = 25` \u2192 critical band \u2192 icon = `error`, glow x2, **pulses at 1.2 Hz**\n- `value = 70` \u2192 warning band \u2192 icon = `warning`, glow x1, no pulse\n- `value = 95` \u2192 healthy band \u2192 icon = `check_circle`, glow x0.6, no pulse",
+        "fontColor": "#E2E8F0",
+        "backgroundColor": "transparent"
+      }
+    },
+    "viz_fx_demo_25": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_fx_25"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "monitor_heart",
+        "icon_library.icon_library.bgShape": "circle",
+        "icon_library.icon_library.bgColor": "#0F172A",
+        "icon_library.icon_library.bgPadding": "24",
+        "icon_library.icon_library.glow": "yes",
+        "icon_library.icon_library.glowSize": "14",
+        "icon_library.icon_library.colorGlow": "yes",
+        "icon_library.icon_library.showLabel": "yes",
+        "icon_library.icon_library.labelColor": "#94A3B8",
+        "icon_library.icon_library.thresholdLow": "50",
+        "icon_library.icon_library.thresholdHigh": "90",
+        "icon_library.icon_library.thresholdDirection": "high_good",
+        "icon_library.icon_library.thresholdIconLow": "error",
+        "icon_library.icon_library.thresholdIconMid": "warning",
+        "icon_library.icon_library.thresholdIconHigh": "check_circle",
+        "icon_library.icon_library.thresholdGlowScaleLow": "2",
+        "icon_library.icon_library.thresholdGlowScaleMid": "1",
+        "icon_library.icon_library.thresholdGlowScaleHigh": "0.6",
+        "icon_library.icon_library.thresholdPulse": "critical",
+        "icon_library.icon_library.thresholdPulseSpeed": "1.2",
+        "icon_library.icon_library.labelText": "value = 25"
+      }
+    },
+    "viz_fx_demo_70": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_fx_70"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "monitor_heart",
+        "icon_library.icon_library.bgShape": "circle",
+        "icon_library.icon_library.bgColor": "#0F172A",
+        "icon_library.icon_library.bgPadding": "24",
+        "icon_library.icon_library.glow": "yes",
+        "icon_library.icon_library.glowSize": "14",
+        "icon_library.icon_library.colorGlow": "yes",
+        "icon_library.icon_library.showLabel": "yes",
+        "icon_library.icon_library.labelColor": "#94A3B8",
+        "icon_library.icon_library.thresholdLow": "50",
+        "icon_library.icon_library.thresholdHigh": "90",
+        "icon_library.icon_library.thresholdDirection": "high_good",
+        "icon_library.icon_library.thresholdIconLow": "error",
+        "icon_library.icon_library.thresholdIconMid": "warning",
+        "icon_library.icon_library.thresholdIconHigh": "check_circle",
+        "icon_library.icon_library.thresholdGlowScaleLow": "2",
+        "icon_library.icon_library.thresholdGlowScaleMid": "1",
+        "icon_library.icon_library.thresholdGlowScaleHigh": "0.6",
+        "icon_library.icon_library.thresholdPulse": "critical",
+        "icon_library.icon_library.thresholdPulseSpeed": "1.2",
+        "icon_library.icon_library.labelText": "value = 70"
+      }
+    },
+    "viz_fx_demo_95": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_fx_95"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "monitor_heart",
+        "icon_library.icon_library.bgShape": "circle",
+        "icon_library.icon_library.bgColor": "#0F172A",
+        "icon_library.icon_library.bgPadding": "24",
+        "icon_library.icon_library.glow": "yes",
+        "icon_library.icon_library.glowSize": "14",
+        "icon_library.icon_library.colorGlow": "yes",
+        "icon_library.icon_library.showLabel": "yes",
+        "icon_library.icon_library.labelColor": "#94A3B8",
+        "icon_library.icon_library.thresholdLow": "50",
+        "icon_library.icon_library.thresholdHigh": "90",
+        "icon_library.icon_library.thresholdDirection": "high_good",
+        "icon_library.icon_library.thresholdIconLow": "error",
+        "icon_library.icon_library.thresholdIconMid": "warning",
+        "icon_library.icon_library.thresholdIconHigh": "check_circle",
+        "icon_library.icon_library.thresholdGlowScaleLow": "2",
+        "icon_library.icon_library.thresholdGlowScaleMid": "1",
+        "icon_library.icon_library.thresholdGlowScaleHigh": "0.6",
+        "icon_library.icon_library.thresholdPulse": "critical",
+        "icon_library.icon_library.thresholdPulseSpeed": "1.2",
+        "icon_library.icon_library.labelText": "value = 95"
+      }
+    },
+    "viz_hdr_drilldown_demo": {
+      "type": "splunk.markdown",
+      "options": {
+        "markdown": "### Live Demo: Drilldown\nClick any of the four icons below. Each panel sets `selected_icon` via `drilldown.setToken`. The status panel underneath shows the captured `$selected_icon$` token. Required wiring: panel option `\"drilldown\": \"all\"` + `eventHandlers` with `\"key\": \"icon\"`.",
+        "fontColor": "#E2E8F0",
+        "backgroundColor": "transparent"
+      }
+    },
+    "viz_drill_demo_security": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_drill_security"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconColor": "#06B6D4",
+        "icon_library.icon_library.bgShape": "circle",
+        "icon_library.icon_library.bgColor": "#0F172A",
+        "icon_library.icon_library.bgPadding": "16",
+        "icon_library.icon_library.glow": "yes",
+        "icon_library.icon_library.glowColor": "#06B6D4",
+        "icon_library.icon_library.glowSize": "12",
+        "drilldown": "all"
+      },
+      "eventHandlers": [
+        {
+          "type": "drilldown.setToken",
+          "options": {
+            "tokens": [
+              {
+                "token": "selected_icon",
+                "key": "icon"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "viz_drill_demo_monitor_heart": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_drill_monitor_heart"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconColor": "#22C55E",
+        "icon_library.icon_library.bgShape": "circle",
+        "icon_library.icon_library.bgColor": "#0F172A",
+        "icon_library.icon_library.bgPadding": "16",
+        "icon_library.icon_library.glow": "yes",
+        "icon_library.icon_library.glowColor": "#22C55E",
+        "icon_library.icon_library.glowSize": "12",
+        "drilldown": "all"
+      },
+      "eventHandlers": [
+        {
+          "type": "drilldown.setToken",
+          "options": {
+            "tokens": [
+              {
+                "token": "selected_icon",
+                "key": "icon"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "viz_drill_demo_warning": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_drill_warning"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconColor": "#F59E0B",
+        "icon_library.icon_library.bgShape": "circle",
+        "icon_library.icon_library.bgColor": "#0F172A",
+        "icon_library.icon_library.bgPadding": "16",
+        "icon_library.icon_library.glow": "yes",
+        "icon_library.icon_library.glowColor": "#F59E0B",
+        "icon_library.icon_library.glowSize": "12",
+        "drilldown": "all"
+      },
+      "eventHandlers": [
+        {
+          "type": "drilldown.setToken",
+          "options": {
+            "tokens": [
+              {
+                "token": "selected_icon",
+                "key": "icon"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "viz_drill_demo_lock": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_drill_lock"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconColor": "#EF4444",
+        "icon_library.icon_library.bgShape": "circle",
+        "icon_library.icon_library.bgColor": "#0F172A",
+        "icon_library.icon_library.bgPadding": "16",
+        "icon_library.icon_library.glow": "yes",
+        "icon_library.icon_library.glowColor": "#EF4444",
+        "icon_library.icon_library.glowSize": "12",
+        "drilldown": "all"
+      },
+      "eventHandlers": [
+        {
+          "type": "drilldown.setToken",
+          "options": {
+            "tokens": [
+              {
+                "token": "selected_icon",
+                "key": "icon"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "viz_drill_consumer": {
+      "type": "splunk.markdown",
+      "options": {
+        "markdown": "**Last clicked icon:**  `$selected_icon$`",
+        "fontColor": "#E2E8F0",
+        "backgroundColor": "transparent",
+        "fontSize": "extraLarge"
+      }
     }
   },
   "layout": {
     "type": "absolute",
     "options": {
       "width": 1920,
-      "height": 4636,
+      "height": 5646,
       "display": "auto-scale",
       "backgroundColor": "#101014"
     },
@@ -6740,6 +7225,166 @@
           "y": 4442,
           "w": 120,
           "h": 120
+        }
+      },
+      {
+        "item": "viz_hdr_threshold_demo",
+        "type": "block",
+        "position": {
+          "x": 55,
+          "y": 4596,
+          "w": 1810,
+          "h": 50
+        }
+      },
+      {
+        "item": "viz_thr_demo_10",
+        "type": "block",
+        "position": {
+          "x": 312,
+          "y": 4650,
+          "w": 240,
+          "h": 200
+        }
+      },
+      {
+        "item": "viz_thr_demo_35",
+        "type": "block",
+        "position": {
+          "x": 576,
+          "y": 4650,
+          "w": 240,
+          "h": 200
+        }
+      },
+      {
+        "item": "viz_thr_demo_60",
+        "type": "block",
+        "position": {
+          "x": 840,
+          "y": 4650,
+          "w": 240,
+          "h": 200
+        }
+      },
+      {
+        "item": "viz_thr_demo_85",
+        "type": "block",
+        "position": {
+          "x": 1104,
+          "y": 4650,
+          "w": 240,
+          "h": 200
+        }
+      },
+      {
+        "item": "viz_thr_demo_99",
+        "type": "block",
+        "position": {
+          "x": 1368,
+          "y": 4650,
+          "w": 240,
+          "h": 200
+        }
+      },
+      {
+        "item": "viz_hdr_threshold_effects_demo",
+        "type": "block",
+        "position": {
+          "x": 55,
+          "y": 4874,
+          "w": 1810,
+          "h": 90
+        }
+      },
+      {
+        "item": "viz_fx_demo_25",
+        "type": "block",
+        "position": {
+          "x": 478,
+          "y": 4968,
+          "w": 300,
+          "h": 240
+        }
+      },
+      {
+        "item": "viz_fx_demo_70",
+        "type": "block",
+        "position": {
+          "x": 810,
+          "y": 4968,
+          "w": 300,
+          "h": 240
+        }
+      },
+      {
+        "item": "viz_fx_demo_95",
+        "type": "block",
+        "position": {
+          "x": 1142,
+          "y": 4968,
+          "w": 300,
+          "h": 240
+        }
+      },
+      {
+        "item": "viz_hdr_drilldown_demo",
+        "type": "block",
+        "position": {
+          "x": 55,
+          "y": 5232,
+          "w": 1810,
+          "h": 50
+        }
+      },
+      {
+        "item": "viz_drill_demo_security",
+        "type": "block",
+        "position": {
+          "x": 484,
+          "y": 5286,
+          "w": 220,
+          "h": 200
+        }
+      },
+      {
+        "item": "viz_drill_demo_monitor_heart",
+        "type": "block",
+        "position": {
+          "x": 728,
+          "y": 5286,
+          "w": 220,
+          "h": 200
+        }
+      },
+      {
+        "item": "viz_drill_demo_warning",
+        "type": "block",
+        "position": {
+          "x": 972,
+          "y": 5286,
+          "w": 220,
+          "h": 200
+        }
+      },
+      {
+        "item": "viz_drill_demo_lock",
+        "type": "block",
+        "position": {
+          "x": 1216,
+          "y": 5286,
+          "w": 220,
+          "h": 200
+        }
+      },
+      {
+        "item": "viz_drill_consumer",
+        "type": "block",
+        "position": {
+          "x": 484,
+          "y": 5502,
+          "w": 952,
+          "h": 80
         }
       }
     ]

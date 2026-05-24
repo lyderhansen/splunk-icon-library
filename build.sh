@@ -80,6 +80,8 @@ rsync -a \
     --exclude='appserver/static/visualizations/*/harness.json' \
     --exclude='appserver/static/visualizations/*/fonts/' \
     --exclude='_generate_showcase.py' \
+    --exclude='docs/' \
+    --exclude='CLAUDE.md' \
     "$SCRIPT_DIR/" \
     "$APP_STAGING/"
 

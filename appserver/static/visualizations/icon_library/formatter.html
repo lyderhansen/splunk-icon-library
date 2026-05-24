@@ -248,19 +248,12 @@
         </splunk-color-picker>
     </splunk-control-group>
 
-    <splunk-control-group label="Enable Drilldown" help="Show pointer cursor and fire drilldown event on click. Works with Dashboard Studio eventHandlers (setToken, linkToSearch, linkToDashboard).">
-        <splunk-radio-input name="{{VIZ_NAMESPACE}}.drilldown" value="no">
-            <option value="yes">Yes</option>
-            <option value="no">No</option>
-        </splunk-radio-input>
-    </splunk-control-group>
-
-    <splunk-control-group label="Drilldown URL" help="URL to navigate to on click. Supports tokens: $icon$, $label$, $color$. Leave empty to use Dashboard Studio eventHandlers instead.">
+    <splunk-control-group label="Drilldown URL" help="Optional URL to navigate to on click. Supports tokens: $icon$, $label$, $color$ (all URL-encoded). Leave empty to use Dashboard Studio eventHandlers (drilldown.setToken) instead — set `&quot;drilldown&quot;: &quot;all&quot;` on the panel options.">
         <splunk-text-input name="{{VIZ_NAMESPACE}}.drilldownUrl" value="">
         </splunk-text-input>
     </splunk-control-group>
 
-    <splunk-control-group label="Drilldown Opens New Tab" help="Open drilldown URL in a new browser tab">
+    <splunk-control-group label="Drilldown Opens New Tab" help="Open the drilldown URL in a new browser tab. Only applies when Drilldown URL is set.">
         <splunk-radio-input name="{{VIZ_NAMESPACE}}.drilldownNewTab" value="yes">
             <option value="yes">Yes</option>
             <option value="no">No</option>
@@ -268,7 +261,7 @@
     </splunk-control-group>
 </form>
 
-<form class="splunk-formatter-section" section-label="Color and style">
+<form class="splunk-formatter-section" section-label="Icon style">
     <splunk-control-group label="Icon Color" help="Color of the icon">
         <splunk-color-picker name="{{VIZ_NAMESPACE}}.iconColor" type="custom" value="#06B6D4">
             <splunk-color>#F8FAFC</splunk-color>
@@ -374,6 +367,137 @@
 
     <splunk-control-group label="Glow Size" help="Size of the glow effect in pixels">
         <splunk-text-input name="{{VIZ_NAMESPACE}}.glowSize" value="12">
+        </splunk-text-input>
+    </splunk-control-group>
+</form>
+
+<form class="splunk-formatter-section" section-label="Threshold colors">
+    <splunk-control-group label="Source field" help="Name of the SPL column whose numeric value drives the threshold rule. Default: value">
+        <splunk-text-input name="{{VIZ_NAMESPACE}}.thresholdField" value="value">
+        </splunk-text-input>
+    </splunk-control-group>
+
+    <splunk-control-group label="Low threshold" help="Values strictly below this fall in the low band">
+        <splunk-text-input name="{{VIZ_NAMESPACE}}.thresholdLow" value="50">
+        </splunk-text-input>
+    </splunk-control-group>
+
+    <splunk-control-group label="High threshold" help="Values at or above this fall in the high band. Values between low and high fall in the mid band.">
+        <splunk-text-input name="{{VIZ_NAMESPACE}}.thresholdHigh" value="90">
+        </splunk-text-input>
+    </splunk-control-group>
+
+    <splunk-control-group label="Direction" help="High-good: green at top, red at bottom (uptime, score). High-bad: red at top, green at bottom (errors, latency).">
+        <splunk-radio-input name="{{VIZ_NAMESPACE}}.thresholdDirection" value="high_good">
+            <option value="high_good">High = good</option>
+            <option value="high_bad">High = bad</option>
+        </splunk-radio-input>
+    </splunk-control-group>
+
+    <splunk-control-group label="Low band color" help="Color for values below the low threshold (the worst band when High=good).">
+        <splunk-color-picker name="{{VIZ_NAMESPACE}}.thresholdColorLow" type="custom" value="#EF4444">
+            <splunk-color>#EF4444</splunk-color>
+            <splunk-color>#DC2626</splunk-color>
+            <splunk-color>#F87171</splunk-color>
+            <splunk-color>#EC4899</splunk-color>
+            <splunk-color>#A855F7</splunk-color>
+            <splunk-color>#64748B</splunk-color>
+        </splunk-color-picker>
+    </splunk-control-group>
+
+    <splunk-control-group label="Mid band color" help="Color for values between the low and high thresholds.">
+        <splunk-color-picker name="{{VIZ_NAMESPACE}}.thresholdColorMid" type="custom" value="#F59E0B">
+            <splunk-color>#F59E0B</splunk-color>
+            <splunk-color>#FBBF24</splunk-color>
+            <splunk-color>#F97316</splunk-color>
+            <splunk-color>#EAB308</splunk-color>
+            <splunk-color>#06B6D4</splunk-color>
+            <splunk-color>#94A3B8</splunk-color>
+        </splunk-color-picker>
+    </splunk-control-group>
+
+    <splunk-control-group label="High band color" help="Color for values at or above the high threshold (the best band when High=good).">
+        <splunk-color-picker name="{{VIZ_NAMESPACE}}.thresholdColorHigh" type="custom" value="#22C55E">
+            <splunk-color>#22C55E</splunk-color>
+            <splunk-color>#16A34A</splunk-color>
+            <splunk-color>#10B981</splunk-color>
+            <splunk-color>#06B6D4</splunk-color>
+            <splunk-color>#3B82F6</splunk-color>
+            <splunk-color>#8B5CF6</splunk-color>
+        </splunk-color-picker>
+    </splunk-control-group>
+
+    <splunk-control-group label="Apply to icon color" help="Tint the icon with the threshold band color. Enabled by default — set to No when driving iconColor via a DOS expression in the dashboard JSON.">
+        <splunk-radio-input name="{{VIZ_NAMESPACE}}.colorIcon" value="yes">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </splunk-radio-input>
+    </splunk-control-group>
+
+    <splunk-control-group label="Apply to label color" help="Tint the label text with the threshold band color.">
+        <splunk-radio-input name="{{VIZ_NAMESPACE}}.colorLabel" value="no">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </splunk-radio-input>
+    </splunk-control-group>
+
+    <splunk-control-group label="Apply to glow color" help="Tint the glow halo with the threshold band color. Only takes effect when Glow is enabled.">
+        <splunk-radio-input name="{{VIZ_NAMESPACE}}.colorGlow" value="no">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </splunk-radio-input>
+    </splunk-control-group>
+
+    <splunk-control-group label="Apply to background color" help="Tint the background shape with the threshold band color. Only takes effect when a Background Shape is set.">
+        <splunk-radio-input name="{{VIZ_NAMESPACE}}.colorBg" value="no">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </splunk-radio-input>
+    </splunk-control-group>
+</form>
+
+<form class="splunk-formatter-section" section-label="Threshold effects">
+    <splunk-control-group label="Icon (low band)" help="Override the icon name when the threshold value lands in the low band. Empty = keep the formatter icon. Example: error">
+        <splunk-text-input name="{{VIZ_NAMESPACE}}.thresholdIconLow" value="">
+        </splunk-text-input>
+    </splunk-control-group>
+
+    <splunk-control-group label="Icon (mid band)" help="Override the icon name when the threshold value lands in the mid band. Empty = keep the formatter icon. Example: warning">
+        <splunk-text-input name="{{VIZ_NAMESPACE}}.thresholdIconMid" value="">
+        </splunk-text-input>
+    </splunk-control-group>
+
+    <splunk-control-group label="Icon (high band)" help="Override the icon name when the threshold value lands in the high band. Empty = keep the formatter icon. Example: check_circle">
+        <splunk-text-input name="{{VIZ_NAMESPACE}}.thresholdIconHigh" value="">
+        </splunk-text-input>
+    </splunk-control-group>
+
+    <splunk-control-group label="Glow scale (low band)" help="Multiplier applied to Glow Size when in the low band. 1 = no change, 2 = double, 0 = no glow.">
+        <splunk-text-input name="{{VIZ_NAMESPACE}}.thresholdGlowScaleLow" value="1">
+        </splunk-text-input>
+    </splunk-control-group>
+
+    <splunk-control-group label="Glow scale (mid band)" help="Multiplier applied to Glow Size when in the mid band.">
+        <splunk-text-input name="{{VIZ_NAMESPACE}}.thresholdGlowScaleMid" value="1">
+        </splunk-text-input>
+    </splunk-control-group>
+
+    <splunk-control-group label="Glow scale (high band)" help="Multiplier applied to Glow Size when in the high band.">
+        <splunk-text-input name="{{VIZ_NAMESPACE}}.thresholdGlowScaleHigh" value="1">
+        </splunk-text-input>
+    </splunk-control-group>
+
+    <splunk-control-group label="Pulse animation" help="Animate the glow radius when the value falls in the selected band. Critical = the worst band (low when High=good, high when High=bad). Requires Glow to be enabled.">
+        <splunk-select name="{{VIZ_NAMESPACE}}.thresholdPulse" value="no">
+            <option value="no">Off</option>
+            <option value="critical">Critical only</option>
+            <option value="warning">Warning only</option>
+            <option value="critical_and_warning">Critical + warning</option>
+        </splunk-select>
+    </splunk-control-group>
+
+    <splunk-control-group label="Pulse speed" help="Pulses per second. 1 = one beat per second, 2 = faster, 0.5 = slower.">
+        <splunk-text-input name="{{VIZ_NAMESPACE}}.thresholdPulseSpeed" value="1">
         </splunk-text-input>
     </splunk-control-group>
 </form>

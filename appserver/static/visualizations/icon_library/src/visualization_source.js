@@ -131,6 +131,13 @@ define([
             this._resolvedLabel = '';
             this._resolvedColor = '#06B6D4';
             this._fontDone = false;
+            this._resolvedField = 'icon';
+            this._clickHandler = null;
+            this._pulseRaf = null;
+            this._pulseActive = false;
+            this._pulsePhase = 0;
+            this._pulseStartTime = 0;
+            this._pulseSpeed = 1;
             if (this.el) {
                 this._canvas = document.createElement('canvas');
                 this._canvas.style.width = '100%';
@@ -168,13 +175,12 @@ define([
 
         _setupClickHandler: function() {
             var self = this;
-            this.el.addEventListener('click', function(event) {
-                if (!self._drilldownEnabled) return;
-
+            this._clickHandler = function(event) {
+                // URL navigation wins when a Drilldown URL is configured.
                 var url = self._drilldownUrl;
                 if (url) {
-                    url = url.replace(/\$icon\$/g, self._resolvedIcon || '');
-                    url = url.replace(/\$label\$/g, self._resolvedLabel || '');
+                    url = url.replace(/\$icon\$/g, encodeURIComponent(self._resolvedIcon || ''));
+                    url = url.replace(/\$label\$/g, encodeURIComponent(self._resolvedLabel || ''));
                     url = url.replace(/\$color\$/g, encodeURIComponent(self._resolvedColor || ''));
                     if (self._drilldownNewTab) {
                         window.open(url, '_blank');
@@ -184,18 +190,35 @@ define([
                     return;
                 }
 
-                var drilldownData = {};
-                drilldownData['icon'] = self._resolvedIcon || '';
-                drilldownData['label'] = self._resolvedLabel || '';
-                drilldownData['color'] = self._resolvedColor || '';
+                // Always fire the FIELD_VALUE_DRILLDOWN event. Splunk Studio
+                // silently drops it when no eventHandler is wired — there's no
+                // downside to dispatching, and trying to detect "is something
+                // wired?" from inside the viz is unreliable since panel options
+                // aren't consistently passed through to the viz config.
+                //
+                // Payload uses literal {<fieldName>: <fieldValue>} pairs so that
+                // setToken handlers can reference them with key: "<fieldName>".
+                // The {name, value} shape from Splunk's older docs does NOT work
+                // here: Studio doesn't expose those as click.value / click.name
+                // for custom-viz FIELD_VALUE_DRILLDOWN payloads. Empirically,
+                // key: "value" against {name, value} resolves to data.name (the
+                // literal string "icon"), not data.value.
                 event.preventDefault();
                 try {
+                    var fieldName = self._resolvedField || 'icon';
+                    var payload = {};
+                    payload[fieldName] = self._resolvedIcon || '';
+                    // Include label and color so users with multi-token setToken
+                    // handlers can capture all three values from one click.
+                    if (self._resolvedLabel) payload.label = self._resolvedLabel;
+                    if (self._resolvedColor) payload.color = self._resolvedColor;
                     self.drilldown({
                         action: SplunkVisualizationBase.FIELD_VALUE_DRILLDOWN,
-                        data: drilldownData
+                        data: payload
                     }, event);
                 } catch (e) { /* harness or missing handler */ }
-            });
+            };
+            this.el.addEventListener('click', this._clickHandler);
         },
 
         getInitialDataParams: function() {
@@ -233,6 +256,31 @@ define([
             }, 16);
         },
 
+        _startPulse: function() {
+            if (this._pulseRaf) return;
+            if (typeof requestAnimationFrame === 'undefined') return;
+            var self = this;
+            self._pulseStartTime = (typeof performance !== 'undefined' && performance.now)
+                ? performance.now() : Date.now();
+            function tick(now) {
+                if (!self._pulseActive) {
+                    self._pulseRaf = null;
+                    return;
+                }
+                var t = (typeof now === 'number') ? now : (
+                    (typeof performance !== 'undefined' && performance.now)
+                        ? performance.now() : Date.now()
+                );
+                var elapsed = (t - self._pulseStartTime) / 1000;
+                self._pulsePhase = (elapsed * self._pulseSpeed) % 1;
+                if (self._lastConfig) {
+                    self._render(self._lastData, self._lastConfig);
+                }
+                self._pulseRaf = requestAnimationFrame(tick);
+            }
+            self._pulseRaf = requestAnimationFrame(tick);
+        },
+
         destroy: function() {
             if (this._reflowTimer) {
                 clearTimeout(this._reflowTimer);
@@ -242,6 +290,15 @@ define([
                 this._placeholderObs.disconnect();
                 this._placeholderObs = null;
             }
+            if (this._clickHandler && this.el) {
+                this.el.removeEventListener('click', this._clickHandler);
+            }
+            this._clickHandler = null;
+            this._pulseActive = false;
+            if (this._pulseRaf && typeof cancelAnimationFrame !== 'undefined') {
+                cancelAnimationFrame(this._pulseRaf);
+            }
+            this._pulseRaf = null;
             this._canvas = null;
             this._lastConfig = null;
             this._lastData = null;
@@ -292,11 +349,51 @@ define([
             var glowSize    = parseInt(getOption(config, ns, 'glowSize', '12'), 10);
             var rotation    = parseInt(getOption(config, ns, 'rotation', '0'), 10);
 
-            var drilldownOn  = getOption(config, ns, 'drilldown', 'no');
+            // Drilldown affordance is shown when ANY of:
+            //   1. A Drilldown URL is set in the formatter, OR
+            //   2. The panel options include "drilldown": "all" (Studio signal that
+            //      an eventHandler is wired), OR
+            //   3. A search is attached and returns at least one row (proxy for
+            //      "this panel is intended to be interactive").
+            // Splunk Studio sometimes strips panel-level options before passing
+            // config to custom vizs, so condition 2 alone is not reliable — the
+            // data-attachment fallback covers that case.
+            // The click handler always fires this.drilldown() — Studio silently
+            // drops the event if no eventHandler is wired, so this is always safe.
             var drilldownUrl = getOption(config, ns, 'drilldownUrl', '');
+            var panelDrilldown = config['drilldown'];
+            var panelDrilldownOn = (panelDrilldown && panelDrilldown !== 'none' && panelDrilldown !== 'no');
+            var dataAttached = !!(data && data.rows && data.rows.length > 0);
             var drilldownNewTab = getOption(config, ns, 'drilldownNewTab', 'yes') === 'yes';
 
-            this._drilldownEnabled = (drilldownOn === 'yes') || (drilldownUrl !== '');
+            // Threshold colors — RAG model with two breakpoints + three bands.
+            // DOS-driven option values (rangeValue/matchValue/gradient) flow through
+            // the static formatter pickers above; this block layers an extra rule
+            // on top when the user opts in.
+            var thrField = getOption(config, ns, 'thresholdField', 'value');
+            var thrLow   = parseFloat(getOption(config, ns, 'thresholdLow', '50'));
+            var thrHigh  = parseFloat(getOption(config, ns, 'thresholdHigh', '90'));
+            var thrDir   = getOption(config, ns, 'thresholdDirection', 'high_good');
+            var thrColorLow  = getOption(config, ns, 'thresholdColorLow',  '#EF4444');
+            var thrColorMid  = getOption(config, ns, 'thresholdColorMid',  '#F59E0B');
+            var thrColorHigh = getOption(config, ns, 'thresholdColorHigh', '#22C55E');
+            var colorIcon  = getOption(config, ns, 'colorIcon',  'yes') === 'yes';
+            var colorLabel = getOption(config, ns, 'colorLabel', 'no')  === 'yes';
+            var colorGlow  = getOption(config, ns, 'colorGlow',  'no')  === 'yes';
+            var colorBg    = getOption(config, ns, 'colorBg',    'no')  === 'yes';
+
+            // Threshold per-band effects — icon swap, glow scaling, pulse animation
+            var thrIconLow  = getOption(config, ns, 'thresholdIconLow',  '');
+            var thrIconMid  = getOption(config, ns, 'thresholdIconMid',  '');
+            var thrIconHigh = getOption(config, ns, 'thresholdIconHigh', '');
+            var thrGlowScaleLow  = parseFloat(getOption(config, ns, 'thresholdGlowScaleLow',  '1'));
+            var thrGlowScaleMid  = parseFloat(getOption(config, ns, 'thresholdGlowScaleMid',  '1'));
+            var thrGlowScaleHigh = parseFloat(getOption(config, ns, 'thresholdGlowScaleHigh', '1'));
+            var thrPulse = getOption(config, ns, 'thresholdPulse', 'no');
+            var thrPulseSpeed = parseFloat(getOption(config, ns, 'thresholdPulseSpeed', '1'));
+            if (isNaN(thrPulseSpeed) || thrPulseSpeed <= 0) thrPulseSpeed = 1;
+
+            this._drilldownEnabled = (drilldownUrl !== '') || panelDrilldownOn || dataAttached;
             this._drilldownUrl = drilldownUrl;
             this._drilldownNewTab = drilldownNewTab;
 
@@ -310,6 +407,9 @@ define([
             }
 
             // ── Data-driven overrides ────────────────────────────
+            var resolvedField = 'icon';
+            var thrNumeric = NaN;
+            var sawColorColumn = false;
             if (data && data.rows && data.rows.length > 0 && data.fields) {
                 var row = data.rows[0];
                 var fields = data.fields;
@@ -317,23 +417,107 @@ define([
                     var fname = fields[fi].name;
                     var fval = row[fi];
                     if (fval === null || fval === undefined) continue;
-                    if (fname === 'icon') resolvedIcon = sanitizeIconName(String(fval)) || resolvedIcon;
-                    if (fname === 'color') iconColor = String(fval);
+                    if (fname === 'icon') {
+                        resolvedIcon = sanitizeIconName(String(fval)) || resolvedIcon;
+                        resolvedField = 'icon';
+                    }
+                    if (fname === 'color') { iconColor = String(fval); sawColorColumn = true; }
                     if (fname === 'label') { labelText = String(fval); showLabel = 'yes'; }
-                    if (fname === 'value') {
-                        var numVal = parseFloat(fval);
-                        if (!isNaN(numVal)) {
-                            if (numVal >= 90) iconColor = '#22C55E';
-                            else if (numVal >= 50) iconColor = '#F59E0B';
-                            else iconColor = '#EF4444';
-                        }
+                    if (fname === thrField) {
+                        var n = parseFloat(fval);
+                        if (!isNaN(n)) thrNumeric = n;
                     }
                 }
+            }
+
+            // ── Threshold engine ─────────────────────────────────
+            // An explicit `color` SPL column always wins over the threshold rule —
+            // it's the most specific signal the search can send. DOS expressions
+            // bound to iconColor in the dashboard JSON already flow through the
+            // static iconColor variable above, so they remain visible unless one
+            // of the colorIcon/Label/Glow/Bg toggles overrides them.
+            var thrBand = null;
+            var thrBandIcon = '';
+            var thrBandGlowScale = 1;
+            var isCritical = false;
+            var isWarn = false;
+            if (!isNaN(thrNumeric)) {
+                // bandIdx: 0 = low position on the scale, 1 = mid, 2 = high.
+                var bandIdx;
+                if (thrNumeric < thrLow)        bandIdx = 0;
+                else if (thrNumeric < thrHigh)  bandIdx = 1;
+                else                            bandIdx = 2;
+
+                // For high_bad direction, swap low and high band colors/icons/scales
+                // so the "low band on the scale" gets the high-band visual treatment.
+                var bandColors = [thrColorLow, thrColorMid, thrColorHigh];
+                var bandIcons  = [thrIconLow,  thrIconMid,  thrIconHigh];
+                var bandGlows  = [thrGlowScaleLow, thrGlowScaleMid, thrGlowScaleHigh];
+                if (thrDir === 'high_bad') {
+                    bandColors = [thrColorHigh, thrColorMid, thrColorLow];
+                    bandIcons  = [thrIconHigh,  thrIconMid,  thrIconLow];
+                    bandGlows  = [thrGlowScaleHigh, thrGlowScaleMid, thrGlowScaleLow];
+                }
+
+                thrBand = bandColors[bandIdx];
+                thrBandIcon = bandIcons[bandIdx];
+                thrBandGlowScale = bandGlows[bandIdx];
+                if (isNaN(thrBandGlowScale)) thrBandGlowScale = 1;
+
+                // Map bandIdx to a semantic role independent of direction:
+                //   high_good: low band (0) is bad, high band (2) is good
+                //   high_bad:  low band (0) is good, high band (2) is bad
+                if (thrDir === 'high_good') {
+                    isCritical = (bandIdx === 0);
+                } else {
+                    isCritical = (bandIdx === 2);
+                }
+                isWarn = (bandIdx === 1);
+            }
+
+            if (thrBand !== null) {
+                if (colorIcon && !sawColorColumn) iconColor  = thrBand;
+                if (colorLabel)                   labelColor = thrBand;
+                if (colorGlow)                    glowColor  = thrBand;
+                if (colorBg)                      bgColor    = thrBand;
+
+                // Icon swap per band — overrides resolvedIcon if non-empty.
+                if (thrBandIcon) {
+                    var swapped = sanitizeIconName(thrBandIcon);
+                    if (swapped) resolvedIcon = swapped;
+                }
+
+                // Glow scale per band — multiplies the formatter glow size.
+                if (thrBandGlowScale !== 1) {
+                    glowSize = Math.max(0, Math.round(glowSize * thrBandGlowScale));
+                }
+            }
+
+            // Pulse animation — modulates the glow radius when in the matching band.
+            // The pulse loop runs via requestAnimationFrame; this block just decides
+            // whether it should be running this frame.
+            var wantsPulse =
+                (thrPulse === 'critical' && isCritical) ||
+                (thrPulse === 'warning' && isWarn) ||
+                (thrPulse === 'critical_and_warning' && (isCritical || isWarn));
+            if (wantsPulse && glowOn === 'yes') {
+                // Apply phase modulation to glow size right before render.
+                var pulseMod = 1 + 0.45 * Math.sin(2 * Math.PI * this._pulsePhase);
+                glowSize = Math.max(1, Math.round(glowSize * pulseMod));
+                this._pulseSpeed = thrPulseSpeed;
+                if (!this._pulseActive) {
+                    this._pulseActive = true;
+                    this._startPulse();
+                }
+            } else {
+                this._pulseActive = false;
+                // The animation tick will see _pulseActive=false and self-terminate.
             }
 
             this._resolvedIcon = resolvedIcon;
             this._resolvedLabel = labelText;
             this._resolvedColor = iconColor;
+            this._resolvedField = resolvedField;
 
             var cursorStyle = this._drilldownEnabled ? 'pointer' : '';
             el.style.cursor = cursorStyle;

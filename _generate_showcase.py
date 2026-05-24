@@ -368,6 +368,29 @@ data_sources = {
     }
 }
 
+# Per-value data sources for the threshold-engine live demo. Each one
+# exposes a single row with the column named "value" so the threshold
+# engine picks a band from its formatter defaults (low<50, mid<90, high>=90).
+THRESHOLD_VALUES = [10, 35, 60, 85, 99]
+for v in THRESHOLD_VALUES:
+    data_sources[f"ds_thr_{v}"] = {
+        "type": "ds.test",
+        "options": {"data": {"fields": [{"name": "value"}], "columns": [[str(v)]]}},
+        "name": f"Threshold demo — value={v}",
+    }
+
+# Drilldown demo sources — real ds.search with makeresults. Custom viz
+# drilldown context (the click → setToken pipeline) only propagates
+# when the panel is backed by a real ds.search source. ds.test data doesn't
+# wire through, so clicks fire the event but Studio drops the payload.
+DRILLDOWN_ICONS = ["security", "monitor_heart", "warning", "lock"]
+for ic in DRILLDOWN_ICONS:
+    data_sources[f"ds_drill_{ic}"] = {
+        "type": "ds.search",
+        "options": {"query": f'| makeresults | eval icon="{ic}"'},
+        "name": f"Drilldown demo — {ic}",
+    }
+
 visualizations = {}
 structure = []
 y_cursor = 20
@@ -416,13 +439,247 @@ for sec_idx, (title, desc, icons) in enumerate(SECTIONS):
     rows_needed = (len(icons) + COLS - 1) // COLS
     y_cursor += rows_needed * (PH + GAP) + SECTION_GAP
 
+# ─── Live demo: Threshold colors ─────────────────────────────────
+# Five panels of the same icon, each fed a different `value` so the
+# threshold engine paints a different band per tile. colorIcon stays
+# at its default (yes); colorGlow is turned on so the band drives the
+# halo too — easier to see at a glance.
+thr_hdr_id = "viz_hdr_threshold_demo"
+visualizations[thr_hdr_id] = {
+    "type": "splunk.markdown",
+    "options": {
+        "markdown": (
+            "### Live Demo: Threshold colors\n"
+            "Five panels of the same `monitor_heart` icon fed `value` = 10, 35, 60, 85, 99. "
+            "Default thresholds (50, 90) bucket them into low (red), mid (amber), high (green). "
+            "`colorIcon=yes` (default) tints the icon; `colorGlow=yes` makes the glow follow the band."
+        ),
+        "fontColor": "#E2E8F0",
+        "backgroundColor": "transparent",
+    },
+}
+structure.append({
+    "item": thr_hdr_id,
+    "type": "block",
+    "position": {"x": START_X, "y": y_cursor, "w": CANVAS_W - 2 * START_X, "h": HEADER_H},
+})
+y_cursor += HEADER_H + 4
+
+THR_PW, THR_PH = 240, 200
+THR_GAP = 24
+thr_total_w = len(THRESHOLD_VALUES) * THR_PW + (len(THRESHOLD_VALUES) - 1) * THR_GAP
+thr_start_x = (CANVAS_W - thr_total_w) // 2
+
+for i, v in enumerate(THRESHOLD_VALUES):
+    vid = f"viz_thr_demo_{v}"
+    visualizations[vid] = {
+        "type": "icon_library.icon_library",
+        "dataSources": {"primary": f"ds_thr_{v}"},
+        "options": {
+            "backgroundColor": "transparent",
+            NS + "iconName": "monitor_heart",
+            NS + "bgShape": "circle",
+            NS + "bgColor": "#0F172A",
+            NS + "bgPadding": "16",
+            NS + "glow": "yes",
+            NS + "glowSize": "16",
+            NS + "colorGlow": "yes",
+            NS + "showLabel": "yes",
+            NS + "labelText": f"value = {v}",
+            NS + "labelColor": "#94A3B8",
+        },
+    }
+    structure.append({
+        "item": vid,
+        "type": "block",
+        "position": {"x": thr_start_x + i * (THR_PW + THR_GAP), "y": y_cursor, "w": THR_PW, "h": THR_PH},
+    })
+
+y_cursor += THR_PH + SECTION_GAP
+
+# ─── Live demo: Threshold effects (1.5.0) ───────────────────────
+# Same panel configuration, three different `value` rows → different
+# icons, different glow sizes, pulse on the critical band only.
+# Demonstrates the per-band effects added in 1.5.0.
+fx_hdr_id = "viz_hdr_threshold_effects_demo"
+visualizations[fx_hdr_id] = {
+    "type": "splunk.markdown",
+    "options": {
+        "markdown": (
+            "### Live Demo: Threshold effects (per-band icon swap, glow scaling, pulse)\n"
+            "Three panels share **identical configuration** but receive different `value` rows. "
+            "Watch the icon, glow size, and pulse animation change based on which band the value falls in:\n\n"
+            "- `value = 25` → critical band → icon = `error`, glow x2, **pulses at 1.2 Hz**\n"
+            "- `value = 70` → warning band → icon = `warning`, glow x1, no pulse\n"
+            "- `value = 95` → healthy band → icon = `check_circle`, glow x0.6, no pulse"
+        ),
+        "fontColor": "#E2E8F0",
+        "backgroundColor": "transparent",
+    },
+}
+structure.append({
+    "item": fx_hdr_id,
+    "type": "block",
+    "position": {"x": START_X, "y": y_cursor, "w": CANVAS_W - 2 * START_X, "h": HEADER_H + 40},
+})
+y_cursor += HEADER_H + 44
+
+FX_VALUES = [25, 70, 95]
+FX_PW, FX_PH = 300, 240
+FX_GAP = 32
+fx_total_w = len(FX_VALUES) * FX_PW + (len(FX_VALUES) - 1) * FX_GAP
+fx_start_x = (CANVAS_W - fx_total_w) // 2
+
+# Add the data sources to the dashboard's data source map.
+for v in FX_VALUES:
+    data_sources[f"ds_fx_{v}"] = {
+        "type": "ds.search",
+        "options": {"query": f"| makeresults | eval value={v}"},
+        "name": f"Threshold effects demo — value={v}",
+    }
+
+# Shared threshold-effects configuration. Same on every panel — only the
+# `value` row in the bound data source differs.
+fx_shared_opts = {
+    "backgroundColor": "transparent",
+    NS + "iconName": "monitor_heart",
+    NS + "bgShape": "circle",
+    NS + "bgColor": "#0F172A",
+    NS + "bgPadding": "24",
+    NS + "glow": "yes",
+    NS + "glowSize": "14",
+    NS + "colorGlow": "yes",
+    NS + "showLabel": "yes",
+    NS + "labelColor": "#94A3B8",
+    # Threshold colors — defaults work but make explicit for clarity
+    NS + "thresholdLow": "50",
+    NS + "thresholdHigh": "90",
+    NS + "thresholdDirection": "high_good",
+    # Threshold effects — the 1.5.0 feature being demonstrated
+    NS + "thresholdIconLow": "error",
+    NS + "thresholdIconMid": "warning",
+    NS + "thresholdIconHigh": "check_circle",
+    NS + "thresholdGlowScaleLow": "2",
+    NS + "thresholdGlowScaleMid": "1",
+    NS + "thresholdGlowScaleHigh": "0.6",
+    NS + "thresholdPulse": "critical",
+    NS + "thresholdPulseSpeed": "1.2",
+}
+
+for i, v in enumerate(FX_VALUES):
+    vid = f"viz_fx_demo_{v}"
+    opts = dict(fx_shared_opts)
+    opts[NS + "labelText"] = f"value = {v}"
+    visualizations[vid] = {
+        "type": "icon_library.icon_library",
+        "dataSources": {"primary": f"ds_fx_{v}"},
+        "options": opts,
+    }
+    structure.append({
+        "item": vid,
+        "type": "block",
+        "position": {"x": fx_start_x + i * (FX_PW + FX_GAP), "y": y_cursor, "w": FX_PW, "h": FX_PH},
+    })
+
+y_cursor += FX_PH + SECTION_GAP
+
+# ─── Live demo: Drilldown ────────────────────────────────────────
+# Four clickable icons that each set the `selected_icon` token, plus a
+# markdown panel below that echoes the captured token. Panel-level
+# "drilldown": "all" is required for setToken to fire.
+dd_hdr_id = "viz_hdr_drilldown_demo"
+visualizations[dd_hdr_id] = {
+    "type": "splunk.markdown",
+    "options": {
+        "markdown": (
+            "### Live Demo: Drilldown\n"
+            "Click any of the four icons below. Each panel sets `selected_icon` via "
+            "`drilldown.setToken`. The status panel underneath shows the captured "
+            "`$selected_icon$` token. Required wiring: panel option `\"drilldown\": \"all\"` "
+            "+ `eventHandlers` with `\"key\": \"icon\"`."
+        ),
+        "fontColor": "#E2E8F0",
+        "backgroundColor": "transparent",
+    },
+}
+structure.append({
+    "item": dd_hdr_id,
+    "type": "block",
+    "position": {"x": START_X, "y": y_cursor, "w": CANVAS_W - 2 * START_X, "h": HEADER_H},
+})
+y_cursor += HEADER_H + 4
+
+DD_PW, DD_PH = 220, 200
+DD_GAP = 24
+dd_total_w = len(DRILLDOWN_ICONS) * DD_PW + (len(DRILLDOWN_ICONS) - 1) * DD_GAP
+dd_start_x = (CANVAS_W - dd_total_w) // 2
+
+dd_event_handlers = [{
+    "type": "drilldown.setToken",
+    "options": {
+        "tokens": [{"token": "selected_icon", "key": "icon"}],
+    },
+}]
+
+dd_colors = ["#06B6D4", "#22C55E", "#F59E0B", "#EF4444"]
+for i, ic in enumerate(DRILLDOWN_ICONS):
+    vid = f"viz_drill_demo_{ic}"
+    visualizations[vid] = {
+        "type": "icon_library.icon_library",
+        "dataSources": {"primary": f"ds_drill_{ic}"},
+        "options": {
+            "backgroundColor": "transparent",
+            NS + "iconColor": dd_colors[i],
+            NS + "bgShape": "circle",
+            NS + "bgColor": "#0F172A",
+            NS + "bgPadding": "16",
+            NS + "glow": "yes",
+            NS + "glowColor": dd_colors[i],
+            NS + "glowSize": "12",
+            "drilldown": "all",
+        },
+        "eventHandlers": dd_event_handlers,
+    }
+    structure.append({
+        "item": vid,
+        "type": "block",
+        "position": {"x": dd_start_x + i * (DD_PW + DD_GAP), "y": y_cursor, "w": DD_PW, "h": DD_PH},
+    })
+
+y_cursor += DD_PH + 16
+
+# Token consumer panel (markdown) — echoes the captured token.
+dd_consumer_id = "viz_drill_consumer"
+visualizations[dd_consumer_id] = {
+    "type": "splunk.markdown",
+    "options": {
+        "markdown": "**Last clicked icon:**  `$selected_icon$`",
+        "fontColor": "#E2E8F0",
+        "backgroundColor": "transparent",
+        "fontSize": "extraLarge",
+    },
+}
+structure.append({
+    "item": dd_consumer_id,
+    "type": "block",
+    "position": {"x": dd_start_x, "y": y_cursor, "w": dd_total_w, "h": 80},
+})
+
+y_cursor += 80 + SECTION_GAP
+
 canvas_h = y_cursor + 40
 
 dashboard = {
     "title": "Icon Library Showcase — 250 Icons",
-    "description": "Comprehensive showcase of icon_library visualization settings: colors, backgrounds, glow, shadow, labels, alignment, rotation, and combined effects.",
+    "description": "Comprehensive showcase of icon_library visualization settings: colors, backgrounds, glow, shadow, labels, alignment, rotation, drilldown, threshold colors, and combined effects.",
     "dataSources": data_sources,
-    "defaults": {},
+    "defaults": {
+        "tokens": {
+            "default": {
+                "selected_icon": {"value": "(click an icon above)"}
+            }
+        }
+    },
     "visualizations": visualizations,
     "layout": {
         "type": "absolute",
