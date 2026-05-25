@@ -3,7 +3,8 @@
  *
  * Renders Material Symbols icons on a Canvas with configurable color,
  * size, background shape, shadow, glow, label, and data-driven styling.
- * Supports click drilldown (native Splunk + URL).
+ * Click drilldown uses Splunk's native FIELD_VALUE_DRILLDOWN event;
+ * wire it via Dashboard Studio's drilldown.setToken eventHandler.
  *
  * Expected SPL columns (all optional):
  *   icon   — Material Symbols icon name (e.g. "home", "security")
@@ -50,6 +51,37 @@ define([
     function sanitizeIconName(name) {
         if (!name) return '';
         return name.toLowerCase().replace(/[^a-z0-9_]/g, '');
+    }
+
+    // ── Theme detection ─────────────────────────────────────────
+
+    // Returns 'dark' or 'light' based on Splunk's themed wrapper classes
+    // and a luminance fallback. Used to swap factory-default label/bg
+    // colours so the viz looks right on both light and dark dashboards
+    // without per-panel reconfiguration.
+    function detectTheme() {
+        if (typeof document === 'undefined') return 'dark';
+        var html = document.documentElement;
+        var body = document.body;
+        var classes = ((html && html.className) || '') + ' ' +
+                      ((body && body.className) || '');
+        if (/\bsplunk-theme-light\b|\btheme-light\b|\blight-theme\b/.test(classes)) return 'light';
+        if (/\bsplunk-theme-dark\b|\btheme-dark\b|\bdark-theme\b/.test(classes)) return 'dark';
+        if (typeof window !== 'undefined' && typeof window.getComputedStyle === 'function') {
+            var ref = body || html;
+            if (ref) {
+                var bg = window.getComputedStyle(ref).backgroundColor;
+                var m = bg && bg.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/);
+                if (m) {
+                    var r = parseInt(m[1], 10);
+                    var g = parseInt(m[2], 10);
+                    var b = parseInt(m[3], 10);
+                    var lum = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+                    return lum > 0.5 ? 'light' : 'dark';
+                }
+            }
+        }
+        return 'dark';
     }
 
     // ── Font loading ────────────────────────────────────────────
@@ -141,8 +173,6 @@ define([
             this._canvas = null;
             this._reflowTimer = null;
             this._drilldownEnabled = false;
-            this._drilldownUrl = '';
-            this._drilldownNewTab = true;
             this._resolvedIcon = 'home';
             this._resolvedLabel = '';
             this._resolvedColor = '#06B6D4';
@@ -154,6 +184,12 @@ define([
             this._pulsePhase = 0;
             this._pulseStartTime = 0;
             this._pulseSpeed = 1;
+            this._resolvedValue = NaN;
+            this._tooltipMode = 'no';
+            this._tooltip = null;
+            this._mouseEnterHandler = null;
+            this._mouseMoveHandler = null;
+            this._mouseLeaveHandler = null;
             if (this.el) {
                 this._canvas = document.createElement('canvas');
                 this._canvas.style.width = '100%';
@@ -162,6 +198,7 @@ define([
                 this.el.appendChild(this._canvas);
                 this._setupNoDataObserver();
                 this._setupClickHandler();
+                this._setupTooltip();
             }
         },
 
@@ -199,20 +236,6 @@ define([
         _setupClickHandler: function() {
             var self = this;
             this._clickHandler = function(event) {
-                // URL navigation wins when a Drilldown URL is configured.
-                var url = self._drilldownUrl;
-                if (url) {
-                    url = url.replace(/\$icon\$/g, encodeURIComponent(self._resolvedIcon || ''));
-                    url = url.replace(/\$label\$/g, encodeURIComponent(self._resolvedLabel || ''));
-                    url = url.replace(/\$color\$/g, encodeURIComponent(self._resolvedColor || ''));
-                    if (self._drilldownNewTab) {
-                        window.open(url, '_blank');
-                    } else {
-                        window.location.href = url;
-                    }
-                    return;
-                }
-
                 // Always fire the FIELD_VALUE_DRILLDOWN event. Splunk Studio
                 // silently drops it when no eventHandler is wired — there's no
                 // downside to dispatching, and trying to detect "is something
@@ -242,6 +265,84 @@ define([
                 } catch (e) { /* harness or missing handler */ }
             };
             this.el.addEventListener('click', this._clickHandler);
+        },
+
+        _setupTooltip: function() {
+            if (!this.el || typeof document === 'undefined') return;
+            var self = this;
+            var tip = document.createElement('div');
+            tip.className = 'icon-library-tooltip';
+            tip.setAttribute('style',
+                'position:fixed;' +
+                'pointer-events:none;' +
+                'background:rgba(15,23,42,0.95);' +
+                'color:#F1F5F9;' +
+                'padding:6px 10px;' +
+                'border-radius:6px;' +
+                'font:12px/1.4 -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;' +
+                'white-space:nowrap;' +
+                'box-shadow:0 2px 8px rgba(0,0,0,0.3);' +
+                'z-index:2147483647;' +
+                'display:none;'
+            );
+            document.body.appendChild(tip);
+            this._tooltip = tip;
+
+            this._mouseEnterHandler = function(ev) {
+                if (!self._tooltipShouldShow()) return;
+                var txt = self._tooltipText();
+                if (!txt) return;
+                tip.textContent = txt;
+                tip.style.display = 'block';
+                self._positionTooltip(ev);
+            };
+            this._mouseMoveHandler = function(ev) {
+                if (tip.style.display !== 'block') return;
+                self._positionTooltip(ev);
+            };
+            this._mouseLeaveHandler = function() {
+                tip.style.display = 'none';
+            };
+            this.el.addEventListener('mouseenter', this._mouseEnterHandler);
+            this.el.addEventListener('mousemove', this._mouseMoveHandler);
+            this.el.addEventListener('mouseleave', this._mouseLeaveHandler);
+        },
+
+        _positionTooltip: function(ev) {
+            if (!this._tooltip) return;
+            var x = ev.clientX + 14;
+            var y = ev.clientY + 14;
+            var tw = this._tooltip.offsetWidth;
+            var th = this._tooltip.offsetHeight;
+            if (typeof window !== 'undefined') {
+                if (x + tw > window.innerWidth)  x = ev.clientX - tw - 14;
+                if (y + th > window.innerHeight) y = ev.clientY - th - 14;
+                if (x < 0) x = 0;
+                if (y < 0) y = 0;
+            }
+            this._tooltip.style.left = x + 'px';
+            this._tooltip.style.top  = y + 'px';
+        },
+
+        _tooltipShouldShow: function() {
+            if (this._tooltipMode === 'no')  return false;
+            if (this._tooltipMode === 'yes') return true;
+            // 'auto': show only when there's meaningful runtime context to display —
+            // a SPL-driven label or a threshold value. A static decoration panel
+            // (icon name only, no data) won't get a tooltip.
+            if (this._resolvedLabel) return true;
+            if (typeof this._resolvedValue === 'number' && !isNaN(this._resolvedValue)) return true;
+            return false;
+        },
+
+        _tooltipText: function() {
+            var parts = [];
+            if (this._resolvedLabel) parts.push(this._resolvedLabel);
+            if (this._resolvedIcon)  parts.push(this._resolvedIcon);
+            if (typeof this._resolvedValue === 'number' && !isNaN(this._resolvedValue)) {
+                parts.push(String(this._resolvedValue));
+            }
+            return parts.join(' · ');
         },
 
         getInitialDataParams: function() {
@@ -329,6 +430,18 @@ define([
                 this.el.removeEventListener('click', this._clickHandler);
             }
             this._clickHandler = null;
+            if (this.el) {
+                if (this._mouseEnterHandler) this.el.removeEventListener('mouseenter', this._mouseEnterHandler);
+                if (this._mouseMoveHandler)  this.el.removeEventListener('mousemove',  this._mouseMoveHandler);
+                if (this._mouseLeaveHandler) this.el.removeEventListener('mouseleave', this._mouseLeaveHandler);
+            }
+            this._mouseEnterHandler = null;
+            this._mouseMoveHandler  = null;
+            this._mouseLeaveHandler = null;
+            if (this._tooltip && this._tooltip.parentNode) {
+                this._tooltip.parentNode.removeChild(this._tooltip);
+            }
+            this._tooltip = null;
             this._pulseActive = false;
             if (this._pulseRaf && typeof cancelAnimationFrame !== 'undefined') {
                 cancelAnimationFrame(this._pulseRaf);
@@ -388,22 +501,19 @@ define([
             var glowSize    = parseInt(getOption(config, ns, 'glowSize', '12'), 10);
             var rotation    = parseInt(getOption(config, ns, 'rotation', '0'), 10);
 
-            // Drilldown affordance is shown when ANY of:
-            //   1. A Drilldown URL is set in the formatter, OR
-            //   2. The panel options include "drilldown": "all" (Studio signal that
+            // Drilldown affordance is shown when EITHER:
+            //   1. The panel options include "drilldown": "all" (Studio signal that
             //      an eventHandler is wired), OR
-            //   3. A search is attached and returns at least one row (proxy for
+            //   2. A search is attached and returns at least one row (proxy for
             //      "this panel is intended to be interactive").
             // Splunk Studio sometimes strips panel-level options before passing
-            // config to custom vizs, so condition 2 alone is not reliable — the
+            // config to custom vizs, so condition 1 alone is not reliable — the
             // data-attachment fallback covers that case.
             // The click handler always fires this.drilldown() — Studio silently
             // drops the event if no eventHandler is wired, so this is always safe.
-            var drilldownUrl = getOption(config, ns, 'drilldownUrl', '');
             var panelDrilldown = config['drilldown'];
             var panelDrilldownOn = (panelDrilldown && panelDrilldown !== 'none' && panelDrilldown !== 'no');
             var dataAttached = !!(data && data.rows && data.rows.length > 0);
-            var drilldownNewTab = getOption(config, ns, 'drilldownNewTab', 'yes') === 'yes';
 
             // Threshold colors — RAG model with two breakpoints + three bands.
             // DOS-driven option values (rangeValue/matchValue/gradient) flow through
@@ -432,9 +542,24 @@ define([
             var thrPulseSpeed = parseFloat(getOption(config, ns, 'thresholdPulseSpeed', '1'));
             if (isNaN(thrPulseSpeed) || thrPulseSpeed <= 0) thrPulseSpeed = 1;
 
-            this._drilldownEnabled = (drilldownUrl !== '') || panelDrilldownOn || dataAttached;
-            this._drilldownUrl = drilldownUrl;
-            this._drilldownNewTab = drilldownNewTab;
+            // ── Theme + tooltip behaviour ────────────────────────
+            var themeOpt = getOption(config, ns, 'theme', 'auto');
+            var theme = (themeOpt === 'dark' || themeOpt === 'light')
+                ? themeOpt
+                : detectTheme();
+            // Light-theme adjustments only fire when the user hasn't moved off
+            // the factory defaults — preserves explicit customisation. The
+            // threshold engine below can still override these when its
+            // colorLabel/colorBg toggles are on.
+            if (theme === 'light') {
+                if (labelColor === '#94A3B8') labelColor = '#475569';
+                if (bgColor    === '#1E293B') bgColor    = '#E2E8F0';
+                if (shadowColor === '#000000') shadowColor = '#475569';
+            }
+
+            this._tooltipMode = getOption(config, ns, 'tooltip', 'auto');
+
+            this._drilldownEnabled = panelDrilldownOn || dataAttached;
 
             // Sanitise and resolve icon name
             var resolvedIcon;
@@ -557,6 +682,7 @@ define([
             this._resolvedLabel = labelText;
             this._resolvedColor = iconColor;
             this._resolvedField = resolvedField;
+            this._resolvedValue = thrNumeric;
 
             var cursorStyle = this._drilldownEnabled ? 'pointer' : '';
             el.style.cursor = cursorStyle;

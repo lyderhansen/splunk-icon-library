@@ -81,6 +81,9 @@ rsync -a \
     --exclude='appserver/static/visualizations/*/fonts/' \
     --exclude='_generate_showcase.py' \
     --exclude='docs/' \
+    --exclude='benchmarks/' \
+    --exclude='memory/' \
+    --exclude='.splunk-dashboard-studio/' \
     --exclude='CLAUDE.md' \
     "$SCRIPT_DIR/" \
     "$APP_STAGING/"

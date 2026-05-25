@@ -8,3 +8,11 @@ export = system
 
 [visualizations/icon_library]
 export = system
+
+[transforms/icon_catalog]
+access = read : [ * ], write : [ sc_admin ]
+export = system
+
+[lookups/icon_library.csv]
+access = read : [ * ], write : [ sc_admin ]
+export = system

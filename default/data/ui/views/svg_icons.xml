@@ -1,0 +1,78 @@
+<dashboard version="2" theme="dark">
+  <label>SVG Icons (Test)</label>
+  <description>Test page for the bundled Material Symbols SVG assets. Drop the URL into any Studio splunk.image element, asset slot, or HTML module.</description>
+  <definition><![CDATA[
+{
+  "title": "SVG Icons — Delivery Test",
+  "description": "Five test icons rendered via Studio's native splunk.image element from the bundled SVG catalog at /static/app/icon_library/icons/<category>/<name>.svg.",
+  "dataSources": {},
+  "defaults": {},
+  "inputs": {},
+  "visualizations": {
+
+    "viz_title": {
+      "type": "splunk.markdown",
+      "options": {
+        "markdown": "# SVG Icons — Delivery Test\n\n**3,879** Material Symbols Outlined SVGs are bundled at:\n\n```\n$SPLUNK_HOME/etc/apps/icon_library/appserver/static/icons/<category>/<name>.svg\n```\n\nServed at:\n\n```\n/static/app/icon_library/icons/<category>/<name>.svg\n```\n\nThe five icons below are rendered via Studio's native `splunk.image` element (the recommended way; inline HTML `<img>` tags do not render in Studio markdown panels). For a searchable browser of the full catalog, open the **Icon Catalog (SVG Browser)** view.",
+        "fontColor": "#E2E8F0",
+        "backgroundColor": "transparent"
+      }
+    },
+
+    "viz_home":     { "type": "splunk.image", "options": { "src": "/static/app/icon_library/icons/action/home.svg",        "backgroundColor": "#F8FAFC" } },
+    "viz_check":    { "type": "splunk.image", "options": { "src": "/static/app/icon_library/icons/action/check_circle.svg", "backgroundColor": "#F8FAFC" } },
+    "viz_warning":  { "type": "splunk.image", "options": { "src": "/static/app/icon_library/icons/alert/warning.svg",       "backgroundColor": "#F8FAFC" } },
+    "viz_error":    { "type": "splunk.image", "options": { "src": "/static/app/icon_library/icons/alert/error.svg",         "backgroundColor": "#F8FAFC" } },
+    "viz_database": { "type": "splunk.image", "options": { "src": "/static/app/icon_library/icons/_other/database.svg",     "backgroundColor": "#F8FAFC" } },
+
+    "viz_labels": {
+      "type": "splunk.markdown",
+      "options": {
+        "markdown": "<div style=\"display:flex;color:#94A3B8;font-family:Inter,sans-serif;font-size:12px;\"><div style=\"flex:1;text-align:center\">action/home</div><div style=\"flex:1;text-align:center\">action/check_circle</div><div style=\"flex:1;text-align:center\">alert/warning</div><div style=\"flex:1;text-align:center\">alert/error</div><div style=\"flex:1;text-align:center\">_other/database</div></div>",
+        "backgroundColor": "transparent"
+      }
+    },
+
+    "viz_usage": {
+      "type": "splunk.markdown",
+      "options": {
+        "markdown": "## Three ways to use a bundled SVG\n\n### 1. Studio image element (recommended)\n\nIn the Studio Source view, add a `splunk.image` visualization:\n\n```json\n\"viz_my_image\": {\n  \"type\": \"splunk.image\",\n  \"options\": {\n    \"src\": \"/static/app/icon_library/icons/action/check_circle.svg\"\n  }\n}\n```\n\n### 2. CSS background\n\n```css\nbackground-image: url(\"/static/app/icon_library/icons/alert/warning.svg\");\n```\n\n### 3. SPL — enumerate via the CSV lookup\n\n```\n| inputlookup icon_catalog\n| search tags=*shield* OR name=*shield*\n| sort -popularity\n| table name, category, path, tags\n```\n\n### Notes\n\n- All SVGs use the **Material Symbols Outlined** path data — same glyphs the custom viz renders.\n- Each file is 200–700 bytes. Default fill is black (Google's source). On dark backgrounds, wrap them on a light card (as above) or set the image element's `backgroundColor`.\n- To tint dynamically, post-process the file to add `fill=\"currentColor\"` to the `<svg>` element and embed inline rather than via `<img>`/`splunk.image`.\n- Filled variants (e.g. `home-fill.svg`) are **not** bundled in this release — only base outlined. The font supports both via the formatter, but the SVG catalog is base-outlined only for now.",
+        "fontColor": "#CBD5E1",
+        "backgroundColor": "transparent"
+      }
+    }
+
+  },
+  "layout": {
+    "globalInputs": [],
+    "tabs": {
+      "items": [{ "label": "SVG Icons", "layoutId": "layout_1" }],
+      "options": { "showTabBar": false }
+    },
+    "layoutDefinitions": {
+      "layout_1": {
+        "type": "absolute",
+        "options": {
+          "width": 1200,
+          "height": 1100
+        },
+        "structure": [
+          { "item": "viz_title",    "type": "block", "position": { "x": 20,  "y": 20,  "w": 1160, "h": 260 } },
+
+          { "item": "viz_home",     "type": "block", "position": { "x": 20,  "y": 300, "w": 220,  "h": 180 } },
+          { "item": "viz_check",    "type": "block", "position": { "x": 252, "y": 300, "w": 220,  "h": 180 } },
+          { "item": "viz_warning",  "type": "block", "position": { "x": 484, "y": 300, "w": 220,  "h": 180 } },
+          { "item": "viz_error",    "type": "block", "position": { "x": 716, "y": 300, "w": 220,  "h": 180 } },
+          { "item": "viz_database", "type": "block", "position": { "x": 948, "y": 300, "w": 220,  "h": 180 } },
+
+          { "item": "viz_labels",   "type": "block", "position": { "x": 20,  "y": 490, "w": 1160, "h": 30 } },
+
+          { "item": "viz_usage",    "type": "block", "position": { "x": 20,  "y": 540, "w": 1160, "h": 540 } }
+        ]
+      }
+    }
+  },
+  "applicationProperties": { "theme": "dark" }
+}
+]]></definition>
+</dashboard>

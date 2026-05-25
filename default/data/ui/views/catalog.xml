@@ -1,0 +1,159 @@
+<dashboard version="2" theme="dark">
+  <label>Icon Catalog (SVG Browser)</label>
+  <description>Searchable browser for all 3,879 bundled Material Symbols SVGs. Backed by the icon_catalog CSV lookup. Type to filter by name or tag; pick a category to narrow. The preview row shows the top 8 matches; the table lists everything with the URL ready to copy.</description>
+  <definition><![CDATA[
+{
+  "title": "Icon Catalog Browser",
+  "description": "Search and preview all 3,879 bundled Material Symbols Outlined SVGs. Each icon has a stable URL at /static/app/icon_library/icons/<category>/<name>.svg — paste it into any Studio splunk.image element, asset slot, or HTML module.",
+  "dataSources": {
+
+    "ds_search": {
+      "type": "ds.search",
+      "options": {
+        "query": "| inputlookup icon_catalog | where if(\"$name_filter$\"=\"\", true(), match(name, \"$name_filter$\") OR match(tags, \"$name_filter$\")) | where if(\"$cat_filter$\"=\"*\", true(), category=\"$cat_filter$\") | sort -popularity, +name"
+      },
+      "name": "Filtered catalog"
+    },
+
+    "ds_table": {
+      "type": "ds.chain",
+      "options": {
+        "extend": "ds_search",
+        "query": "| head 500 | table name, category, path, tags, popularity"
+      },
+      "name": "Top 500 for table"
+    },
+
+    "ds_preview_1": { "type": "ds.chain", "options": { "extend": "ds_search", "query": "| head 1 | eval label=name | rename name as icon | table icon, label" }, "name": "Preview tile 1 (top match)" },
+    "ds_preview_2": { "type": "ds.chain", "options": { "extend": "ds_search", "query": "| head 2 | tail 1 | eval label=name | rename name as icon | table icon, label" }, "name": "Preview tile 2" },
+    "ds_preview_3": { "type": "ds.chain", "options": { "extend": "ds_search", "query": "| head 3 | tail 1 | eval label=name | rename name as icon | table icon, label" }, "name": "Preview tile 3" },
+    "ds_preview_4": { "type": "ds.chain", "options": { "extend": "ds_search", "query": "| head 4 | tail 1 | eval label=name | rename name as icon | table icon, label" }, "name": "Preview tile 4" },
+    "ds_preview_5": { "type": "ds.chain", "options": { "extend": "ds_search", "query": "| head 5 | tail 1 | eval label=name | rename name as icon | table icon, label" }, "name": "Preview tile 5" },
+    "ds_preview_6": { "type": "ds.chain", "options": { "extend": "ds_search", "query": "| head 6 | tail 1 | eval label=name | rename name as icon | table icon, label" }, "name": "Preview tile 6" },
+    "ds_preview_7": { "type": "ds.chain", "options": { "extend": "ds_search", "query": "| head 7 | tail 1 | eval label=name | rename name as icon | table icon, label" }, "name": "Preview tile 7" },
+    "ds_preview_8": { "type": "ds.chain", "options": { "extend": "ds_search", "query": "| head 8 | tail 1 | eval label=name | rename name as icon | table icon, label" }, "name": "Preview tile 8" }
+  },
+
+  "defaults": {
+    "tokens": {
+      "default": {
+        "name_filter": { "value": "" },
+        "cat_filter":  { "value": "*" }
+      }
+    }
+  },
+
+  "inputs": {
+    "input_search": {
+      "type": "input.text",
+      "options": {
+        "token": "name_filter",
+        "defaultValue": ""
+      },
+      "title": "Search (name or tag — e.g. warning, cloud, lock)"
+    },
+    "input_cat": {
+      "type": "input.dropdown",
+      "options": {
+        "token": "cat_filter",
+        "defaultValue": "*",
+        "items": [
+          { "label": "All categories",     "value": "*" },
+          { "label": "Action",             "value": "action" },
+          { "label": "Alert",              "value": "alert" },
+          { "label": "Audio / Video (av)", "value": "av" },
+          { "label": "Communication",      "value": "communication" },
+          { "label": "Content",            "value": "content" },
+          { "label": "Device",             "value": "device" },
+          { "label": "Editor",             "value": "editor" },
+          { "label": "File",               "value": "file" },
+          { "label": "Hardware",           "value": "hardware" },
+          { "label": "Home",               "value": "home" },
+          { "label": "Image",              "value": "image" },
+          { "label": "Maps",               "value": "maps" },
+          { "label": "Navigation",         "value": "navigation" },
+          { "label": "Notification",       "value": "notification" },
+          { "label": "Places",             "value": "places" },
+          { "label": "Search",             "value": "search" },
+          { "label": "Social",             "value": "social" },
+          { "label": "Toggle",             "value": "toggle" },
+          { "label": "Other (uncategorized)", "value": "_other" }
+        ]
+      },
+      "title": "Category"
+    }
+  },
+
+  "visualizations": {
+
+    "viz_title": {
+      "type": "splunk.markdown",
+      "options": {
+        "markdown": "# Icon Catalog Browser\n\n**3,879 Material Symbols Outlined icons** are bundled at `appserver/static/icons/<category>/<name>.svg`.\n\nType a search term (icon name or tag) and / or pick a category. The eight tiles below preview the top matches; the table at the bottom shows the full result list with copy-ready paths. Use the path in a Studio `splunk.image` element, an asset slot, or any URL field — no upload required.",
+        "fontColor": "#E2E8F0",
+        "backgroundColor": "transparent"
+      }
+    },
+
+    "viz_preview_1": { "type": "icon_library.icon_library", "dataSources": { "primary": "ds_preview_1" }, "options": { "icon_library.icon_library.bgShape": "rounded_rect", "icon_library.icon_library.bgColor": "#1E293B", "icon_library.icon_library.iconColor": "#06B6D4", "icon_library.icon_library.showLabel": "yes", "icon_library.icon_library.labelColor": "#94A3B8", "icon_library.icon_library.labelSize": "11", "icon_library.icon_library.bgPadding": "12" } },
+    "viz_preview_2": { "type": "icon_library.icon_library", "dataSources": { "primary": "ds_preview_2" }, "options": { "icon_library.icon_library.bgShape": "rounded_rect", "icon_library.icon_library.bgColor": "#1E293B", "icon_library.icon_library.iconColor": "#06B6D4", "icon_library.icon_library.showLabel": "yes", "icon_library.icon_library.labelColor": "#94A3B8", "icon_library.icon_library.labelSize": "11", "icon_library.icon_library.bgPadding": "12" } },
+    "viz_preview_3": { "type": "icon_library.icon_library", "dataSources": { "primary": "ds_preview_3" }, "options": { "icon_library.icon_library.bgShape": "rounded_rect", "icon_library.icon_library.bgColor": "#1E293B", "icon_library.icon_library.iconColor": "#06B6D4", "icon_library.icon_library.showLabel": "yes", "icon_library.icon_library.labelColor": "#94A3B8", "icon_library.icon_library.labelSize": "11", "icon_library.icon_library.bgPadding": "12" } },
+    "viz_preview_4": { "type": "icon_library.icon_library", "dataSources": { "primary": "ds_preview_4" }, "options": { "icon_library.icon_library.bgShape": "rounded_rect", "icon_library.icon_library.bgColor": "#1E293B", "icon_library.icon_library.iconColor": "#06B6D4", "icon_library.icon_library.showLabel": "yes", "icon_library.icon_library.labelColor": "#94A3B8", "icon_library.icon_library.labelSize": "11", "icon_library.icon_library.bgPadding": "12" } },
+    "viz_preview_5": { "type": "icon_library.icon_library", "dataSources": { "primary": "ds_preview_5" }, "options": { "icon_library.icon_library.bgShape": "rounded_rect", "icon_library.icon_library.bgColor": "#1E293B", "icon_library.icon_library.iconColor": "#06B6D4", "icon_library.icon_library.showLabel": "yes", "icon_library.icon_library.labelColor": "#94A3B8", "icon_library.icon_library.labelSize": "11", "icon_library.icon_library.bgPadding": "12" } },
+    "viz_preview_6": { "type": "icon_library.icon_library", "dataSources": { "primary": "ds_preview_6" }, "options": { "icon_library.icon_library.bgShape": "rounded_rect", "icon_library.icon_library.bgColor": "#1E293B", "icon_library.icon_library.iconColor": "#06B6D4", "icon_library.icon_library.showLabel": "yes", "icon_library.icon_library.labelColor": "#94A3B8", "icon_library.icon_library.labelSize": "11", "icon_library.icon_library.bgPadding": "12" } },
+    "viz_preview_7": { "type": "icon_library.icon_library", "dataSources": { "primary": "ds_preview_7" }, "options": { "icon_library.icon_library.bgShape": "rounded_rect", "icon_library.icon_library.bgColor": "#1E293B", "icon_library.icon_library.iconColor": "#06B6D4", "icon_library.icon_library.showLabel": "yes", "icon_library.icon_library.labelColor": "#94A3B8", "icon_library.icon_library.labelSize": "11", "icon_library.icon_library.bgPadding": "12" } },
+    "viz_preview_8": { "type": "icon_library.icon_library", "dataSources": { "primary": "ds_preview_8" }, "options": { "icon_library.icon_library.bgShape": "rounded_rect", "icon_library.icon_library.bgColor": "#1E293B", "icon_library.icon_library.iconColor": "#06B6D4", "icon_library.icon_library.showLabel": "yes", "icon_library.icon_library.labelColor": "#94A3B8", "icon_library.icon_library.labelSize": "11", "icon_library.icon_library.bgPadding": "12" } },
+
+    "viz_table": {
+      "type": "splunk.table",
+      "dataSources": { "primary": "ds_table" },
+      "title": "Matching icons (top 500)",
+      "options": {
+        "count": 25,
+        "rowNumbers": false,
+        "backgroundColor": "#0F172A"
+      }
+    },
+
+    "viz_footer": {
+      "type": "splunk.markdown",
+      "options": {
+        "markdown": "## Using an icon\n\n**Studio image element** (recommended):\n\n```json\n\"viz_my_icon\": {\n  \"type\": \"splunk.image\",\n  \"options\": { \"src\": \"/static/app/icon_library/icons/<category>/<name>.svg\" }\n}\n```\n\n**SPL lookup access** — enumerate or filter the catalog from any search:\n\n```\n| inputlookup icon_catalog\n| search tags=*lock* OR name=*lock*\n| sort -popularity\n```\n\nThe lookup has columns: `name`, `category`, `path`, `tags` (pipe-separated keywords from Google), `popularity` (Google's usage score; higher = more common).",
+        "fontColor": "#CBD5E1",
+        "backgroundColor": "transparent"
+      }
+    }
+  },
+
+  "layout": {
+    "globalInputs": ["input_search", "input_cat"],
+    "tabs": {
+      "items": [{ "label": "Catalog", "layoutId": "layout_1" }],
+      "options": { "showTabBar": false }
+    },
+    "layoutDefinitions": {
+      "layout_1": {
+        "type": "absolute",
+        "options": { "width": 1440, "height": 1500 },
+        "structure": [
+          { "item": "viz_title",     "type": "block", "position": { "x": 20,  "y": 20,  "w": 1400, "h": 180 } },
+
+          { "item": "viz_preview_1", "type": "block", "position": { "x": 20,   "y": 220, "w": 170, "h": 170 } },
+          { "item": "viz_preview_2", "type": "block", "position": { "x": 198,  "y": 220, "w": 170, "h": 170 } },
+          { "item": "viz_preview_3", "type": "block", "position": { "x": 376,  "y": 220, "w": 170, "h": 170 } },
+          { "item": "viz_preview_4", "type": "block", "position": { "x": 554,  "y": 220, "w": 170, "h": 170 } },
+          { "item": "viz_preview_5", "type": "block", "position": { "x": 732,  "y": 220, "w": 170, "h": 170 } },
+          { "item": "viz_preview_6", "type": "block", "position": { "x": 910,  "y": 220, "w": 170, "h": 170 } },
+          { "item": "viz_preview_7", "type": "block", "position": { "x": 1088, "y": 220, "w": 170, "h": 170 } },
+          { "item": "viz_preview_8", "type": "block", "position": { "x": 1266, "y": 220, "w": 170, "h": 170 } },
+
+          { "item": "viz_table",     "type": "block", "position": { "x": 20,  "y": 410, "w": 1400, "h": 720 } },
+          { "item": "viz_footer",    "type": "block", "position": { "x": 20,  "y": 1140, "w": 1400, "h": 340 } }
+        ]
+      }
+    }
+  },
+  "applicationProperties": { "theme": "dark" }
+}
+]]></definition>
+</dashboard>

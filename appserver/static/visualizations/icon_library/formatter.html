@@ -186,7 +186,7 @@
     </splunk-control-group>
 
     <splunk-control-group label="Custom Icon Name" help="Syntax: lowercase_with_underscores only (e.g. mode_heat_off, nest_thermostat). Browse all names at fonts.google.com/icons. Only a-z, 0-9, _ allowed. Overrides dropdown above.">
-        <splunk-text-input name="{{VIZ_NAMESPACE}}.customIcon" value="">
+        <splunk-text-input name="{{VIZ_NAMESPACE}}.customIcon" value="" placeholder="e.g. nest_thermostat">
         </splunk-text-input>
     </splunk-control-group>
 </form>
@@ -225,8 +225,8 @@
         </splunk-radio-input>
     </splunk-control-group>
 
-    <splunk-control-group label="Label Text" help="Text to display below the icon">
-        <splunk-text-input name="{{VIZ_NAMESPACE}}.labelText" value="">
+    <splunk-control-group label="Label Text" help="Text to display below the icon. Overridden by a SPL column named 'label' if present.">
+        <splunk-text-input name="{{VIZ_NAMESPACE}}.labelText" value="" placeholder="e.g. API Gateway">
         </splunk-text-input>
     </splunk-control-group>
 
@@ -247,21 +247,27 @@
             <splunk-color>#64748B</splunk-color>
         </splunk-color-picker>
     </splunk-control-group>
+</form>
 
-    <splunk-control-group label="Drilldown URL" help="Optional URL to navigate to on click. Supports tokens: $icon$, $label$, $color$ (all URL-encoded). Leave empty to use Dashboard Studio eventHandlers (drilldown.setToken) instead — set `&quot;drilldown&quot;: &quot;all&quot;` on the panel options.">
-        <splunk-text-input name="{{VIZ_NAMESPACE}}.drilldownUrl" value="">
-        </splunk-text-input>
-    </splunk-control-group>
-
-    <splunk-control-group label="Drilldown Opens New Tab" help="Open the drilldown URL in a new browser tab. Only applies when Drilldown URL is set.">
-        <splunk-radio-input name="{{VIZ_NAMESPACE}}.drilldownNewTab" value="yes">
-            <option value="yes">Yes</option>
-            <option value="no">No</option>
-        </splunk-radio-input>
+<form class="splunk-formatter-section" section-label="Tooltip">
+    <splunk-control-group label="Hover tooltip" help="Show a small tooltip on hover with the resolved label, icon name, and numeric value. Off by default; switch to Auto to show only when a SPL search is attached, or Always to show on every panel.">
+        <splunk-select name="{{VIZ_NAMESPACE}}.tooltip" value="no">
+            <option value="no">Off</option>
+            <option value="auto">Auto (when data attached)</option>
+            <option value="yes">Always</option>
+        </splunk-select>
     </splunk-control-group>
 </form>
 
 <form class="splunk-formatter-section" section-label="Icon style">
+    <splunk-control-group label="Theme" help="Auto-detect the dashboard theme and swap factory-default label / background colors so the viz reads well on both light and dark dashboards. Auto inspects the page; explicit Dark / Light forces a mode.">
+        <splunk-radio-input name="{{VIZ_NAMESPACE}}.theme" value="auto">
+            <option value="auto">Auto</option>
+            <option value="dark">Dark</option>
+            <option value="light">Light</option>
+        </splunk-radio-input>
+    </splunk-control-group>
+
     <splunk-control-group label="Icon Color" help="Color of the icon">
         <splunk-color-picker name="{{VIZ_NAMESPACE}}.iconColor" type="custom" value="#06B6D4">
             <splunk-color>#F8FAFC</splunk-color>
@@ -457,18 +463,18 @@
 </form>
 
 <form class="splunk-formatter-section" section-label="Threshold effects">
-    <splunk-control-group label="Icon (low band)" help="Override the icon name when the threshold value lands in the low band. Empty = keep the formatter icon. Example: error">
-        <splunk-text-input name="{{VIZ_NAMESPACE}}.thresholdIconLow" value="">
+    <splunk-control-group label="Low-band icon (optional)" help="Swap to this Material Symbols icon when the threshold value lands in the low band. Leave empty to keep the formatter icon. Syntax: lowercase_with_underscores (e.g. error, gpp_bad, crisis_alert). Browse names at fonts.google.com/icons.">
+        <splunk-text-input name="{{VIZ_NAMESPACE}}.thresholdIconLow" value="" placeholder="e.g. error">
         </splunk-text-input>
     </splunk-control-group>
 
-    <splunk-control-group label="Icon (mid band)" help="Override the icon name when the threshold value lands in the mid band. Empty = keep the formatter icon. Example: warning">
-        <splunk-text-input name="{{VIZ_NAMESPACE}}.thresholdIconMid" value="">
+    <splunk-control-group label="Mid-band icon (optional)" help="Swap to this Material Symbols icon when the threshold value lands in the mid band. Leave empty to keep the formatter icon. Syntax: lowercase_with_underscores (e.g. warning, hourglass_empty, pending). Browse names at fonts.google.com/icons.">
+        <splunk-text-input name="{{VIZ_NAMESPACE}}.thresholdIconMid" value="" placeholder="e.g. warning">
         </splunk-text-input>
     </splunk-control-group>
 
-    <splunk-control-group label="Icon (high band)" help="Override the icon name when the threshold value lands in the high band. Empty = keep the formatter icon. Example: check_circle">
-        <splunk-text-input name="{{VIZ_NAMESPACE}}.thresholdIconHigh" value="">
+    <splunk-control-group label="High-band icon (optional)" help="Swap to this Material Symbols icon when the threshold value lands in the high band. Leave empty to keep the formatter icon. Syntax: lowercase_with_underscores (e.g. check_circle, task_alt, verified_user). Browse names at fonts.google.com/icons.">
+        <splunk-text-input name="{{VIZ_NAMESPACE}}.thresholdIconHigh" value="" placeholder="e.g. check_circle">
         </splunk-text-input>
     </splunk-control-group>
 

@@ -5,4 +5,6 @@
   <view name="readme" label="README" />
   <view name="usecase_health" label="Service Health (Use Case)" />
   <view name="showcase" label="Icon Showcase" />
+  <view name="svg_icons" label="SVG Icons (Test)" />
+  <view name="catalog" label="Icon Catalog (SVG Browser)" />
 </nav>
