@@ -1,8 +1,12 @@
 # Icon Library for Splunk Dashboard Studio
 
-A custom visualization that renders **2,500+ Material Symbols** icons on a Canvas with configurable color, size, background shape, shadow, glow, labels, alignment, rotation, and click drilldown.
+A Splunk Cloud–ready icon toolkit for Dashboard Studio. Three ways to use it:
 
-The icon font ([Material Symbols Outlined](https://fonts.google.com/icons)) is base64-embedded in `visualization.css` — no external network requests, no CORS issues, Splunk Cloud compatible.
+1. **Custom visualization** — a Canvas-rendered panel for any of **3,879 Material Symbols** icons with configurable color, size, background shape, shadow, glow, label, alignment, rotation, threshold coloring, threshold effects (icon swap / glow scale / pulse), and click drilldown via Studio `setToken`.
+2. **Bundled SVG asset catalog** — the same 3,879 icons shipped as static SVG files at `/static/app/icon_library/icons/<category>/<name>.svg`. Drop the URL into any Studio `splunk.image` element, asset slot, HTML module, or CSS `background-image`. No iframe overhead, ideal for high-density dashboards.
+3. **CSV lookup** — `| inputlookup icon_catalog` exposes the full catalog as a Splunk lookup with `name, category, path, tags, popularity` columns. Search by tag, filter by category, or enumerate icons programmatically from SPL.
+
+The icon font ([Material Symbols Outlined](https://fonts.google.com/icons)) is base64-embedded in `visualization.css` — no external network requests, no CORS issues, Splunk Cloud compatible. The SVG catalog ships inside the app, also fully offline.
 
 ![Screenshot](appserver/static/appIcon.png)
 
@@ -63,10 +67,10 @@ Browse all icons at **[fonts.google.com/icons](https://fonts.google.com/icons)**
 | Label Text | `labelText` | _(empty)_ | Text below the icon |
 | Label Size | `labelSize` | `0` (auto) | Fixed pixel size, or `0` to auto-scale |
 | Label Color | `labelColor` | `#94A3B8` | Hex color |
-| Drilldown URL | `drilldownUrl` | _(empty)_ | Optional URL with `$icon$`, `$label$`, `$color$` tokens. Leaving empty falls through to Dashboard Studio eventHandlers when the panel has `"drilldown": "all"`. |
-| Drilldown New Tab | `drilldownNewTab` | `yes` | `yes` / `no` — only applies when `drilldownUrl` is set |
+| Tooltip | `tooltip` | `off` | `off` / `auto` (when a search is attached) / `always`. Shows resolved label, icon name, and threshold value on hover. |
+| Theme | `theme` | `auto` | `auto` / `dark` / `light`. Detects Splunk's body class and swaps factory-default label, background, and shadow colors so the viz reads correctly on light dashboards. Explicit user overrides are preserved. |
 
-### Color and style
+### Icon style
 
 | Option | Key | Default | Description |
 |---|---|---|---|
@@ -165,7 +169,7 @@ When you drive a color via DOS, set the matching **Apply to … color** toggle t
 
 ## Drilldown / Click Interactions
 
-### Option A: Dashboard Studio eventHandlers (recommended)
+### Dashboard Studio eventHandlers (the only supported path in 1.6+)
 
 Drilldown is automatic — no per-viz toggle. Two things must line up for setToken to fire:
 
@@ -201,17 +205,9 @@ What gets populated:
 | `color` (in payload) | The resolved icon color (hex). Reference with `"key": "row.color.value"`. |
 | `click.name` | `"icon"` |
 
-The visualization renders a single click target per panel, so the payload `value` field is always the icon name. To capture label/color too, use Option B with a multi-token URL, or wire a separate `setToken` handler from your data source.
+The visualization renders a single click target per panel. The payload exposes `icon`, `label`, and `color` simultaneously — register multiple `setToken` entries on the same handler to capture more than one.
 
-### Option B: Direct URL navigation
-
-Set **Drilldown URL** to any URL with token placeholders:
-
-```
-https://mysplunk.com/app/search/search?q=index%3Dmain%20icon%3D$icon$
-```
-
-Available tokens: `$icon$`, `$label$`, `$color$` — all URL-encoded by the viz before substitution.
+> **Note:** Pre-1.6.0 versions exposed `drilldownUrl` and `drilldownNewTab` formatter fields for direct URL navigation. Both were removed in 1.6.0 — Studio's native `linkToUrl` / `setToken` chain replaces them, with proper URL validation and no `javascript:` XSS surface. Build the target URL in a downstream token consumer instead.
 
 ## Dashboard Studio JSON Example
 
@@ -253,31 +249,46 @@ All custom option keys use the prefix `icon_library.icon_library.` in Dashboard 
 
 | Dashboard | Description |
 |---|---|
-| **README** | Interactive documentation with live examples |
-| **Icon Showcase** | 256 icons across 17 themed sections demonstrating all settings |
+| **README** | Interactive documentation with live examples for every formatter section |
+| **Service Health (Use Case)** | Real-world Service Health pattern: 6 service tiles with threshold colours, the critical tile pulses |
+| **Icon Showcase** | 256 icons across 17 themed sections demonstrating all settings, with threshold + drilldown demos |
+| **Icon Catalog (SVG Browser)** | Searchable browser for all 3,879 bundled SVGs — text + category filters, 8 live preview tiles, 500-row table with copy-ready paths. Backed by `\| inputlookup icon_catalog` |
+| **SVG Reference** | Small reference page demonstrating the `splunk.image` integration pattern |
 
 ## File Structure
 
 ```
 icon_library/
-├── appserver/static/visualizations/icon_library/
-│   ├── src/visualization_source.js    # Source (Canvas 2D rendering)
-│   ├── visualization.js               # Webpack bundle
-│   ├── visualization.css              # Base64-embedded Material Symbols font
-│   ├── formatter.html                 # Dashboard Studio config UI
-│   ├── fonts/                         # Source font + embed script + font NOTICE
-│   └── webpack.config.js
+├── appserver/
+│   └── static/
+│       ├── appIcon*.png                       # App icons (REST endpoint copies)
+│       ├── icons/                             # 3,879 SVGs in 19 category folders
+│       │   ├── action/  alert/  av/  ...
+│       │   └── _other/                        # Icons not yet in Google's metadata
+│       └── visualizations/icon_library/
+│           ├── visualization.js               # Bundled custom viz (Canvas 2D)
+│           ├── visualization.css              # Base64-embedded Material Symbols font
+│           ├── formatter.html                 # Dashboard Studio config UI
+│           └── preview.png                    # Viz thumbnail
 ├── default/
-│   ├── app.conf
-│   ├── visualizations.conf
+│   ├── app.conf                               # App metadata
+│   ├── visualizations.conf                    # Custom viz registration
+│   ├── transforms.conf                        # icon_catalog lookup definition
 │   └── data/ui/
 │       ├── nav/default.xml
 │       └── views/
-│           ├── readme.xml             # README dashboard
-│           └── showcase.xml           # 256-icon showcase
-├── metadata/default.meta
-├── LICENSE                            # Apache 2.0 license for this app
-├── NOTICE                             # Third-party attributions
+│           ├── readme.xml
+│           ├── usecase_health.xml
+│           ├── showcase.xml
+│           ├── catalog.xml
+│           └── svg_icons.xml
+├── lookups/
+│   └── icon_library.csv                       # Catalog: name,category,path,tags,popularity
+├── metadata/default.meta                      # Permissions (lookup is world-readable)
+├── static/appIcon*.png                        # App icons (static endpoint)
+├── README/savedsearches.conf.spec             # Custom-viz option .spec
+├── LICENSE                                    # Apache 2.0
+├── NOTICE                                     # Third-party attributions
 └── README.md
 ```
 
@@ -285,6 +296,7 @@ icon_library/
 
 | Version | Changes |
 |---|---|
+| 1.6.1 | **Splunkbase-ready cleanup pass.** No code or behaviour changes — `app.conf` author corrected from placeholder to `lyderhansen` and `[ui] supported_themes = light,dark` declared. `default/visualizations.conf` and `default/app.conf` descriptions updated from "2500+" to the actual shipped count (3,879 + SVG asset catalog + searchable CSV lookup). `README/savedsearches.conf.spec` regenerated to match the current 45-option formatter: removed `drilldownUrl` and `drilldownNewTab` (deleted in 1.6.0), added `tooltip`, `theme`, and all 19 threshold colour / effect options that had never been spec'd. `README.md` first paragraph rewritten to introduce the three usage modes (custom viz, bundled SVG catalog, CSV lookup); dead "Option B: Direct URL navigation" drilldown section removed; options table extended with `tooltip` / `theme` rows; Included Dashboards table and File Structure tree updated to 1.6.0 reality. Nav: "SVG Icons (Test)" relabelled "SVG Reference". |
 | 1.6.0 | **SVG catalog** — all **3,879 Material Symbols Outlined SVGs** are now bundled at `appserver/static/icons/<category>/<name>.svg` (18 official Google categories + `_other` for unclassified). Served by Splunk at `/static/app/icon_library/icons/<category>/<name>.svg`; drop the URL into any Studio `splunk.image` element, asset slot, HTML module, or CSS `background-image` — no upload required. Lives in the parent document (no iframe overhead), so it is the recommended path for high-density dashboards. **CSV lookup** (`icon_catalog`) — searchable `name, category, path, tags, popularity` table at `lookups/icon_library.csv`, registered in `transforms.conf` and world-readable. Query the full catalog from any search with `\| inputlookup icon_catalog`. **New catalog browser dashboard** — `Icon Catalog (SVG Browser)`: text + category filters, eight live preview tiles backed by the custom viz, and a 500-row results table with copy-ready paths. Includes a smaller `SVG Icons (Test)` page demonstrating the `splunk.image` integration pattern with light-card backgrounds. **Hover tooltip** — opt-in tooltip on hover showing the resolved label, icon name, and threshold value. Off by default; switch to Auto (only when a search is attached) or Always. **Theme awareness** — new `theme` option (auto / dark / light) detects Splunk's themed body class and swaps factory-default label, background, and shadow colors so the viz reads correctly on light dashboards without per-panel reconfiguration. **Drilldown simplified to Splunk-native only** — the in-formatter `drilldownUrl` and `drilldownNewTab` options are removed. Clicks now exclusively fire `FIELD_VALUE_DRILLDOWN`, wired via Dashboard Studio's `drilldown.setToken` eventHandlers (`row.icon.value` / `row.label.value` / `row.color.value`). Removes the `javascript:` XSS surface entirely. **Formatter UX polish** — new dedicated **Tooltip** section; inline `placeholder` hints on empty text inputs; threshold-band icon labels renamed `Low-band icon (optional)` / `Mid-band icon (optional)` / `High-band icon (optional)`. **Performance findings report** — `benchmarks/findings.md` documents the iframe-per-panel overhead in the Custom Visualization runtime (3,400+ HTTP requests / 77 s `onLoad` for a 256-panel custom-viz dashboard vs 277 reqs / 33 s for the native equivalent) with a graduated set of asks for the Dashboard Studio team. |
 | 1.5.8 | Fix `drilldown.setToken` to use `"key": "row.icon.value"` (or `row.label.value` / `row.color.value`) instead of the bare field name — Splunk maps the custom-viz `{icon, label?, color?}` payload to a synthetic row and resolves token keys via `row.<field>.value`. Also moved `globalInputs` outside `layoutDefinitions` and removed unsupported `display` / `backgroundColor` from `layout_1.options` so the README and Service Health dashboards pass the strict Dashboard Studio Source-view schema validator. |
 | 1.5.7 | Mirror app icons into `appserver/static/` so Splunk's REST static endpoint (`/servicesNS/nobody/icon_library/static/appIcon_2x.png`) serves them instead of returning 404. Top-level `static/` icons (used by the launcher) are unchanged. |

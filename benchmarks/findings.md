@@ -1,23 +1,24 @@
 # Dashboard Studio Custom Visualization — Performance Findings
 
 **Author:** Maintainer of [splunk-icon-library](https://github.com/lyderhansen/splunk-icon-library) (a public Material Symbols icon viz for Dashboard Studio)
-**Date:** 2026-05-24
-**App version under test:** `icon_library` 1.3.3 (initial public release) and 1.5.4 (post optimization pass)
-**Splunk Enterprise build under test:** static asset hash `f798d4d49089.276` (localhost dev instance)
+**Date:** 2026-05-27 (updated; original 2026-05-24)
+**Apps under test:** `icon_library` 1.3.3 (initial public release) and 1.5.4 (post optimization pass), **plus** `Semicircle Donut Chart` — an unrelated third-party custom viz from Splunkbase ([app 4378](https://splunkbase.splunk.com/app/4378)) — at 250 panels
+**Splunk Enterprise build under test:** static asset hash `f798d4d49089.276` / `.298` (localhost dev instance)
 **Browsers:** Chrome and Safari, both on macOS
 
 ---
 
 ## TL;DR
 
-Dashboards composed of many Custom Visualization (iframe-isolated) panels exhibit a **per-panel framework re-fetch pattern** that does not occur with native visualizations. On a 256-panel dashboard we observed:
+Dashboards composed of many Custom Visualization (iframe-isolated) panels exhibit a **per-panel framework re-fetch pattern** that does not occur with native visualizations. The pattern is **independently reproduced across two unrelated, community-built custom-viz apps from Splunkbase** (our own `icon_library` and the unrelated `Semicircle Donut Chart` — Splunkbase [app 4378](https://splunkbase.splunk.com/app/4378)), which rules out anything app-specific and points to the Custom Visualization runtime itself:
 
-- ~10 framework chunks (bootstrap CSS, backbone.js, require-css, custom-viz iframe scripts, Proxima fonts) **each fetched 256–268 times** in a single dashboard load.
-- **3,402–3,426 total HTTP requests** for the dashboard, vs **277 requests** for an equivalent 250-panel dashboard built from native `splunk.singlevalue` panels.
-- **Page `onLoad` 76.6s (Chrome) / 97.4s (Safari)** for the custom-viz dashboard, vs **33.5s** for the native equivalent on the same hardware.
-- Transfer ballooning was browser-dependent: Chrome served most repeats from the HTTP cache (12.1MB on the wire); Safari did not (99.5MB on the wire).
+- ~10 framework chunks (bootstrap CSS, backbone.js, require-css, custom-viz iframe scripts, Proxima Nova fonts) **each fetched once per panel** — 256× on icon_library, 250× on semicircle_donut.
+- **3,426 (icon_library) / 3,870 (semicircle_donut) total HTTP requests** for a ~250-panel dashboard, vs **277 requests** for an equivalent 250-panel dashboard built from native `splunk.singlevalue` panels.
+- **All framework chunks finish loading at +70 s (semicircle_donut) / +84 s (icon_library)** — vs **+34 s** for the native equivalent.
+- Transfer ballooning was browser-dependent: Chrome served most repeats from the HTTP cache (~12 MB on the wire for both custom-viz apps); Safari did not (99.5 MB on icon_library).
+- **Page `onLoad` timing is misleading and varies wildly between apps** (1.2 s for semicircle_donut vs 76.6 s for icon_library) because some custom vizes happen to block the parent's onLoad event and others don't. **The reliable metric is the time at which the last framework chunk finishes loading**, which is consistent across apps (~70–84 s) and reflects when iframes actually finish their per-panel bootstrap.
 
-App-side optimization eliminated everything we could reach (data-payload trimming, render skipping, font loading, DPR clamping, observer narrowing) and brought our viz code's contribution down significantly — but the remaining slowness is dominated by per-iframe framework fetches that the app code cannot influence.
+App-side optimization on icon_library eliminated everything we could reach (data-payload trimming, render skipping, font loading, DPR clamping, observer narrowing). The Semicircle Donut Chart app, written and shipped by a different developer, hits the same wall — confirming the bottleneck is the per-iframe framework fetches that the app code cannot influence.
 
 This document is intended as a bug / improvement report for the Dashboard Studio team, with the goal of getting the iframe framework chunks served from a shared cache (or, ideally, hoisted out of the iframe boundary entirely) so that custom-viz dashboards scale comparably to native-viz dashboards.
 
@@ -28,11 +29,12 @@ This document is intended as a bug / improvement report for the Dashboard Studio
 | Capture file | Browser | Dashboard | Panels | Notes |
 |---|---|---|---|---|
 | `250vizbenckmrk.har` (33 MB) | Chrome | 250× native `splunk.singlevalue` | 250 | Baseline: native viz, single-token `eval` searches |
-| `icon_1.3.3.har` (263 MB) | Chrome | `icon_library` Showcase | ~268 (256 catalog + 12 demo) | Custom viz, v1.3.3 (no optimizations) |
+| `icon_1.3.3.har` (263 MB) | Chrome | `icon_library` Showcase | ~268 (256 catalog + 12 demo) | Custom viz #1 (our app), v1.3.3 (no optimizations) |
 | `safare_icon.har` (246 MB) | Safari | `icon_library` Showcase | ~268 | Same dashboard, Safari instead of Chrome |
 | `icon_03.har` (11 MB) | Chrome | `icon_library` Showcase (partial) | ~268 | Captured ~24% of the load — useful for confirming the pattern early |
+| **`semi_circle_donut.har` (244 MB)** | **Chrome** | **`semicircle_donut_250x_test` (Semicircle Donut Chart, Splunkbase [app 4378](https://splunkbase.splunk.com/app/4378))** | **250** | **Custom viz #2 — independent, community-built, different author from icon_library. Generated by `benchmarks/semicircle_donut_250x_test.json` in this repo.** |
 
-The dashboards were rendered against the same localhost Splunk Enterprise instance, on the same machine, back-to-back with cleared browser caches. The native baseline was generated by `_generate_native_benchmark.py` in this repo and uses `| makeresults | eval value = N` per panel so SPL execution time is comparable to the custom-viz dashboard (which uses the same `| makeresults` pattern).
+The dashboards were rendered against the same localhost Splunk Enterprise instance, on the same machine, back-to-back with cleared browser caches. The native baseline was generated by `_generate_native_benchmark.py` in this repo and uses `| makeresults | eval value = N` per panel so SPL execution time is comparable to the custom-viz dashboards (which use the same `| makeresults` pattern). The semicircle_donut dashboard JSON in this repo lays out 250 panels of `semicircle_donut.semicircle_donut`, each backed by its own `| makeresults | eval count=N` data source — the exact same pattern used for the icon_library and native baselines so the three captures are apples-to-apples.
 
 ---
 
@@ -40,21 +42,27 @@ The dashboards were rendered against the same localhost Splunk Enterprise instan
 
 Parsed directly from the HAR `log.entries[]` arrays.
 
-| Metric | Native (250 panels) | Custom-viz, Chrome (~268 panels) | Custom-viz, Safari (~268 panels) |
-|---|---|---|---|
-| Total HTTP requests | **277** | **3,426** | **3,402** |
-| Page `onLoad` | **33.5 s** | **76.6 s** | **97.4 s** |
-| Total bytes transferred | **0.4 MB** | **12.1 MB** | **99.5 MB** |
-| Distinct URLs | 23 | 169 | 52 |
+| Metric | Native singlevalue (Chrome, 250) | icon_library (Chrome, ~268) | icon_library (Safari, ~268) | **semicircle_donut (Chrome, 250)** |
+|---|---|---|---|---|
+| Total HTTP requests | 277 | 3,426 | 3,402 | **3,870** |
+| Last framework-chunk loaded by | **+34 s** | **+84 s** | n/a* | **+70 s** |
+| Page `onLoad` event | 33.5 s | 76.6 s | 97.4 s | **1.2 s ⚠** |
+| Total bytes transferred | 0.4 MB | 12.1 MB | 99.5 MB | **11.4 MB** |
+| Distinct URLs | 23 | 169 | 52 | 420 |
 
-Normalized to per-panel cost on the custom-viz dashboard:
+\* not parsed for the Safari capture; the Chrome icon_library and semicircle_donut numbers already establish the pattern.
 
-| Per-panel | Chrome | Safari |
+⚠ **The Page `onLoad` event is unreliable for measuring custom-viz dashboard load time** — for semicircle_donut it fires at 1.2 s even though 98 % of the dashboard's requests happen *after* onLoad. Why depends on whether the viz happens to block the parent's onLoad event (icon_library does — likely via its font-loading promise — semicircle_donut does not). **The reliable number is "last framework-chunk loaded by"**: that's when the last iframe finishes its bootstrap, and it's consistent across apps (+70–84 s for the custom-viz dashboards, +34 s for the native baseline).
+
+Normalized to per-panel cost across the two custom-viz dashboards:
+
+| Per-panel | icon_library (Chrome) | semicircle_donut (Chrome) |
 |---|---|---|
-| Requests per panel | ~12.8 | ~12.7 |
-| Bytes per panel | ~45 KB | ~371 KB |
+| Requests per panel | ~12.8 | ~15.5 |
+| Bytes per panel | ~45 KB | ~46 KB |
+| Framework-loaded delta vs native | +50 s / panel-batch | +36 s / panel-batch |
 
-For comparison, the native dashboard runs ~1.1 requests and ~1.6 KB per panel.
+For comparison, the native dashboard runs ~1.1 requests and ~1.6 KB per panel — **between 10× and 30× cheaper per panel** depending on which custom viz is involved.
 
 ---
 
@@ -103,6 +111,33 @@ The partial `icon_03.har` capture (cut off mid-load) confirms the same pattern w
 
 ---
 
+## Independent reproduction with a second custom viz
+
+To rule out anything app-specific, we ran the same benchmark with **`Semicircle Donut Chart`** — a community-built Splunkbase custom viz ([app 4378](https://splunkbase.splunk.com/app/4378)), by a different developer, with no shared code with `icon_library` and no perf-pass history. We dropped 250 instances of `semicircle_donut.semicircle_donut` into a dashboard, each backed by its own `| makeresults | eval count=N` data source, and captured the HAR (`semi_circle_donut.har`, 244 MB).
+
+Same pattern, same magnitudes:
+
+```
+ 250 × .../app/splunk-dashboard-studio/build/custom-viz-iframe-scripts/legacy.js
+ 250 × .../build/css/bootstrap-enterprise.css
+ 250 × .../build/custom_viz/dark/minimal_exposed_modules.js
+ 250 × .../js/splunkjs/contrib/require-css/normalize.js
+ 250 × .../fonts/proxima-bold-webfont.woff
+ 250 × .../fonts/proxima-regular-webfont.woff
+ 250 × .../fonts/proxima-semibold-webfont.woff
+ 250 × .../fonts/inconsolata-regular.woff
+ 250 × .../fonts/splunkicons-regular-webfont.woff
+ 247 × .../js/require/backbone.js
+ 235 × .../js/splunkjs/contrib/require-css/css.js
+ 225 × .../js/contrib/backbone.js
+```
+
+The minor variation in counts (247, 235, 225 instead of a clean 250) appears to be cache-hit deduplication during the load — the request still happens but Chrome occasionally serves it from in-memory cache without logging a separate entry. The dominant signal — **the framework chunks each fetched once per panel** — is identical.
+
+This is the smoking gun for "this is a runtime cost, not an app cost." Two unrelated Splunkbase apps, written by different developers, with different rendering pipelines and zero shared code, pay the **identical** per-panel iframe bootstrap. No app-side code change can fix it; the fix has to be in the Dashboard Studio framework itself.
+
+---
+
 ## What we ruled out before filing this
 
 We exhausted everything an app author can do from inside the viz before concluding the bottleneck is the framework. The version difference (1.3.3 → 1.5.4) lets us isolate app-side contribution.
@@ -145,14 +180,14 @@ In our experience, dashboard authors discovering this for the first time read it
 
 ## Reproducer
 
-The icon-library showcase dashboard ships in the app at `default/data/ui/views/showcase.xml`. To reproduce without installing our app, generate a synthetic 250-panel custom-viz dashboard:
+Two ready-to-paste reproducer dashboards ship in this repo:
 
-1. Install any Splunkbase Custom Visualization app (e.g. `icon_library` 1.5.x from <https://github.com/lyderhansen/splunk-icon-library/releases>).
-2. Render a dashboard with N panels of that viz, all backed by `| makeresults | eval value = N` (or the equivalent for the chosen viz).
-3. Open DevTools → Network, clear cache, reload, and export HAR.
-4. Inspect the URL frequency: framework chunks (`bootstrap-enterprise.css`, `js/contrib/backbone.js`, `js/splunkjs/contrib/require-css/css.js`, `custom-viz-iframe-scripts/legacy.js`, Proxima font woffs) will appear once per panel.
+1. **`benchmarks/semicircle_donut_250x_test.json`** — Dashboard Studio JSON, 250 panels of `semicircle_donut.semicircle_donut`. Install the Splunkbase [Semicircle Donut Chart](https://splunkbase.splunk.com/app/4378) app, create an empty Studio dashboard, paste this JSON into the Source view, save, hit reload with DevTools Network open, export HAR.
+2. **`benchmarks/native_singlevalue_250.xml`** — SimpleXML, 250 panels of `splunk.singlevalue`. Drop into `$SPLUNK_HOME/etc/apps/search/local/data/ui/views/`. Same load-and-export workflow.
 
-For the native baseline, generate the same panel count using `splunk.singlevalue` — `_generate_native_benchmark.py` in this repo emits a ready-to-use 250-panel SimpleXML dashboard for direct comparison.
+For a custom-viz dashboard backed by **our app**, install `icon_library` 1.6.x from <https://github.com/lyderhansen/splunk-icon-library/releases> and open the bundled `Icon Showcase` view (256 panels).
+
+In each capture, inspect the URL frequency: framework chunks (`bootstrap-enterprise.css`, `js/contrib/backbone.js`, `js/splunkjs/contrib/require-css/css.js`, `custom-viz-iframe-scripts/legacy.js`, Proxima Nova font woffs) will appear once per panel on the custom-viz dashboards but only once total on the native baseline.
 
 ---
 
@@ -178,6 +213,7 @@ In this repository:
 
 - `benchmarks/_generate_native_benchmark.py` — emits a 250-panel native singlevalue dashboard.
 - `benchmarks/native_singlevalue_250.xml` — generated output (the native baseline used here).
+- `benchmarks/semicircle_donut_250x_test.json` — 250-panel Dashboard Studio JSON for the second custom viz (Splunkbase [app 4378](https://splunkbase.splunk.com/app/4378)).
 - `default/data/ui/views/showcase.xml` — the 256-panel custom-viz dashboard (generated from `_generate_showcase.py`).
 - `appserver/static/visualizations/icon_library/src/visualization_source.js` — the entire visualization source, ES5, ~700 lines. Comments at lines 247–255, 264–284, 354–359, and 168–197 explain the perf decisions referenced above.
 

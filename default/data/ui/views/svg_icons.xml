@@ -1,10 +1,10 @@
 <dashboard version="2" theme="dark">
-  <label>SVG Icons (Test)</label>
-  <description>Test page for the bundled Material Symbols SVG assets. Drop the URL into any Studio splunk.image element, asset slot, or HTML module.</description>
+  <label>SVG Reference</label>
+  <description>Reference page for the bundled Material Symbols SVG assets. Drop the URL into any Studio splunk.image element, asset slot, or HTML module.</description>
   <definition><![CDATA[
 {
-  "title": "SVG Icons — Delivery Test",
-  "description": "Five test icons rendered via Studio's native splunk.image element from the bundled SVG catalog at /static/app/icon_library/icons/<category>/<name>.svg.",
+  "title": "SVG Reference",
+  "description": "Five reference icons rendered via Studio's native splunk.image element from the bundled SVG catalog at /static/app/icon_library/icons/<category>/<name>.svg.",
   "dataSources": {},
   "defaults": {},
   "inputs": {},
