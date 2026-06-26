@@ -161,6 +161,81 @@ define([
         ctx.closePath();
     }
 
+    // ── Glyph centroid offset ──────────────────────────────────
+    // Material Symbols is a ligature-only font: the multi-character
+    // run ("check_circle") is replaced with a single glyph at paint
+    // time. Canvas's measureText reports the *un-ligated* advance
+    // width, so textAlign='center' lands the glyph subtly off-centre.
+    //
+    // To get a reliable correction, render the icon once on an
+    // offscreen canvas and scan the painted alpha channel for the
+    // tightest non-transparent bounding box. The visible centroid of
+    // that bbox minus the draw anchor is the centering delta.
+    //
+    // Cached by (icon, font-size); recomputation only happens when a
+    // new icon or new size is used. Returns {dx, dy} (0,0 fallback if
+    // the icon hasn't painted yet or the helper can't read pixels).
+    var _glyphCentroidCache = {};
+
+    function _getGlyphCentroidOffset(icon, fontSize) {
+        var key = icon + '@' + fontSize;
+        if (Object.prototype.hasOwnProperty.call(_glyphCentroidCache, key)) {
+            return _glyphCentroidCache[key];
+        }
+        var fallback = { dx: 0, dy: 0 };
+        try {
+            var buf = Math.max(32, Math.round(fontSize * 1.6));
+            var c = document.createElement('canvas');
+            c.width = buf;
+            c.height = buf;
+            var mctx = c.getContext('2d');
+            if (!mctx) return fallback;
+            mctx.font = '400 ' + fontSize + 'px "Material Symbols Outlined"';
+            mctx.textAlign = 'center';
+            mctx.textBaseline = 'middle';
+            mctx.fillStyle = '#000';
+            mctx.fillText(icon, buf / 2, buf / 2);
+
+            var img;
+            try {
+                img = mctx.getImageData(0, 0, buf, buf);
+            } catch (e) {
+                return fallback;
+            }
+            var data = img.data;
+            var minX = buf, maxX = -1, minY = buf, maxY = -1;
+            var x, y, i, alpha;
+            for (y = 0; y < buf; y++) {
+                for (x = 0; x < buf; x++) {
+                    i = (y * buf + x) * 4 + 3;
+                    alpha = data[i];
+                    if (alpha > 8) {
+                        if (x < minX) minX = x;
+                        if (x > maxX) maxX = x;
+                        if (y < minY) minY = y;
+                        if (y > maxY) maxY = y;
+                    }
+                }
+            }
+            if (maxX < 0) {
+                // Nothing painted — font likely not loaded yet. Don't
+                // cache; let the next render retry.
+                return fallback;
+            }
+            var anchor = buf / 2;
+            var glyphCenterX = (minX + maxX) / 2;
+            var glyphCenterY = (minY + maxY) / 2;
+            var offset = {
+                dx: anchor - glyphCenterX,
+                dy: anchor - glyphCenterY
+            };
+            _glyphCentroidCache[key] = offset;
+            return offset;
+        } catch (e) {
+            return fallback;
+        }
+    }
+
     // ── Main visualization ──────────────────────────────────────
 
     return SplunkVisualizationBase.extend({
@@ -817,46 +892,23 @@ define([
             }
 
             ctx.fillStyle = iconColor;
-            ctx.font = '400 ' + Math.round(computedIconSize) + 'px "Material Symbols Outlined"';
+            var iconFontSize = Math.round(computedIconSize);
+            ctx.font = '400 ' + iconFontSize + 'px "Material Symbols Outlined"';
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
 
-            // Material Symbols is a ligature-only font: the multi-char run
-            // ("check_circle") is rendered as a single glyph at draw time,
-            // but Canvas's textAlign='center' aligns based on the unligated
-            // advance width — leaving the visible glyph subtly off-center.
-            // Measure the actual painted bounds and correct both axes.
-            var iconDx = 0;
-            var iconDy = 0;
-            try {
-                var iconMetrics = ctx.measureText(resolvedIcon);
-                if (iconMetrics) {
-                    var bbLeft  = iconMetrics.actualBoundingBoxLeft;
-                    var bbRight = iconMetrics.actualBoundingBoxRight;
-                    var bbAsc   = iconMetrics.actualBoundingBoxAscent;
-                    var bbDesc  = iconMetrics.actualBoundingBoxDescent;
-                    // With textAlign='center', the glyph is positioned so its
-                    // typographic origin (anchor x) is at cx, then drawn from
-                    // (cx - bbLeft) to (cx + bbRight). The visible centre is
-                    // (cx + (bbRight - bbLeft) / 2). Shift cx left by the
-                    // asymmetry so the visible centre lands on cx.
-                    if (typeof bbLeft === 'number' && typeof bbRight === 'number') {
-                        iconDx = (bbLeft - bbRight) / 2;
-                    }
-                    // Same correction for vertical: with textBaseline='middle',
-                    // Canvas anchors the font's typographic middle at cy. The
-                    // visible glyph extends from (cy - bbAsc) to (cy + bbDesc),
-                    // so the visible centre is (cy + (bbDesc - bbAsc) / 2).
-                    if (typeof bbAsc === 'number' && typeof bbDesc === 'number') {
-                        iconDy = (bbAsc - bbDesc) / 2;
-                    }
-                }
-            } catch (e) {
-                // measureText can throw on very old browsers; fall through
-                // and draw with the original centre.
-            }
+            // Material Symbols is a ligature-only font. The browser substitutes
+            // the multi-character run ("check_circle") with a single glyph at
+            // paint time. ctx.measureText() reports the *un-ligated* advance
+            // width, so textAlign='center' draws the glyph subtly off-centre.
+            //
+            // Scan the actual painted pixels on a one-off offscreen canvas to
+            // compute the visible glyph centroid relative to the draw anchor,
+            // then offset the real draw point by that delta. Cached by
+            // (icon, font-size) so subsequent renders are free.
+            var glyphOffset = _getGlyphCentroidOffset(resolvedIcon, iconFontSize);
 
-            ctx.fillText(resolvedIcon, cx + iconDx, cy + iconDy);
+            ctx.fillText(resolvedIcon, cx + glyphOffset.dx, cy + glyphOffset.dy);
 
             ctx.restore();
 
