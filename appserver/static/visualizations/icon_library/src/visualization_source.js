@@ -821,7 +821,42 @@ define([
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
 
-            ctx.fillText(resolvedIcon, cx, cy);
+            // Material Symbols is a ligature-only font: the multi-char run
+            // ("check_circle") is rendered as a single glyph at draw time,
+            // but Canvas's textAlign='center' aligns based on the unligated
+            // advance width — leaving the visible glyph subtly off-center.
+            // Measure the actual painted bounds and correct both axes.
+            var iconDx = 0;
+            var iconDy = 0;
+            try {
+                var iconMetrics = ctx.measureText(resolvedIcon);
+                if (iconMetrics) {
+                    var bbLeft  = iconMetrics.actualBoundingBoxLeft;
+                    var bbRight = iconMetrics.actualBoundingBoxRight;
+                    var bbAsc   = iconMetrics.actualBoundingBoxAscent;
+                    var bbDesc  = iconMetrics.actualBoundingBoxDescent;
+                    // With textAlign='center', the glyph is positioned so its
+                    // typographic origin (anchor x) is at cx, then drawn from
+                    // (cx - bbLeft) to (cx + bbRight). The visible centre is
+                    // (cx + (bbRight - bbLeft) / 2). Shift cx left by the
+                    // asymmetry so the visible centre lands on cx.
+                    if (typeof bbLeft === 'number' && typeof bbRight === 'number') {
+                        iconDx = (bbLeft - bbRight) / 2;
+                    }
+                    // Same correction for vertical: with textBaseline='middle',
+                    // Canvas anchors the font's typographic middle at cy. The
+                    // visible glyph extends from (cy - bbAsc) to (cy + bbDesc),
+                    // so the visible centre is (cy + (bbDesc - bbAsc) / 2).
+                    if (typeof bbAsc === 'number' && typeof bbDesc === 'number') {
+                        iconDy = (bbAsc - bbDesc) / 2;
+                    }
+                }
+            } catch (e) {
+                // measureText can throw on very old browsers; fall through
+                // and draw with the original centre.
+            }
+
+            ctx.fillText(resolvedIcon, cx + iconDx, cy + iconDy);
 
             ctx.restore();
 
