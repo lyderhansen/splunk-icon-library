@@ -67,8 +67,7 @@
       "type": "splunk.image",
       "options": {
         "backgroundColor": "transparent",
-        "src": "/static/app/icon_library/icons/action/dashboard.svg",
-        "preserveAspectRatio": "xMidYMid meet"
+        "src": "/static/app/icon_library/icons/action/dashboard.svg"
       }
     },
     "viz_text_0": {
@@ -122,8 +121,7 @@
       "type": "splunk.image",
       "options": {
         "backgroundColor": "transparent",
-        "src": "/static/app/icon_library/icons/action/search.svg",
-        "preserveAspectRatio": "xMidYMid meet"
+        "src": "/static/app/icon_library/icons/action/search.svg"
       }
     },
     "viz_text_1": {
@@ -177,8 +175,7 @@
       "type": "splunk.image",
       "options": {
         "backgroundColor": "transparent",
-        "src": "/static/app/icon_library/icons/social/notifications_active.svg",
-        "preserveAspectRatio": "xMidYMid meet"
+        "src": "/static/app/icon_library/icons/social/notifications_active.svg"
       }
     },
     "viz_text_2": {
@@ -232,8 +229,7 @@
       "type": "splunk.image",
       "options": {
         "backgroundColor": "transparent",
-        "src": "/static/app/icon_library/icons/action/article.svg",
-        "preserveAspectRatio": "xMidYMid meet"
+        "src": "/static/app/icon_library/icons/action/article.svg"
       }
     },
     "viz_text_3": {
@@ -287,8 +283,7 @@
       "type": "splunk.image",
       "options": {
         "backgroundColor": "transparent",
-        "src": "/static/app/icon_library/icons/editor/table_chart.svg",
-        "preserveAspectRatio": "xMidYMid meet"
+        "src": "/static/app/icon_library/icons/editor/table_chart.svg"
       }
     },
     "viz_text_4": {
@@ -342,8 +337,7 @@
       "type": "splunk.image",
       "options": {
         "backgroundColor": "transparent",
-        "src": "/static/app/icon_library/icons/action/code.svg",
-        "preserveAspectRatio": "xMidYMid meet"
+        "src": "/static/app/icon_library/icons/action/code.svg"
       }
     },
     "viz_text_5": {
@@ -397,8 +391,7 @@
       "type": "splunk.image",
       "options": {
         "backgroundColor": "transparent",
-        "src": "/static/app/icon_library/icons/navigation/apps.svg",
-        "preserveAspectRatio": "xMidYMid meet"
+        "src": "/static/app/icon_library/icons/navigation/apps.svg"
       }
     },
     "viz_text_6": {
@@ -452,8 +445,7 @@
       "type": "splunk.image",
       "options": {
         "backgroundColor": "transparent",
-        "src": "/static/app/icon_library/icons/action/settings.svg",
-        "preserveAspectRatio": "xMidYMid meet"
+        "src": "/static/app/icon_library/icons/action/settings.svg"
       }
     },
     "viz_text_7": {
@@ -997,6 +989,5 @@
     }
   }
 }
-
 ]]></definition>
 </dashboard>

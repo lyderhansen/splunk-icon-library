@@ -54,8 +54,7 @@
       "type": "splunk.image",
       "options": {
         "backgroundColor": "transparent",
-        "src": "/static/app/icon_library/icons/action/check_circle.svg",
-        "preserveAspectRatio": "xMidYMid meet"
+        "src": "/static/app/icon_library/icons/action/check_circle.svg"
       }
     },
     "viz_label_0": {
@@ -86,8 +85,7 @@
       "type": "splunk.image",
       "options": {
         "backgroundColor": "transparent",
-        "src": "/static/app/icon_library/icons/action/check_circle.svg",
-        "preserveAspectRatio": "xMidYMid meet"
+        "src": "/static/app/icon_library/icons/action/check_circle.svg"
       }
     },
     "viz_label_1": {
@@ -118,8 +116,7 @@
       "type": "splunk.image",
       "options": {
         "backgroundColor": "transparent",
-        "src": "/static/app/icon_library/icons/alert/warning.svg",
-        "preserveAspectRatio": "xMidYMid meet"
+        "src": "/static/app/icon_library/icons/alert/warning.svg"
       }
     },
     "viz_label_2": {
@@ -150,8 +147,7 @@
       "type": "splunk.image",
       "options": {
         "backgroundColor": "transparent",
-        "src": "/static/app/icon_library/icons/action/check_circle.svg",
-        "preserveAspectRatio": "xMidYMid meet"
+        "src": "/static/app/icon_library/icons/action/check_circle.svg"
       }
     },
     "viz_label_3": {
@@ -182,8 +178,7 @@
       "type": "splunk.image",
       "options": {
         "backgroundColor": "transparent",
-        "src": "/static/app/icon_library/icons/action/check_circle.svg",
-        "preserveAspectRatio": "xMidYMid meet"
+        "src": "/static/app/icon_library/icons/action/check_circle.svg"
       }
     },
     "viz_label_4": {
@@ -214,8 +209,7 @@
       "type": "splunk.image",
       "options": {
         "backgroundColor": "transparent",
-        "src": "/static/app/icon_library/icons/action/check_circle.svg",
-        "preserveAspectRatio": "xMidYMid meet"
+        "src": "/static/app/icon_library/icons/action/check_circle.svg"
       }
     },
     "viz_label_5": {
@@ -246,8 +240,7 @@
       "type": "splunk.image",
       "options": {
         "backgroundColor": "transparent",
-        "src": "/static/app/icon_library/icons/action/check_circle.svg",
-        "preserveAspectRatio": "xMidYMid meet"
+        "src": "/static/app/icon_library/icons/action/check_circle.svg"
       }
     },
     "viz_label_6": {
@@ -278,8 +271,7 @@
       "type": "splunk.image",
       "options": {
         "backgroundColor": "transparent",
-        "src": "/static/app/icon_library/icons/action/check_circle.svg",
-        "preserveAspectRatio": "xMidYMid meet"
+        "src": "/static/app/icon_library/icons/action/check_circle.svg"
       }
     },
     "viz_label_7": {
@@ -310,8 +302,7 @@
       "type": "splunk.image",
       "options": {
         "backgroundColor": "transparent",
-        "src": "/static/app/icon_library/icons/alert/warning.svg",
-        "preserveAspectRatio": "xMidYMid meet"
+        "src": "/static/app/icon_library/icons/alert/warning.svg"
       }
     },
     "viz_label_8": {
@@ -342,8 +333,7 @@
       "type": "splunk.image",
       "options": {
         "backgroundColor": "transparent",
-        "src": "/static/app/icon_library/icons/action/check_circle.svg",
-        "preserveAspectRatio": "xMidYMid meet"
+        "src": "/static/app/icon_library/icons/action/check_circle.svg"
       }
     },
     "viz_label_9": {
@@ -374,8 +364,7 @@
       "type": "splunk.image",
       "options": {
         "backgroundColor": "transparent",
-        "src": "/static/app/icon_library/icons/action/check_circle.svg",
-        "preserveAspectRatio": "xMidYMid meet"
+        "src": "/static/app/icon_library/icons/action/check_circle.svg"
       }
     },
     "viz_label_10": {
@@ -406,8 +395,7 @@
       "type": "splunk.image",
       "options": {
         "backgroundColor": "transparent",
-        "src": "/static/app/icon_library/icons/action/check_circle.svg",
-        "preserveAspectRatio": "xMidYMid meet"
+        "src": "/static/app/icon_library/icons/action/check_circle.svg"
       }
     },
     "viz_label_11": {
@@ -438,8 +426,7 @@
       "type": "splunk.image",
       "options": {
         "backgroundColor": "transparent",
-        "src": "/static/app/icon_library/icons/action/check_circle.svg",
-        "preserveAspectRatio": "xMidYMid meet"
+        "src": "/static/app/icon_library/icons/action/check_circle.svg"
       }
     },
     "viz_label_12": {
@@ -470,8 +457,7 @@
       "type": "splunk.image",
       "options": {
         "backgroundColor": "transparent",
-        "src": "/static/app/icon_library/icons/alert/error.svg",
-        "preserveAspectRatio": "xMidYMid meet"
+        "src": "/static/app/icon_library/icons/alert/error.svg"
       }
     },
     "viz_label_13": {
@@ -502,8 +488,7 @@
       "type": "splunk.image",
       "options": {
         "backgroundColor": "transparent",
-        "src": "/static/app/icon_library/icons/action/check_circle.svg",
-        "preserveAspectRatio": "xMidYMid meet"
+        "src": "/static/app/icon_library/icons/action/check_circle.svg"
       }
     },
     "viz_label_14": {
@@ -534,8 +519,7 @@
       "type": "splunk.image",
       "options": {
         "backgroundColor": "transparent",
-        "src": "/static/app/icon_library/icons/action/check_circle.svg",
-        "preserveAspectRatio": "xMidYMid meet"
+        "src": "/static/app/icon_library/icons/action/check_circle.svg"
       }
     },
     "viz_label_15": {
@@ -566,8 +550,7 @@
       "type": "splunk.image",
       "options": {
         "backgroundColor": "transparent",
-        "src": "/static/app/icon_library/icons/action/check_circle.svg",
-        "preserveAspectRatio": "xMidYMid meet"
+        "src": "/static/app/icon_library/icons/action/check_circle.svg"
       }
     },
     "viz_label_16": {
@@ -598,8 +581,7 @@
       "type": "splunk.image",
       "options": {
         "backgroundColor": "transparent",
-        "src": "/static/app/icon_library/icons/action/check_circle.svg",
-        "preserveAspectRatio": "xMidYMid meet"
+        "src": "/static/app/icon_library/icons/action/check_circle.svg"
       }
     },
     "viz_label_17": {
@@ -630,8 +612,7 @@
       "type": "splunk.image",
       "options": {
         "backgroundColor": "transparent",
-        "src": "/static/app/icon_library/icons/alert/warning.svg",
-        "preserveAspectRatio": "xMidYMid meet"
+        "src": "/static/app/icon_library/icons/alert/warning.svg"
       }
     },
     "viz_label_18": {
@@ -662,8 +643,7 @@
       "type": "splunk.image",
       "options": {
         "backgroundColor": "transparent",
-        "src": "/static/app/icon_library/icons/action/check_circle.svg",
-        "preserveAspectRatio": "xMidYMid meet"
+        "src": "/static/app/icon_library/icons/action/check_circle.svg"
       }
     },
     "viz_label_19": {
@@ -694,8 +674,7 @@
       "type": "splunk.image",
       "options": {
         "backgroundColor": "transparent",
-        "src": "/static/app/icon_library/icons/action/check_circle.svg",
-        "preserveAspectRatio": "xMidYMid meet"
+        "src": "/static/app/icon_library/icons/action/check_circle.svg"
       }
     },
     "viz_label_20": {
@@ -726,8 +705,7 @@
       "type": "splunk.image",
       "options": {
         "backgroundColor": "transparent",
-        "src": "/static/app/icon_library/icons/action/check_circle.svg",
-        "preserveAspectRatio": "xMidYMid meet"
+        "src": "/static/app/icon_library/icons/action/check_circle.svg"
       }
     },
     "viz_label_21": {
@@ -758,8 +736,7 @@
       "type": "splunk.image",
       "options": {
         "backgroundColor": "transparent",
-        "src": "/static/app/icon_library/icons/action/check_circle.svg",
-        "preserveAspectRatio": "xMidYMid meet"
+        "src": "/static/app/icon_library/icons/action/check_circle.svg"
       }
     },
     "viz_label_22": {
@@ -790,8 +767,7 @@
       "type": "splunk.image",
       "options": {
         "backgroundColor": "transparent",
-        "src": "/static/app/icon_library/icons/action/check_circle.svg",
-        "preserveAspectRatio": "xMidYMid meet"
+        "src": "/static/app/icon_library/icons/action/check_circle.svg"
       }
     },
     "viz_label_23": {
@@ -1601,6 +1577,5 @@
     }
   }
 }
-
 ]]></definition>
 </dashboard>
