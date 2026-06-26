@@ -64,7 +64,7 @@
       "type": "ds.search",
       "name": "Requests by region",
       "options": {
-        "query": "| makeresults | eval data = \"Americas:42.1,EMEA:31.8,APAC:18.4,LATAM:7.7\" | eval data = split(data, \",\") | mvexpand data | rex field=data \"(?<region>[^:]+):(?<requests>.+)\" | eval requests = tonumber(requests) | sort - requests | fields region requests"
+        "query": "| makeresults | eval data = \"Americas:42.1,EMEA:31.8,APAC:18.4,LATAM:7.7\" | eval data = split(data, \",\") | mvexpand data | rex field=data \"(?<region>[^:]+):(?<requests>.+)\" | eval requests = tonumber(requests) | sort - requests | table region requests"
       }
     },
     "ds_routes": {
@@ -597,7 +597,7 @@
         "type": "absolute",
         "options": {
           "width": 1920,
-          "height": 1080
+          "height": 1360
         },
         "structure": [
           {
@@ -607,7 +607,7 @@
               "x": 0,
               "y": 0,
               "w": 1920,
-              "h": 1080
+              "h": 1360
             }
           },
           {
@@ -937,7 +937,7 @@
               "x": 64,
               "y": 804,
               "w": 1800,
-              "h": 214
+              "h": 494
             }
           },
           {
@@ -947,7 +947,7 @@
               "x": 60,
               "y": 800,
               "w": 1800,
-              "h": 210
+              "h": 490
             }
           },
           {
@@ -967,7 +967,7 @@
               "x": 80,
               "y": 860,
               "w": 1760,
-              "h": 140
+              "h": 420
             }
           },
           {
@@ -975,7 +975,7 @@
             "type": "block",
             "position": {
               "x": 60,
-              "y": 1040,
+              "y": 1320,
               "w": 1800,
               "h": 30
             }

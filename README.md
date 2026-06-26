@@ -250,7 +250,9 @@ All custom option keys use the prefix `icon_library.icon_library.` in Dashboard 
 | Dashboard | Description |
 |---|---|
 | **README** | Interactive documentation with live examples for every formatter section |
-| **Sample Dashboard** | Executive-report layout (1920×1080) showing icon_library mixed with native vizes — 4 KPI cards with embedded icons + `splunk.singlevalue`, a stacked area trend, a region column chart, and a row-click drilldown table |
+| **Sample 1 — Exec KPIs** | Executive-report layout (1920×1360) showing the `icon_library.icon_library` viz mixed with native vizes — 4 KPI cards with embedded icons + `splunk.singlevalue`, a stacked area trend, a region column chart, and a 420-px-tall row-click drilldown table |
+| **Sample 2 — Status Wall** | High-density 24-tile service-status grid using bundled SVGs via `splunk.image` (no `icon_library.icon_library` viz instances) — demonstrates the lightweight SVG-asset path for many-tile dashboards |
+| **Sample 3 — App Portal** | 8-card navigation hub with large SVG icons via `splunk.image`. Demonstrates the portal pattern — every icon is a bundled SVG, no custom viz on the page |
 | **Service Health (Use Case)** | Real-world Service Health pattern: 6 service tiles with threshold colours, the critical tile pulses |
 | **Icon Showcase** | 256 icons across 17 themed sections demonstrating all settings, with threshold + drilldown demos |
 | **Icon Catalog (SVG Browser)** | Searchable browser for all 3,879 bundled SVGs — text + category filters, 8 live preview tiles, 500-row table with copy-ready paths. Backed by `\| inputlookup icon_catalog` |
