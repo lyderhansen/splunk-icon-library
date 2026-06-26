@@ -34,7 +34,7 @@ The Material Symbols font is **base64-embedded** in `visualization.css` — no e
    ```
    $SPLUNK_HOME/bin/splunk install app /path/to/icon_library-<version>.tar.gz
    ```
-2. Restart Splunk Web (`splunk restart splunkweb`).
+2. Restart Splunk (`splunk restart`).
 3. Hard-reload (Cmd+Shift+R / Ctrl+Shift+R) any open dashboard editor — Splunk caches custom-viz static assets aggressively.
 
 ---
