@@ -126,10 +126,8 @@
       "options": {
         "backgroundColor": "transparent",
         "icon_library.icon_library.iconName": "monitor_heart",
-        "icon_library.icon_library.iconSize": "0",
-        "icon_library.icon_library.bgShape": "circle",
-        "icon_library.icon_library.bgColor": "#0F172A",
-        "icon_library.icon_library.bgPadding": "32",
+        "icon_library.icon_library.iconSize": "120",
+        "icon_library.icon_library.bgShape": "none",
         "icon_library.icon_library.glow": "yes",
         "icon_library.icon_library.glowSize": "20",
         "icon_library.icon_library.theme": "dark",
@@ -684,6 +682,19 @@
         "fontSize": "extraSmall",
         "markdown": "*Sample dashboard for icon_library \u00b7 asymmetric \"console\" layout in dark theme \u00b7 same icon_library viz mixed with splunk.singlevalue, splunk.area, splunk.column, and splunk.rectangle / markdown for layered cards \u00b7 all data is mocked via `\\| makeresults`.*"
       }
+    },
+    "viz_hero_bg_circle": {
+      "type": "splunk.rectangle",
+      "options": {
+        "fillColor": "#0F172A",
+        "strokeColor": "transparent"
+      },
+      "cornerRadius": [
+        120,
+        120,
+        120,
+        120
+      ]
     }
   },
   "layout": {
@@ -745,6 +756,16 @@
               "y": 140,
               "w": 880,
               "h": 380
+            }
+          },
+          {
+            "item": "viz_hero_bg_circle",
+            "type": "block",
+            "position": {
+              "x": 90,
+              "y": 170,
+              "w": 240,
+              "h": 240
             }
           },
           {
