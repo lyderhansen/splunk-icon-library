@@ -1,9 +1,9 @@
 <dashboard version="2" theme="dark">
   <label>Icon Library Showcase</label>
-  <description>250 Material Symbols icons with different colors, backgrounds, glow, shadow, labels, alignment, rotation, and combined effects</description>
+  <description>256 Material Symbols icons across 17 themed sections, plus live demos of threshold colors, threshold effects, and drilldown setToken</description>
   <definition><![CDATA[
 {
-  "title": "Icon Library Showcase \u2014 250 Icons",
+  "title": "Icon Library Showcase \u2014 256 popular icons across 17 themed sections, plus threshold + drilldown demos",
   "description": "Comprehensive showcase of icon_library visualization settings: colors, backgrounds, glow, shadow, labels, alignment, rotation, drilldown, threshold colors, and combined effects.",
   "dataSources": {
     "ds_stub": {

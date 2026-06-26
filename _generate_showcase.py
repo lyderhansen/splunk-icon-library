@@ -670,7 +670,7 @@ y_cursor += 80 + SECTION_GAP
 canvas_h = y_cursor + 40
 
 dashboard = {
-    "title": "Icon Library Showcase — 250 Icons",
+    "title": "Icon Library Showcase — 256 popular icons across 17 themed sections, plus threshold + drilldown demos",
     "description": "Comprehensive showcase of icon_library visualization settings: colors, backgrounds, glow, shadow, labels, alignment, rotation, drilldown, threshold colors, and combined effects.",
     "dataSources": data_sources,
     "defaults": {

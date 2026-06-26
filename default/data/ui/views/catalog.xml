@@ -10,7 +10,7 @@
     "ds_search": {
       "type": "ds.search",
       "options": {
-        "query": "| inputlookup icon_catalog | where if(\"$name_filter$\"=\"\", true(), match(name, \"$name_filter$\") OR match(tags, \"$name_filter$\")) | where if(\"$cat_filter$\"=\"*\", true(), category=\"$cat_filter$\") | sort -popularity, +name"
+        "query": "| inputlookup icon_catalog | search name=\"$name_filter$\" OR tags=\"$name_filter$\" | search category=\"$cat_filter$\" | sort -popularity, +name"
       },
       "name": "Filtered catalog"
     },
@@ -37,7 +37,7 @@
   "defaults": {
     "tokens": {
       "default": {
-        "name_filter": { "value": "" },
+        "name_filter": { "value": "*" },
         "cat_filter":  { "value": "*" }
       }
     }
@@ -48,9 +48,9 @@
       "type": "input.text",
       "options": {
         "token": "name_filter",
-        "defaultValue": ""
+        "defaultValue": "*"
       },
-      "title": "Search (name or tag — e.g. warning, cloud, lock)"
+      "title": "Search (name or tag — use * wildcards: *lock*, warning*, *home, or * for all)"
     },
     "input_cat": {
       "type": "input.dropdown",
@@ -89,7 +89,7 @@
     "viz_title": {
       "type": "splunk.markdown",
       "options": {
-        "markdown": "# Icon Catalog Browser\n\n**3,879 Material Symbols Outlined icons** are bundled at `appserver/static/icons/<category>/<name>.svg`.\n\nType a search term (icon name or tag) and / or pick a category. The eight tiles below preview the top matches; the table at the bottom shows the full result list with copy-ready paths. Use the path in a Studio `splunk.image` element, an asset slot, or any URL field — no upload required.",
+        "markdown": "# Icon Catalog Browser\n\n**3,879 Material Symbols Outlined icons** are bundled at `appserver/static/icons/<category>/<name>.svg`.\n\nFilter by **name or tag** (top-left) and / or **category** (top-right). The search box uses standard Splunk wildcards:\n\n| Type | Matches |\n|---|---|\n| `*lock*` | anything containing `lock` (substring — the most common case) |\n| `warning*` | anything starting with `warning` |\n| `*home` | anything ending in `home` |\n| `lock` | only the exact name or tag `lock` |\n| `*` | everything (default) |\n\nThe eight tiles below preview the top matches; the table at the bottom shows the full result list with copy-ready paths. Use the path in a Studio `splunk.image` element, an asset slot, or any URL field — no upload required.",
         "fontColor": "#E2E8F0",
         "backgroundColor": "transparent"
       }
@@ -134,21 +134,21 @@
     "layoutDefinitions": {
       "layout_1": {
         "type": "absolute",
-        "options": { "width": 1440, "height": 1500 },
+        "options": { "width": 1440, "height": 1620 },
         "structure": [
-          { "item": "viz_title",     "type": "block", "position": { "x": 20,  "y": 20,  "w": 1400, "h": 180 } },
+          { "item": "viz_title",     "type": "block", "position": { "x": 20,  "y": 20,  "w": 1400, "h": 300 } },
 
-          { "item": "viz_preview_1", "type": "block", "position": { "x": 20,   "y": 220, "w": 170, "h": 170 } },
-          { "item": "viz_preview_2", "type": "block", "position": { "x": 198,  "y": 220, "w": 170, "h": 170 } },
-          { "item": "viz_preview_3", "type": "block", "position": { "x": 376,  "y": 220, "w": 170, "h": 170 } },
-          { "item": "viz_preview_4", "type": "block", "position": { "x": 554,  "y": 220, "w": 170, "h": 170 } },
-          { "item": "viz_preview_5", "type": "block", "position": { "x": 732,  "y": 220, "w": 170, "h": 170 } },
-          { "item": "viz_preview_6", "type": "block", "position": { "x": 910,  "y": 220, "w": 170, "h": 170 } },
-          { "item": "viz_preview_7", "type": "block", "position": { "x": 1088, "y": 220, "w": 170, "h": 170 } },
-          { "item": "viz_preview_8", "type": "block", "position": { "x": 1266, "y": 220, "w": 170, "h": 170 } },
+          { "item": "viz_preview_1", "type": "block", "position": { "x": 20,   "y": 340, "w": 170, "h": 170 } },
+          { "item": "viz_preview_2", "type": "block", "position": { "x": 198,  "y": 340, "w": 170, "h": 170 } },
+          { "item": "viz_preview_3", "type": "block", "position": { "x": 376,  "y": 340, "w": 170, "h": 170 } },
+          { "item": "viz_preview_4", "type": "block", "position": { "x": 554,  "y": 340, "w": 170, "h": 170 } },
+          { "item": "viz_preview_5", "type": "block", "position": { "x": 732,  "y": 340, "w": 170, "h": 170 } },
+          { "item": "viz_preview_6", "type": "block", "position": { "x": 910,  "y": 340, "w": 170, "h": 170 } },
+          { "item": "viz_preview_7", "type": "block", "position": { "x": 1088, "y": 340, "w": 170, "h": 170 } },
+          { "item": "viz_preview_8", "type": "block", "position": { "x": 1266, "y": 340, "w": 170, "h": 170 } },
 
-          { "item": "viz_table",     "type": "block", "position": { "x": 20,  "y": 410, "w": 1400, "h": 720 } },
-          { "item": "viz_footer",    "type": "block", "position": { "x": 20,  "y": 1140, "w": 1400, "h": 340 } }
+          { "item": "viz_table",     "type": "block", "position": { "x": 20,  "y": 530,  "w": 1400, "h": 720 } },
+          { "item": "viz_footer",    "type": "block", "position": { "x": 20,  "y": 1260, "w": 1400, "h": 340 } }
         ]
       }
     }
