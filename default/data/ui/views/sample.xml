@@ -1,0 +1,990 @@
+<dashboard version="2" theme="light">
+  <label>Sample Dashboard</label>
+  <description>Sample dashboard demonstrating icon_library in an executive-report layout — KPI cards with embedded icons, stacked area trend, region breakdown, and routes table with row-click drilldown. All data is mocked.</description>
+  <definition><![CDATA[
+{
+  "title": "Sample Dashboard \u2014 Service Operations Overview",
+  "description": "Sample dashboard demonstrating icon_library in an executive-report layout \u2014 4 KPI cards with embedded icons + splunk.singlevalue, a stacked area trend chart, a regional breakdown column chart, and a top-routes table with row-click setToken drilldown. All data is mocked via | makeresults.",
+  "defaults": {},
+  "dataSources": {
+    "ds_stub": {
+      "type": "ds.test",
+      "name": "Static stub",
+      "options": {
+        "data": {
+          "fields": [
+            {
+              "name": "_stub"
+            }
+          ],
+          "columns": [
+            [
+              "1"
+            ]
+          ]
+        }
+      }
+    },
+    "ds_kpi_users": {
+      "type": "ds.search",
+      "name": "Active users KPI",
+      "options": {
+        "query": "| makeresults | eval value = 247.3, delta = 8.2"
+      }
+    },
+    "ds_kpi_latency": {
+      "type": "ds.search",
+      "name": "Avg response time KPI",
+      "options": {
+        "query": "| makeresults | eval value = 142, delta = -12"
+      }
+    },
+    "ds_kpi_errors": {
+      "type": "ds.search",
+      "name": "Error rate KPI",
+      "options": {
+        "query": "| makeresults | eval value = 0.4, delta = -0.2"
+      }
+    },
+    "ds_kpi_uptime": {
+      "type": "ds.search",
+      "name": "Service uptime KPI",
+      "options": {
+        "query": "| makeresults | eval value = 99.97, delta = 0.0"
+      }
+    },
+    "ds_trend": {
+      "type": "ds.search",
+      "name": "Weekly request volume by tier",
+      "options": {
+        "query": "| makeresults count=8 | streamstats count as w | eval _time = relative_time(now(), \"-\" . tostring(8 - w) . \"w@w\") | eval Web = case(w=1, 14.2, w=2, 14.8, w=3, 13.9, w=4, 15.6, w=5, 16.2, w=6, 16.8, w=7, 17.5, w=8, 18.4) | eval API = case(w=1, 22.4, w=2, 23.1, w=3, 22.8, w=4, 24.6, w=5, 25.3, w=6, 26.7, w=7, 27.9, w=8, 29.5) | eval Mobile = case(w=1, 8.7, w=2, 9.4, w=3, 9.1, w=4, 10.2, w=5, 11.5, w=6, 12.3, w=7, 13.1, w=8, 13.9) | eval Internal = case(w=1, 4.2, w=2, 4.0, w=3, 4.3, w=4, 4.1, w=5, 4.4, w=6, 4.2, w=7, 4.5, w=8, 4.3) | fields _time Web API Mobile Internal"
+      }
+    },
+    "ds_region": {
+      "type": "ds.search",
+      "name": "Requests by region",
+      "options": {
+        "query": "| makeresults | eval data = \"Americas:42.1,EMEA:31.8,APAC:18.4,LATAM:7.7\" | eval data = split(data, \",\") | mvexpand data | rex field=data \"(?<region>[^:]+):(?<requests>.+)\" | eval requests = tonumber(requests) | sort - requests | fields region requests"
+      }
+    },
+    "ds_routes": {
+      "type": "ds.search",
+      "name": "Top routes",
+      "options": {
+        "query": "| makeresults | eval data = \"GET /api/v1/users:2841200:124:0.3,POST /api/v1/auth/login:1923400:218:0.7,GET /api/v1/orders:1654800:142:0.4,GET /static/app.bundle.js:1287900:42:0.0,POST /api/v1/events:982400:188:0.5,GET /api/v1/products:781200:96:0.2,PUT /api/v1/profile:543100:268:1.1,GET /api/v1/feed:421800:174:0.4,GET /api/v1/search:347900:312:0.6,POST /api/v1/checkout:198400:481:0.9\" | eval data = split(data, \",\") | mvexpand data | rex field=data \"(?<Route>[^:]+):(?<Requests>[^:]+):(?<p95_ms>[^:]+):(?<Error_pct>.+)\" | eval Requests = tonumber(Requests), p95_ms = tonumber(p95_ms), Error_pct = tonumber(Error_pct) | fields Route Requests p95_ms Error_pct"
+      }
+    }
+  },
+  "inputs": {},
+  "visualizations": {
+    "viz_canvas_bg": {
+      "type": "splunk.rectangle",
+      "options": {
+        "fillColor": "#F5F5F7",
+        "strokeColor": "transparent"
+      }
+    },
+    "viz_header_title": {
+      "type": "splunk.markdown",
+      "options": {
+        "backgroundColor": "transparent",
+        "fontColor": "#1D1D1F",
+        "fontFamily": "Helvetica",
+        "fontSize": "extraLarge",
+        "markdown": "# Service Operations\n\n*Sample dashboard \u00b7 Last 8 weeks*"
+      }
+    },
+    "viz_header_period": {
+      "type": "splunk.markdown",
+      "options": {
+        "backgroundColor": "transparent",
+        "fontColor": "#6E6E73",
+        "fontFamily": "Helvetica",
+        "fontSize": "small",
+        "markdown": "**Reporting period**\u00a0\u00a0Last 8 weeks \u00b7 UTC\n\n**Data source**\u00a0\u00a0`| makeresults` (mocked for demo)"
+      }
+    },
+    "viz_card_kpi_users": {
+      "type": "splunk.rectangle",
+      "options": {
+        "fillColor": "#FFFFFF",
+        "strokeColor": "#D2D2D7",
+        "strokeWidth": 1
+      },
+      "cornerRadius": [
+        16,
+        16,
+        16,
+        16
+      ]
+    },
+    "viz_shadow_kpi_users": {
+      "type": "splunk.rectangle",
+      "options": {
+        "fillColor": "#E8E8ED",
+        "strokeColor": "transparent"
+      },
+      "cornerRadius": [
+        16,
+        16,
+        16,
+        16
+      ]
+    },
+    "viz_icon_kpi_users": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "group",
+        "icon_library.icon_library.iconColor": "#06B6D4",
+        "icon_library.icon_library.iconSize": "0",
+        "icon_library.icon_library.theme": "light"
+      }
+    },
+    "viz_value_kpi_users": {
+      "type": "splunk.singlevalue",
+      "dataSources": {
+        "primary": "ds_kpi_users"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "majorColor": "#1D1D1F",
+        "majorValue": "> primary | seriesByName(\"value\") | lastPoint()",
+        "unit": "K",
+        "unitPosition": "after",
+        "underLabelColor": "#6E6E73",
+        "underLabel": "Active users",
+        "trendDisplay": "off",
+        "shouldUseThousandSeparators": false
+      }
+    },
+    "viz_delta_kpi_users": {
+      "type": "splunk.markdown",
+      "options": {
+        "backgroundColor": "transparent",
+        "fontColor": "#1D7F37",
+        "fontFamily": "Helvetica",
+        "fontSize": "small",
+        "markdown": "**\u2191 8.2%** *vs prior period*"
+      }
+    },
+    "viz_card_kpi_latency": {
+      "type": "splunk.rectangle",
+      "options": {
+        "fillColor": "#FFFFFF",
+        "strokeColor": "#D2D2D7",
+        "strokeWidth": 1
+      },
+      "cornerRadius": [
+        16,
+        16,
+        16,
+        16
+      ]
+    },
+    "viz_shadow_kpi_latency": {
+      "type": "splunk.rectangle",
+      "options": {
+        "fillColor": "#E8E8ED",
+        "strokeColor": "transparent"
+      },
+      "cornerRadius": [
+        16,
+        16,
+        16,
+        16
+      ]
+    },
+    "viz_icon_kpi_latency": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "speed",
+        "icon_library.icon_library.iconColor": "#06B6D4",
+        "icon_library.icon_library.iconSize": "0",
+        "icon_library.icon_library.theme": "light"
+      }
+    },
+    "viz_value_kpi_latency": {
+      "type": "splunk.singlevalue",
+      "dataSources": {
+        "primary": "ds_kpi_latency"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "majorColor": "#1D1D1F",
+        "majorValue": "> primary | seriesByName(\"value\") | lastPoint()",
+        "unit": "ms",
+        "unitPosition": "after",
+        "underLabelColor": "#6E6E73",
+        "underLabel": "Avg response time",
+        "trendDisplay": "off",
+        "shouldUseThousandSeparators": false
+      }
+    },
+    "viz_delta_kpi_latency": {
+      "type": "splunk.markdown",
+      "options": {
+        "backgroundColor": "transparent",
+        "fontColor": "#1D7F37",
+        "fontFamily": "Helvetica",
+        "fontSize": "small",
+        "markdown": "**\u2193 12%** *vs prior period*"
+      }
+    },
+    "viz_card_kpi_errors": {
+      "type": "splunk.rectangle",
+      "options": {
+        "fillColor": "#FFFFFF",
+        "strokeColor": "#D2D2D7",
+        "strokeWidth": 1
+      },
+      "cornerRadius": [
+        16,
+        16,
+        16,
+        16
+      ]
+    },
+    "viz_shadow_kpi_errors": {
+      "type": "splunk.rectangle",
+      "options": {
+        "fillColor": "#E8E8ED",
+        "strokeColor": "transparent"
+      },
+      "cornerRadius": [
+        16,
+        16,
+        16,
+        16
+      ]
+    },
+    "viz_icon_kpi_errors": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "warning_amber",
+        "icon_library.icon_library.iconColor": "#06B6D4",
+        "icon_library.icon_library.iconSize": "0",
+        "icon_library.icon_library.theme": "light"
+      }
+    },
+    "viz_value_kpi_errors": {
+      "type": "splunk.singlevalue",
+      "dataSources": {
+        "primary": "ds_kpi_errors"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "majorColor": "#1D1D1F",
+        "majorValue": "> primary | seriesByName(\"value\") | lastPoint()",
+        "unit": "%",
+        "unitPosition": "after",
+        "underLabelColor": "#6E6E73",
+        "underLabel": "Error rate",
+        "trendDisplay": "off",
+        "shouldUseThousandSeparators": false
+      }
+    },
+    "viz_delta_kpi_errors": {
+      "type": "splunk.markdown",
+      "options": {
+        "backgroundColor": "transparent",
+        "fontColor": "#1D7F37",
+        "fontFamily": "Helvetica",
+        "fontSize": "small",
+        "markdown": "**\u2193 0.2pp%** *vs prior period*"
+      }
+    },
+    "viz_card_kpi_uptime": {
+      "type": "splunk.rectangle",
+      "options": {
+        "fillColor": "#FFFFFF",
+        "strokeColor": "#D2D2D7",
+        "strokeWidth": 1
+      },
+      "cornerRadius": [
+        16,
+        16,
+        16,
+        16
+      ]
+    },
+    "viz_shadow_kpi_uptime": {
+      "type": "splunk.rectangle",
+      "options": {
+        "fillColor": "#E8E8ED",
+        "strokeColor": "transparent"
+      },
+      "cornerRadius": [
+        16,
+        16,
+        16,
+        16
+      ]
+    },
+    "viz_icon_kpi_uptime": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "cloud_done",
+        "icon_library.icon_library.iconColor": "#06B6D4",
+        "icon_library.icon_library.iconSize": "0",
+        "icon_library.icon_library.theme": "light"
+      }
+    },
+    "viz_value_kpi_uptime": {
+      "type": "splunk.singlevalue",
+      "dataSources": {
+        "primary": "ds_kpi_uptime"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "majorColor": "#1D1D1F",
+        "majorValue": "> primary | seriesByName(\"value\") | lastPoint()",
+        "unit": "%",
+        "unitPosition": "after",
+        "underLabelColor": "#6E6E73",
+        "underLabel": "Service uptime",
+        "trendDisplay": "off",
+        "shouldUseThousandSeparators": false
+      }
+    },
+    "viz_delta_kpi_uptime": {
+      "type": "splunk.markdown",
+      "options": {
+        "backgroundColor": "transparent",
+        "fontColor": "#6E6E73",
+        "fontFamily": "Helvetica",
+        "fontSize": "small",
+        "markdown": "**\u2192 0pp** *steady*"
+      }
+    },
+    "viz_section_trends": {
+      "type": "splunk.markdown",
+      "options": {
+        "backgroundColor": "transparent",
+        "fontColor": "#1D1D1F",
+        "fontFamily": "Helvetica",
+        "fontSize": "large",
+        "markdown": "## Request volume trends"
+      }
+    },
+    "viz_card_trend": {
+      "type": "splunk.rectangle",
+      "options": {
+        "fillColor": "#FFFFFF",
+        "strokeColor": "#D2D2D7",
+        "strokeWidth": 1
+      },
+      "cornerRadius": [
+        16,
+        16,
+        16,
+        16
+      ]
+    },
+    "viz_shadow_trend_card": {
+      "type": "splunk.rectangle",
+      "options": {
+        "fillColor": "#E8E8ED",
+        "strokeColor": "transparent"
+      },
+      "cornerRadius": [
+        16,
+        16,
+        16,
+        16
+      ]
+    },
+    "viz_title_trend": {
+      "type": "splunk.markdown",
+      "options": {
+        "backgroundColor": "transparent",
+        "fontColor": "#1D1D1F",
+        "fontFamily": "Helvetica",
+        "fontSize": "default",
+        "markdown": "**Weekly request volume by tier**\u00a0\u00a0\u00a0*Two-month view \u00b7 stacked \u00b7 in millions*"
+      }
+    },
+    "viz_trend_area": {
+      "type": "splunk.area",
+      "dataSources": {
+        "primary": "ds_trend"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "stackMode": "stacked",
+        "areaOpacity": 0.92,
+        "showLines": true,
+        "lineWidth": 2,
+        "seriesColorsByField": {
+          "API": "#06B6D4",
+          "Web": "#1D1D1F",
+          "Mobile": "#94A3B8",
+          "Internal": "#C7C7CC"
+        },
+        "legendDisplay": "bottom",
+        "yAxisAbbreviation": "auto",
+        "xAxisTitleVisibility": "hide",
+        "xAxisLabelVisibility": "auto",
+        "xAxisMajorTickVisibility": "hide"
+      }
+    },
+    "viz_card_region": {
+      "type": "splunk.rectangle",
+      "options": {
+        "fillColor": "#FFFFFF",
+        "strokeColor": "#D2D2D7",
+        "strokeWidth": 1
+      },
+      "cornerRadius": [
+        16,
+        16,
+        16,
+        16
+      ]
+    },
+    "viz_shadow_region_card": {
+      "type": "splunk.rectangle",
+      "options": {
+        "fillColor": "#E8E8ED",
+        "strokeColor": "transparent"
+      },
+      "cornerRadius": [
+        16,
+        16,
+        16,
+        16
+      ]
+    },
+    "viz_title_region": {
+      "type": "splunk.markdown",
+      "options": {
+        "backgroundColor": "transparent",
+        "fontColor": "#1D1D1F",
+        "fontFamily": "Helvetica",
+        "fontSize": "default",
+        "markdown": "**Requests by region**\u00a0\u00a0\u00a0*Last 8 weeks \u00b7 share of total*"
+      }
+    },
+    "viz_region_column": {
+      "type": "splunk.column",
+      "dataSources": {
+        "primary": "ds_region"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "seriesColors": [
+          "#06B6D4"
+        ],
+        "legendDisplay": "off",
+        "yAxisAbbreviation": "auto",
+        "xAxisTitleVisibility": "hide"
+      }
+    },
+    "viz_section_routes": {
+      "type": "splunk.markdown",
+      "options": {
+        "backgroundColor": "transparent",
+        "fontColor": "#1D1D1F",
+        "fontFamily": "Helvetica",
+        "fontSize": "large",
+        "markdown": "## Top routes"
+      }
+    },
+    "viz_card_table": {
+      "type": "splunk.rectangle",
+      "options": {
+        "fillColor": "#FFFFFF",
+        "strokeColor": "#D2D2D7",
+        "strokeWidth": 1
+      },
+      "cornerRadius": [
+        16,
+        16,
+        16,
+        16
+      ]
+    },
+    "viz_shadow_table_card": {
+      "type": "splunk.rectangle",
+      "options": {
+        "fillColor": "#E8E8ED",
+        "strokeColor": "transparent"
+      },
+      "cornerRadius": [
+        16,
+        16,
+        16,
+        16
+      ]
+    },
+    "viz_title_table": {
+      "type": "splunk.markdown",
+      "options": {
+        "backgroundColor": "transparent",
+        "fontColor": "#1D1D1F",
+        "fontFamily": "Helvetica",
+        "fontSize": "default",
+        "markdown": "**Top 10 routes by request volume**\u00a0\u00a0\u00a0*Sortable \u00b7 click a row to capture the route into a token*"
+      }
+    },
+    "viz_routes_table": {
+      "type": "splunk.table",
+      "dataSources": {
+        "primary": "ds_routes"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "count": 10,
+        "headerVisibility": "fixed",
+        "rowNumbersVisibility": "hide",
+        "showInternalFields": false
+      },
+      "eventHandlers": [
+        {
+          "type": "drilldown.setToken",
+          "options": {
+            "tokens": [
+              {
+                "token": "selected_route",
+                "key": "row.Route.value"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "viz_footer": {
+      "type": "splunk.markdown",
+      "options": {
+        "backgroundColor": "transparent",
+        "fontColor": "#6E6E73",
+        "fontFamily": "Helvetica",
+        "fontSize": "extraSmall",
+        "markdown": "*Sample dashboard for the icon_library Splunk app \u00b7 All values are mocked via* `| makeresults` *\u00b7 Icons rendered by icon_library.icon_library, KPIs by splunk.singlevalue, charts by splunk.area / splunk.column, layout by splunk.rectangle.*"
+      }
+    }
+  },
+  "layout": {
+    "globalInputs": [],
+    "tabs": {
+      "items": [
+        {
+          "label": "Overview",
+          "layoutId": "layout_main"
+        }
+      ],
+      "options": {
+        "showTabBar": false
+      }
+    },
+    "layoutDefinitions": {
+      "layout_main": {
+        "type": "absolute",
+        "options": {
+          "width": 1920,
+          "height": 1080
+        },
+        "structure": [
+          {
+            "item": "viz_canvas_bg",
+            "type": "block",
+            "position": {
+              "x": 0,
+              "y": 0,
+              "w": 1920,
+              "h": 1080
+            }
+          },
+          {
+            "item": "viz_header_title",
+            "type": "block",
+            "position": {
+              "x": 60,
+              "y": 30,
+              "w": 1200,
+              "h": 90
+            }
+          },
+          {
+            "item": "viz_header_period",
+            "type": "block",
+            "position": {
+              "x": 1500,
+              "y": 40,
+              "w": 360,
+              "h": 80
+            }
+          },
+          {
+            "item": "viz_shadow_kpi_users",
+            "type": "block",
+            "position": {
+              "x": 64,
+              "y": 144,
+              "w": 420,
+              "h": 174
+            }
+          },
+          {
+            "item": "viz_card_kpi_users",
+            "type": "block",
+            "position": {
+              "x": 60,
+              "y": 140,
+              "w": 420,
+              "h": 170
+            }
+          },
+          {
+            "item": "viz_icon_kpi_users",
+            "type": "block",
+            "position": {
+              "x": 80,
+              "y": 160,
+              "w": 130,
+              "h": 130
+            }
+          },
+          {
+            "item": "viz_value_kpi_users",
+            "type": "block",
+            "position": {
+              "x": 225,
+              "y": 170,
+              "w": 235,
+              "h": 95
+            }
+          },
+          {
+            "item": "viz_delta_kpi_users",
+            "type": "block",
+            "position": {
+              "x": 225,
+              "y": 268,
+              "w": 235,
+              "h": 30
+            }
+          },
+          {
+            "item": "viz_shadow_kpi_latency",
+            "type": "block",
+            "position": {
+              "x": 524,
+              "y": 144,
+              "w": 420,
+              "h": 174
+            }
+          },
+          {
+            "item": "viz_card_kpi_latency",
+            "type": "block",
+            "position": {
+              "x": 520,
+              "y": 140,
+              "w": 420,
+              "h": 170
+            }
+          },
+          {
+            "item": "viz_icon_kpi_latency",
+            "type": "block",
+            "position": {
+              "x": 540,
+              "y": 160,
+              "w": 130,
+              "h": 130
+            }
+          },
+          {
+            "item": "viz_value_kpi_latency",
+            "type": "block",
+            "position": {
+              "x": 685,
+              "y": 170,
+              "w": 235,
+              "h": 95
+            }
+          },
+          {
+            "item": "viz_delta_kpi_latency",
+            "type": "block",
+            "position": {
+              "x": 685,
+              "y": 268,
+              "w": 235,
+              "h": 30
+            }
+          },
+          {
+            "item": "viz_shadow_kpi_errors",
+            "type": "block",
+            "position": {
+              "x": 984,
+              "y": 144,
+              "w": 420,
+              "h": 174
+            }
+          },
+          {
+            "item": "viz_card_kpi_errors",
+            "type": "block",
+            "position": {
+              "x": 980,
+              "y": 140,
+              "w": 420,
+              "h": 170
+            }
+          },
+          {
+            "item": "viz_icon_kpi_errors",
+            "type": "block",
+            "position": {
+              "x": 1000,
+              "y": 160,
+              "w": 130,
+              "h": 130
+            }
+          },
+          {
+            "item": "viz_value_kpi_errors",
+            "type": "block",
+            "position": {
+              "x": 1145,
+              "y": 170,
+              "w": 235,
+              "h": 95
+            }
+          },
+          {
+            "item": "viz_delta_kpi_errors",
+            "type": "block",
+            "position": {
+              "x": 1145,
+              "y": 268,
+              "w": 235,
+              "h": 30
+            }
+          },
+          {
+            "item": "viz_shadow_kpi_uptime",
+            "type": "block",
+            "position": {
+              "x": 1444,
+              "y": 144,
+              "w": 420,
+              "h": 174
+            }
+          },
+          {
+            "item": "viz_card_kpi_uptime",
+            "type": "block",
+            "position": {
+              "x": 1440,
+              "y": 140,
+              "w": 420,
+              "h": 170
+            }
+          },
+          {
+            "item": "viz_icon_kpi_uptime",
+            "type": "block",
+            "position": {
+              "x": 1460,
+              "y": 160,
+              "w": 130,
+              "h": 130
+            }
+          },
+          {
+            "item": "viz_value_kpi_uptime",
+            "type": "block",
+            "position": {
+              "x": 1605,
+              "y": 170,
+              "w": 235,
+              "h": 95
+            }
+          },
+          {
+            "item": "viz_delta_kpi_uptime",
+            "type": "block",
+            "position": {
+              "x": 1605,
+              "y": 268,
+              "w": 235,
+              "h": 30
+            }
+          },
+          {
+            "item": "viz_section_trends",
+            "type": "block",
+            "position": {
+              "x": 60,
+              "y": 340,
+              "w": 600,
+              "h": 36
+            }
+          },
+          {
+            "item": "viz_shadow_trend_card",
+            "type": "block",
+            "position": {
+              "x": 64,
+              "y": 394,
+              "w": 1100,
+              "h": 334
+            }
+          },
+          {
+            "item": "viz_card_trend",
+            "type": "block",
+            "position": {
+              "x": 60,
+              "y": 390,
+              "w": 1100,
+              "h": 330
+            }
+          },
+          {
+            "item": "viz_title_trend",
+            "type": "block",
+            "position": {
+              "x": 90,
+              "y": 405,
+              "w": 800,
+              "h": 50
+            }
+          },
+          {
+            "item": "viz_trend_area",
+            "type": "block",
+            "position": {
+              "x": 80,
+              "y": 460,
+              "w": 1060,
+              "h": 250
+            }
+          },
+          {
+            "item": "viz_shadow_region_card",
+            "type": "block",
+            "position": {
+              "x": 1204,
+              "y": 394,
+              "w": 660,
+              "h": 334
+            }
+          },
+          {
+            "item": "viz_card_region",
+            "type": "block",
+            "position": {
+              "x": 1200,
+              "y": 390,
+              "w": 660,
+              "h": 330
+            }
+          },
+          {
+            "item": "viz_title_region",
+            "type": "block",
+            "position": {
+              "x": 1230,
+              "y": 405,
+              "w": 600,
+              "h": 50
+            }
+          },
+          {
+            "item": "viz_region_column",
+            "type": "block",
+            "position": {
+              "x": 1220,
+              "y": 460,
+              "w": 620,
+              "h": 250
+            }
+          },
+          {
+            "item": "viz_section_routes",
+            "type": "block",
+            "position": {
+              "x": 60,
+              "y": 750,
+              "w": 600,
+              "h": 36
+            }
+          },
+          {
+            "item": "viz_shadow_table_card",
+            "type": "block",
+            "position": {
+              "x": 64,
+              "y": 804,
+              "w": 1800,
+              "h": 214
+            }
+          },
+          {
+            "item": "viz_card_table",
+            "type": "block",
+            "position": {
+              "x": 60,
+              "y": 800,
+              "w": 1800,
+              "h": 210
+            }
+          },
+          {
+            "item": "viz_title_table",
+            "type": "block",
+            "position": {
+              "x": 90,
+              "y": 812,
+              "w": 1000,
+              "h": 40
+            }
+          },
+          {
+            "item": "viz_routes_table",
+            "type": "block",
+            "position": {
+              "x": 80,
+              "y": 860,
+              "w": 1760,
+              "h": 140
+            }
+          },
+          {
+            "item": "viz_footer",
+            "type": "block",
+            "position": {
+              "x": 60,
+              "y": 1040,
+              "w": 1800,
+              "h": 30
+            }
+          }
+        ]
+      }
+    }
+  }
+}
+
+]]></definition>
+</dashboard>

@@ -3,6 +3,7 @@
     <view name="readme" />
   </default>
   <view name="readme" label="README" />
+  <view name="sample" label="Sample Dashboard" />
   <view name="usecase_health" label="Service Health (Use Case)" />
   <view name="showcase" label="Icon Showcase" />
   <view name="svg_icons" label="SVG Reference" />
