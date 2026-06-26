@@ -544,7 +544,7 @@
       },
       "options": {
         "backgroundColor": "transparent",
-        "stackMode": "default",
+        "stackMode": "auto",
         "areaOpacity": 0.4,
         "showLines": true,
         "lineWidth": 2,
@@ -1172,6 +1172,5 @@
     }
   }
 }
-
 ]]></definition>
 </dashboard>
