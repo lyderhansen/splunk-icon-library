@@ -3,7 +3,7 @@
   <description>Sample dashboard rendering 24 service tiles using bundled SVG icons via splunk.image. No icon_library viz instances — demonstrates the lightweight SVG-asset path for high-density displays.</description>
   <definition><![CDATA[
 {
-  "title": "Sample Dashboard \u2014 Operations Status Wall",
+  "title": "Sample Dashboard 2 \u2014 Operations Status Wall",
   "description": "Sample dashboard rendering 24 service tiles using bundled SVG icons via splunk.image \u2014 no icon_library.icon_library viz instances. Demonstrates the lightweight SVG-asset path for many-tile dashboards.",
   "defaults": {},
   "dataSources": {},
@@ -23,7 +23,7 @@
         "fontColor": "#1D1D1F",
         "fontFamily": "Helvetica",
         "fontSize": "extraLarge",
-        "markdown": "# Operations Status Wall\n\n*Sample dashboard \u00b7 live service health \u00b7 auto-refresh disabled in demo*"
+        "markdown": "# Sample 2 \u2014 Operations Status Wall\n\n*High-density grid of bundled SVG icons via splunk.image \u00b7 live service health \u00b7 auto-refresh disabled in demo*"
       }
     },
     "viz_header_legend": {

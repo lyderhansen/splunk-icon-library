@@ -4,9 +4,10 @@
   </default>
   <view name="readme" label="README" />
   <collection label="Samples">
-    <view name="sample" label="Sample 1 — Exec KPIs (viz icons)" />
+    <view name="sample" label="Sample 1 — Exec KPIs (light)" />
     <view name="sample_status_wall" label="Sample 2 — Status Wall (SVG icons)" />
     <view name="sample_portal" label="Sample 3 — App Portal (SVG icons)" />
+    <view name="sample_realtime" label="Sample 4 — Real-Time Console (dark)" />
   </collection>
   <collection label="Use Cases">
     <view name="usecase_health" label="Service Health" />

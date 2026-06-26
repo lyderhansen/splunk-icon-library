@@ -3,7 +3,7 @@
   <description>Sample portal-style dashboard with 8 category cards. Every icon is a bundled SVG referenced via splunk.image — no icon_library viz instances. Demonstrates the navigation-hub pattern.</description>
   <definition><![CDATA[
 {
-  "title": "Sample Dashboard \u2014 Application Portal",
+  "title": "Sample Dashboard 3 \u2014 Application Portal",
   "description": "Sample portal-style dashboard with 8 large category cards. Every icon is a bundled SVG referenced directly via splunk.image (no icon_library.icon_library viz). Demonstrates the SVG-asset pattern for navigation hubs.",
   "defaults": {},
   "dataSources": {},
@@ -23,7 +23,7 @@
         "fontColor": "#1D1D1F",
         "fontFamily": "Helvetica",
         "fontSize": "extraLarge",
-        "markdown": "# Application Portal\n\n*Sample dashboard \u00b7 8 categories \u00b7 click a card to navigate*"
+        "markdown": "# Sample 3 \u2014 Application Portal\n\n*Navigation-hub layout \u00b7 8 categories \u00b7 click a card to navigate*"
       }
     },
     "viz_header_subtitle": {

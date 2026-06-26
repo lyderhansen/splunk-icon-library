@@ -1,0 +1,1177 @@
+<dashboard version="2" theme="dark">
+  <label>Sample 4 — Real-Time Console (dark)</label>
+  <description>Dark-mode console layout with hero metric + stats sidebar + quick actions + trend/distribution charts + activity feed and alerts. Same vocabulary as Sample 1, different geometry and palette.</description>
+  <definition><![CDATA[
+{
+  "title": "Sample Dashboard 4 \u2014 Real-Time Operations Console (dark)",
+  "description": "Dark-mode counterpart to Sample 1, with an asymmetric 'console' layout \u2014 one hero metric (left), a 4-stat sidebar (middle), a 2\u00d72 quick-actions grid (right), then a wide trend chart paired with a narrower distribution column chart, and finally an activity feed + active alerts row. Same icon_library viz + splunk.singlevalue / area / column / rectangle / markdown vocabulary as Sample 1, just different geometry and palette.",
+  "defaults": {},
+  "dataSources": {
+    "ds_stub": {
+      "type": "ds.test",
+      "name": "Static stub",
+      "options": {
+        "data": {
+          "fields": [
+            {
+              "name": "_stub"
+            }
+          ],
+          "columns": [
+            [
+              "1"
+            ]
+          ]
+        }
+      }
+    },
+    "ds_hero_health": {
+      "type": "ds.search",
+      "name": "Overall service health (0-100)",
+      "options": {
+        "query": "| makeresults | eval value = 98.4"
+      }
+    },
+    "ds_stat_users": {
+      "type": "ds.search",
+      "name": "Active sessions",
+      "options": {
+        "query": "| makeresults | eval value = 12.4"
+      }
+    },
+    "ds_stat_through": {
+      "type": "ds.search",
+      "name": "Throughput Gb/s",
+      "options": {
+        "query": "| makeresults | eval value = 1.24"
+      }
+    },
+    "ds_stat_latency": {
+      "type": "ds.search",
+      "name": "p95 latency ms",
+      "options": {
+        "query": "| makeresults | eval value = 142"
+      }
+    },
+    "ds_stat_errors": {
+      "type": "ds.search",
+      "name": "Error rate %",
+      "options": {
+        "query": "| makeresults | eval value = 0.4"
+      }
+    },
+    "ds_trend": {
+      "type": "ds.search",
+      "name": "Request volume \u2014 last 24h, 10-min bins",
+      "options": {
+        "query": "| makeresults count=24 | streamstats count as h | eval _time = relative_time(now(), \"-\" . tostring(24 - h) . \"h\") | eval requests = 8000 + (random() % 4000) | fields _time requests"
+      }
+    },
+    "ds_dist": {
+      "type": "ds.search",
+      "name": "Response code distribution",
+      "options": {
+        "query": "| makeresults | eval data = \"2xx:94.2,3xx:3.8,4xx:1.6,5xx:0.4\" | eval data = split(data, \",\") | mvexpand data | rex field=data \"(?<code>[^:]+):(?<share>.+)\" | eval share = tonumber(share) | table code share"
+      }
+    }
+  },
+  "inputs": {},
+  "visualizations": {
+    "viz_canvas_bg": {
+      "type": "splunk.rectangle",
+      "options": {
+        "fillColor": "#0B1220",
+        "strokeColor": "transparent"
+      }
+    },
+    "viz_header_title": {
+      "type": "splunk.markdown",
+      "options": {
+        "backgroundColor": "transparent",
+        "fontColor": "#F1F5F9",
+        "fontFamily": "Helvetica",
+        "fontSize": "extraLarge",
+        "markdown": "# Sample 4 \u2014 Real-Time Operations\n\n*Asymmetric \"console\" layout in dark mode \u00b7 auto-refresh 30 s*"
+      }
+    },
+    "viz_header_status": {
+      "type": "splunk.markdown",
+      "options": {
+        "backgroundColor": "transparent",
+        "fontColor": "#94A3B8",
+        "fontFamily": "Helvetica",
+        "fontSize": "small",
+        "markdown": "\ud83d\udfe2 **All systems operational**\n\n*Last incident \u00b7 14 d 6 h ago*"
+      }
+    },
+    "viz_hero_card": {
+      "type": "splunk.rectangle",
+      "options": {
+        "fillColor": "#1E293B",
+        "strokeColor": "#334155",
+        "strokeWidth": 1
+      },
+      "cornerRadius": [
+        20,
+        20,
+        20,
+        20
+      ]
+    },
+    "viz_hero_icon": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_hero_health"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "monitor_heart",
+        "icon_library.icon_library.iconSize": "0",
+        "icon_library.icon_library.bgShape": "circle",
+        "icon_library.icon_library.bgColor": "#0F172A",
+        "icon_library.icon_library.bgPadding": "32",
+        "icon_library.icon_library.glow": "yes",
+        "icon_library.icon_library.glowSize": "20",
+        "icon_library.icon_library.theme": "dark",
+        "icon_library.icon_library.colorIcon": "yes",
+        "icon_library.icon_library.colorGlow": "yes",
+        "icon_library.icon_library.thresholdField": "value",
+        "icon_library.icon_library.thresholdLow": "70",
+        "icon_library.icon_library.thresholdHigh": "95",
+        "icon_library.icon_library.thresholdDirection": "high_good",
+        "icon_library.icon_library.thresholdColorLow": "#EF4444",
+        "icon_library.icon_library.thresholdColorMid": "#F59E0B",
+        "icon_library.icon_library.thresholdColorHigh": "#22C55E",
+        "icon_library.icon_library.thresholdIconLow": "error",
+        "icon_library.icon_library.thresholdIconMid": "warning",
+        "icon_library.icon_library.thresholdIconHigh": "check_circle",
+        "icon_library.icon_library.thresholdGlowScaleLow": "2.4",
+        "icon_library.icon_library.thresholdGlowScaleHigh": "1",
+        "icon_library.icon_library.thresholdPulse": "critical",
+        "icon_library.icon_library.thresholdPulseSpeed": "1.2",
+        "icon_library.icon_library.tooltip": "auto"
+      }
+    },
+    "viz_hero_value": {
+      "type": "splunk.singlevalue",
+      "dataSources": {
+        "primary": "ds_hero_health"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "majorColor": "#F1F5F9",
+        "majorValue": "> primary | seriesByName(\"value\") | lastPoint()",
+        "unit": "%",
+        "unitPosition": "after",
+        "underLabelColor": "#94A3B8",
+        "underLabel": "Overall service health",
+        "trendDisplay": "off",
+        "shouldUseThousandSeparators": false
+      }
+    },
+    "viz_hero_desc": {
+      "type": "splunk.markdown",
+      "options": {
+        "backgroundColor": "transparent",
+        "fontColor": "#94A3B8",
+        "fontFamily": "Helvetica",
+        "fontSize": "small",
+        "markdown": "All 24 monitored services are responding within SLA. The Queue tier shows elevated activity but remains under its critical threshold.\n\n*Threshold engine on the icon: pulses red below 70 %, swaps to warning between 70\u201395 %, shows steady green above 95 %.*"
+      }
+    },
+    "viz_stat_card_users": {
+      "type": "splunk.rectangle",
+      "options": {
+        "fillColor": "#1E293B",
+        "strokeColor": "#334155",
+        "strokeWidth": 1
+      },
+      "cornerRadius": [
+        12,
+        12,
+        12,
+        12
+      ]
+    },
+    "viz_stat_icon_users": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "group",
+        "icon_library.icon_library.iconColor": "#06B6D4",
+        "icon_library.icon_library.iconSize": "0",
+        "icon_library.icon_library.theme": "dark"
+      }
+    },
+    "viz_stat_value_users": {
+      "type": "splunk.singlevalue",
+      "dataSources": {
+        "primary": "ds_stat_users"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "majorColor": "#F1F5F9",
+        "majorValue": "> primary | seriesByName(\"value\") | lastPoint()",
+        "unit": "K",
+        "unitPosition": "after",
+        "underLabelColor": "#94A3B8",
+        "underLabel": "Active sessions",
+        "trendDisplay": "off",
+        "shouldUseThousandSeparators": false
+      }
+    },
+    "viz_stat_card_through": {
+      "type": "splunk.rectangle",
+      "options": {
+        "fillColor": "#1E293B",
+        "strokeColor": "#334155",
+        "strokeWidth": 1
+      },
+      "cornerRadius": [
+        12,
+        12,
+        12,
+        12
+      ]
+    },
+    "viz_stat_icon_through": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "speed",
+        "icon_library.icon_library.iconColor": "#06B6D4",
+        "icon_library.icon_library.iconSize": "0",
+        "icon_library.icon_library.theme": "dark"
+      }
+    },
+    "viz_stat_value_through": {
+      "type": "splunk.singlevalue",
+      "dataSources": {
+        "primary": "ds_stat_through"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "majorColor": "#F1F5F9",
+        "majorValue": "> primary | seriesByName(\"value\") | lastPoint()",
+        "unit": "Gb/s",
+        "unitPosition": "after",
+        "underLabelColor": "#94A3B8",
+        "underLabel": "Throughput",
+        "trendDisplay": "off",
+        "shouldUseThousandSeparators": false
+      }
+    },
+    "viz_stat_card_latency": {
+      "type": "splunk.rectangle",
+      "options": {
+        "fillColor": "#1E293B",
+        "strokeColor": "#334155",
+        "strokeWidth": 1
+      },
+      "cornerRadius": [
+        12,
+        12,
+        12,
+        12
+      ]
+    },
+    "viz_stat_icon_latency": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "timer",
+        "icon_library.icon_library.iconColor": "#06B6D4",
+        "icon_library.icon_library.iconSize": "0",
+        "icon_library.icon_library.theme": "dark"
+      }
+    },
+    "viz_stat_value_latency": {
+      "type": "splunk.singlevalue",
+      "dataSources": {
+        "primary": "ds_stat_latency"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "majorColor": "#F1F5F9",
+        "majorValue": "> primary | seriesByName(\"value\") | lastPoint()",
+        "unit": "ms",
+        "unitPosition": "after",
+        "underLabelColor": "#94A3B8",
+        "underLabel": "p95 latency",
+        "trendDisplay": "off",
+        "shouldUseThousandSeparators": false
+      }
+    },
+    "viz_stat_card_errors": {
+      "type": "splunk.rectangle",
+      "options": {
+        "fillColor": "#1E293B",
+        "strokeColor": "#334155",
+        "strokeWidth": 1
+      },
+      "cornerRadius": [
+        12,
+        12,
+        12,
+        12
+      ]
+    },
+    "viz_stat_icon_errors": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "warning_amber",
+        "icon_library.icon_library.iconColor": "#06B6D4",
+        "icon_library.icon_library.iconSize": "0",
+        "icon_library.icon_library.theme": "dark"
+      }
+    },
+    "viz_stat_value_errors": {
+      "type": "splunk.singlevalue",
+      "dataSources": {
+        "primary": "ds_stat_errors"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "majorColor": "#F1F5F9",
+        "majorValue": "> primary | seriesByName(\"value\") | lastPoint()",
+        "unit": "%",
+        "unitPosition": "after",
+        "underLabelColor": "#94A3B8",
+        "underLabel": "Error rate",
+        "trendDisplay": "off",
+        "shouldUseThousandSeparators": false
+      }
+    },
+    "viz_act_card_runbook": {
+      "type": "splunk.rectangle",
+      "options": {
+        "fillColor": "#1E293B",
+        "strokeColor": "#334155",
+        "strokeWidth": 1
+      },
+      "cornerRadius": [
+        12,
+        12,
+        12,
+        12
+      ]
+    },
+    "viz_act_icon_runbook": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "menu_book",
+        "icon_library.icon_library.iconColor": "#06B6D4",
+        "icon_library.icon_library.iconSize": "0",
+        "icon_library.icon_library.theme": "dark"
+      }
+    },
+    "viz_act_label_runbook": {
+      "type": "splunk.markdown",
+      "options": {
+        "backgroundColor": "transparent",
+        "fontColor": "#F1F5F9",
+        "fontFamily": "Helvetica",
+        "fontSize": "default",
+        "markdown": "**Open runbook**\n\n*Step-by-step procedures*"
+      }
+    },
+    "viz_act_card_logs": {
+      "type": "splunk.rectangle",
+      "options": {
+        "fillColor": "#1E293B",
+        "strokeColor": "#334155",
+        "strokeWidth": 1
+      },
+      "cornerRadius": [
+        12,
+        12,
+        12,
+        12
+      ]
+    },
+    "viz_act_icon_logs": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "article",
+        "icon_library.icon_library.iconColor": "#06B6D4",
+        "icon_library.icon_library.iconSize": "0",
+        "icon_library.icon_library.theme": "dark"
+      }
+    },
+    "viz_act_label_logs": {
+      "type": "splunk.markdown",
+      "options": {
+        "backgroundColor": "transparent",
+        "fontColor": "#F1F5F9",
+        "fontFamily": "Helvetica",
+        "fontSize": "default",
+        "markdown": "**View logs**\n\n*Last 24 h, filtered*"
+      }
+    },
+    "viz_act_card_page": {
+      "type": "splunk.rectangle",
+      "options": {
+        "fillColor": "#1E293B",
+        "strokeColor": "#334155",
+        "strokeWidth": 1
+      },
+      "cornerRadius": [
+        12,
+        12,
+        12,
+        12
+      ]
+    },
+    "viz_act_icon_page": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "notifications_active",
+        "icon_library.icon_library.iconColor": "#06B6D4",
+        "icon_library.icon_library.iconSize": "0",
+        "icon_library.icon_library.theme": "dark"
+      }
+    },
+    "viz_act_label_page": {
+      "type": "splunk.markdown",
+      "options": {
+        "backgroundColor": "transparent",
+        "fontColor": "#F1F5F9",
+        "fontFamily": "Helvetica",
+        "fontSize": "default",
+        "markdown": "**Page oncall**\n\n*Wakes secondary engineer*"
+      }
+    },
+    "viz_act_card_diagnose": {
+      "type": "splunk.rectangle",
+      "options": {
+        "fillColor": "#1E293B",
+        "strokeColor": "#334155",
+        "strokeWidth": 1
+      },
+      "cornerRadius": [
+        12,
+        12,
+        12,
+        12
+      ]
+    },
+    "viz_act_icon_diagnose": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_stub"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "build",
+        "icon_library.icon_library.iconColor": "#06B6D4",
+        "icon_library.icon_library.iconSize": "0",
+        "icon_library.icon_library.theme": "dark"
+      }
+    },
+    "viz_act_label_diagnose": {
+      "type": "splunk.markdown",
+      "options": {
+        "backgroundColor": "transparent",
+        "fontColor": "#F1F5F9",
+        "fontFamily": "Helvetica",
+        "fontSize": "default",
+        "markdown": "**Run diagnostics**\n\n*Network \u00b7 DB \u00b7 cache check*"
+      }
+    },
+    "viz_section_charts": {
+      "type": "splunk.markdown",
+      "options": {
+        "backgroundColor": "transparent",
+        "fontColor": "#F1F5F9",
+        "fontFamily": "Helvetica",
+        "fontSize": "large",
+        "markdown": "## Traffic and distribution"
+      }
+    },
+    "viz_card_trend": {
+      "type": "splunk.rectangle",
+      "options": {
+        "fillColor": "#1E293B",
+        "strokeColor": "#334155",
+        "strokeWidth": 1
+      },
+      "cornerRadius": [
+        16,
+        16,
+        16,
+        16
+      ]
+    },
+    "viz_title_trend": {
+      "type": "splunk.markdown",
+      "options": {
+        "backgroundColor": "transparent",
+        "fontColor": "#F1F5F9",
+        "fontFamily": "Helvetica",
+        "fontSize": "default",
+        "markdown": "**Request volume**   *Last 24 h \u00b7 10-min bins*"
+      }
+    },
+    "viz_trend_area": {
+      "type": "splunk.area",
+      "dataSources": {
+        "primary": "ds_trend"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "stackMode": "default",
+        "areaOpacity": 0.4,
+        "showLines": true,
+        "lineWidth": 2,
+        "seriesColorsByField": {
+          "requests": "#06B6D4"
+        },
+        "legendDisplay": "off",
+        "yAxisAbbreviation": "auto",
+        "xAxisTitleVisibility": "hide",
+        "xAxisLabelVisibility": "auto",
+        "xAxisMajorTickVisibility": "hide"
+      }
+    },
+    "viz_card_dist": {
+      "type": "splunk.rectangle",
+      "options": {
+        "fillColor": "#1E293B",
+        "strokeColor": "#334155",
+        "strokeWidth": 1
+      },
+      "cornerRadius": [
+        16,
+        16,
+        16,
+        16
+      ]
+    },
+    "viz_title_dist": {
+      "type": "splunk.markdown",
+      "options": {
+        "backgroundColor": "transparent",
+        "fontColor": "#F1F5F9",
+        "fontFamily": "Helvetica",
+        "fontSize": "default",
+        "markdown": "**Response code distribution**   *Last 1 h \u00b7 % of total*"
+      }
+    },
+    "viz_dist_column": {
+      "type": "splunk.column",
+      "dataSources": {
+        "primary": "ds_dist"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "seriesColors": [
+          "#06B6D4"
+        ],
+        "legendDisplay": "off",
+        "yAxisAbbreviation": "auto",
+        "xAxisTitleVisibility": "hide"
+      }
+    },
+    "viz_section_activity": {
+      "type": "splunk.markdown",
+      "options": {
+        "backgroundColor": "transparent",
+        "fontColor": "#F1F5F9",
+        "fontFamily": "Helvetica",
+        "fontSize": "large",
+        "markdown": "## Activity feed and active alerts"
+      }
+    },
+    "viz_card_activity": {
+      "type": "splunk.rectangle",
+      "options": {
+        "fillColor": "#1E293B",
+        "strokeColor": "#334155",
+        "strokeWidth": 1
+      },
+      "cornerRadius": [
+        16,
+        16,
+        16,
+        16
+      ]
+    },
+    "viz_activity_title": {
+      "type": "splunk.markdown",
+      "options": {
+        "backgroundColor": "transparent",
+        "fontColor": "#F1F5F9",
+        "fontFamily": "Helvetica",
+        "fontSize": "default",
+        "markdown": "**Recent activity**   *Last 30 min*"
+      }
+    },
+    "viz_activity_body": {
+      "type": "splunk.markdown",
+      "options": {
+        "backgroundColor": "transparent",
+        "fontColor": "#94A3B8",
+        "fontFamily": "Helvetica",
+        "fontSize": "small",
+        "markdown": "\ud83d\udfe2 **2 m ago** \u00b7 auth-svc deployment v4.12.0 completed\n\n\ud83d\udfe1 **8 m ago** \u00b7 order-svc latency elevated \u00b7 auto-mitigation triggered\n\n\ud83d\udfe2 **12 m ago** \u00b7 cache cluster scaled to 6 nodes\n\n\ud83d\udd34 **14 m ago** \u00b7 queue-priority backlog crossed warning threshold\n\n\ud83d\udfe2 **23 m ago** \u00b7 cdn-edge-us recovered\n\n\ud83d\udfe2 **31 m ago** \u00b7 db-replica-2 lag returned to normal"
+      }
+    },
+    "viz_card_alerts": {
+      "type": "splunk.rectangle",
+      "options": {
+        "fillColor": "#1E293B",
+        "strokeColor": "#334155",
+        "strokeWidth": 1
+      },
+      "cornerRadius": [
+        16,
+        16,
+        16,
+        16
+      ]
+    },
+    "viz_alerts_title": {
+      "type": "splunk.markdown",
+      "options": {
+        "backgroundColor": "transparent",
+        "fontColor": "#F1F5F9",
+        "fontFamily": "Helvetica",
+        "fontSize": "default",
+        "markdown": "**Active alerts**   *3 firing*"
+      }
+    },
+    "viz_alerts_body": {
+      "type": "splunk.markdown",
+      "options": {
+        "backgroundColor": "transparent",
+        "fontColor": "#94A3B8",
+        "fontFamily": "Helvetica",
+        "fontSize": "small",
+        "markdown": "\ud83d\udd34 **CRITICAL \u00b7 4 m**\n\n*queue-priority backlog 4.2k \u00b7 auto-paged secondary*\n\n---\n\n\ud83d\udfe1 **WARNING \u00b7 11 m**\n\n*cdn-edge-asia p95 latency 88 ms \u00b7 monitoring*\n\n---\n\n\ud83d\udfe1 **WARNING \u00b7 18 m**\n\n*db-replica-2 lag 18 s \u00b7 self-recovered*"
+      }
+    },
+    "viz_footer": {
+      "type": "splunk.markdown",
+      "options": {
+        "backgroundColor": "transparent",
+        "fontColor": "#64748B",
+        "fontFamily": "Helvetica",
+        "fontSize": "extraSmall",
+        "markdown": "*Sample dashboard for icon_library \u00b7 asymmetric \"console\" layout in dark theme \u00b7 same icon_library viz mixed with splunk.singlevalue, splunk.area, splunk.column, and splunk.rectangle / markdown for layered cards \u00b7 all data is mocked via `\\| makeresults`.*"
+      }
+    }
+  },
+  "layout": {
+    "globalInputs": [],
+    "tabs": {
+      "items": [
+        {
+          "label": "Console",
+          "layoutId": "layout_main"
+        }
+      ],
+      "options": {
+        "showTabBar": false
+      }
+    },
+    "layoutDefinitions": {
+      "layout_main": {
+        "type": "absolute",
+        "options": {
+          "width": 1920,
+          "height": 1280
+        },
+        "structure": [
+          {
+            "item": "viz_canvas_bg",
+            "type": "block",
+            "position": {
+              "x": 0,
+              "y": 0,
+              "w": 1920,
+              "h": 1280
+            }
+          },
+          {
+            "item": "viz_header_title",
+            "type": "block",
+            "position": {
+              "x": 60,
+              "y": 30,
+              "w": 1200,
+              "h": 90
+            }
+          },
+          {
+            "item": "viz_header_status",
+            "type": "block",
+            "position": {
+              "x": 1500,
+              "y": 40,
+              "w": 360,
+              "h": 80
+            }
+          },
+          {
+            "item": "viz_hero_card",
+            "type": "block",
+            "position": {
+              "x": 60,
+              "y": 140,
+              "w": 880,
+              "h": 380
+            }
+          },
+          {
+            "item": "viz_hero_icon",
+            "type": "block",
+            "position": {
+              "x": 90,
+              "y": 170,
+              "w": 240,
+              "h": 240
+            }
+          },
+          {
+            "item": "viz_hero_value",
+            "type": "block",
+            "position": {
+              "x": 360,
+              "y": 170,
+              "w": 540,
+              "h": 130
+            }
+          },
+          {
+            "item": "viz_hero_desc",
+            "type": "block",
+            "position": {
+              "x": 360,
+              "y": 310,
+              "w": 540,
+              "h": 200
+            }
+          },
+          {
+            "item": "viz_stat_card_users",
+            "type": "block",
+            "position": {
+              "x": 960,
+              "y": 140,
+              "w": 380,
+              "h": 87
+            }
+          },
+          {
+            "item": "viz_stat_icon_users",
+            "type": "block",
+            "position": {
+              "x": 976,
+              "y": 150,
+              "w": 68,
+              "h": 68
+            }
+          },
+          {
+            "item": "viz_stat_value_users",
+            "type": "block",
+            "position": {
+              "x": 1060,
+              "y": 148,
+              "w": 270,
+              "h": 72
+            }
+          },
+          {
+            "item": "viz_stat_card_through",
+            "type": "block",
+            "position": {
+              "x": 960,
+              "y": 237,
+              "w": 380,
+              "h": 87
+            }
+          },
+          {
+            "item": "viz_stat_icon_through",
+            "type": "block",
+            "position": {
+              "x": 976,
+              "y": 247,
+              "w": 68,
+              "h": 68
+            }
+          },
+          {
+            "item": "viz_stat_value_through",
+            "type": "block",
+            "position": {
+              "x": 1060,
+              "y": 245,
+              "w": 270,
+              "h": 72
+            }
+          },
+          {
+            "item": "viz_stat_card_latency",
+            "type": "block",
+            "position": {
+              "x": 960,
+              "y": 334,
+              "w": 380,
+              "h": 87
+            }
+          },
+          {
+            "item": "viz_stat_icon_latency",
+            "type": "block",
+            "position": {
+              "x": 976,
+              "y": 344,
+              "w": 68,
+              "h": 68
+            }
+          },
+          {
+            "item": "viz_stat_value_latency",
+            "type": "block",
+            "position": {
+              "x": 1060,
+              "y": 342,
+              "w": 270,
+              "h": 72
+            }
+          },
+          {
+            "item": "viz_stat_card_errors",
+            "type": "block",
+            "position": {
+              "x": 960,
+              "y": 431,
+              "w": 380,
+              "h": 87
+            }
+          },
+          {
+            "item": "viz_stat_icon_errors",
+            "type": "block",
+            "position": {
+              "x": 976,
+              "y": 441,
+              "w": 68,
+              "h": 68
+            }
+          },
+          {
+            "item": "viz_stat_value_errors",
+            "type": "block",
+            "position": {
+              "x": 1060,
+              "y": 439,
+              "w": 270,
+              "h": 72
+            }
+          },
+          {
+            "item": "viz_act_card_runbook",
+            "type": "block",
+            "position": {
+              "x": 1360,
+              "y": 140,
+              "w": 250,
+              "h": 180
+            }
+          },
+          {
+            "item": "viz_act_icon_runbook",
+            "type": "block",
+            "position": {
+              "x": 1380,
+              "y": 156,
+              "w": 60,
+              "h": 60
+            }
+          },
+          {
+            "item": "viz_act_label_runbook",
+            "type": "block",
+            "position": {
+              "x": 1376,
+              "y": 226,
+              "w": 218,
+              "h": 80
+            }
+          },
+          {
+            "item": "viz_act_card_logs",
+            "type": "block",
+            "position": {
+              "x": 1630,
+              "y": 140,
+              "w": 250,
+              "h": 180
+            }
+          },
+          {
+            "item": "viz_act_icon_logs",
+            "type": "block",
+            "position": {
+              "x": 1650,
+              "y": 156,
+              "w": 60,
+              "h": 60
+            }
+          },
+          {
+            "item": "viz_act_label_logs",
+            "type": "block",
+            "position": {
+              "x": 1646,
+              "y": 226,
+              "w": 218,
+              "h": 80
+            }
+          },
+          {
+            "item": "viz_act_card_page",
+            "type": "block",
+            "position": {
+              "x": 1360,
+              "y": 340,
+              "w": 250,
+              "h": 180
+            }
+          },
+          {
+            "item": "viz_act_icon_page",
+            "type": "block",
+            "position": {
+              "x": 1380,
+              "y": 356,
+              "w": 60,
+              "h": 60
+            }
+          },
+          {
+            "item": "viz_act_label_page",
+            "type": "block",
+            "position": {
+              "x": 1376,
+              "y": 426,
+              "w": 218,
+              "h": 80
+            }
+          },
+          {
+            "item": "viz_act_card_diagnose",
+            "type": "block",
+            "position": {
+              "x": 1630,
+              "y": 340,
+              "w": 250,
+              "h": 180
+            }
+          },
+          {
+            "item": "viz_act_icon_diagnose",
+            "type": "block",
+            "position": {
+              "x": 1650,
+              "y": 356,
+              "w": 60,
+              "h": 60
+            }
+          },
+          {
+            "item": "viz_act_label_diagnose",
+            "type": "block",
+            "position": {
+              "x": 1646,
+              "y": 426,
+              "w": 218,
+              "h": 80
+            }
+          },
+          {
+            "item": "viz_section_charts",
+            "type": "block",
+            "position": {
+              "x": 60,
+              "y": 560,
+              "w": 800,
+              "h": 36
+            }
+          },
+          {
+            "item": "viz_card_trend",
+            "type": "block",
+            "position": {
+              "x": 60,
+              "y": 620,
+              "w": 1140,
+              "h": 320
+            }
+          },
+          {
+            "item": "viz_title_trend",
+            "type": "block",
+            "position": {
+              "x": 90,
+              "y": 635,
+              "w": 1080,
+              "h": 36
+            }
+          },
+          {
+            "item": "viz_trend_area",
+            "type": "block",
+            "position": {
+              "x": 80,
+              "y": 680,
+              "w": 1100,
+              "h": 240
+            }
+          },
+          {
+            "item": "viz_card_dist",
+            "type": "block",
+            "position": {
+              "x": 1220,
+              "y": 620,
+              "w": 660,
+              "h": 320
+            }
+          },
+          {
+            "item": "viz_title_dist",
+            "type": "block",
+            "position": {
+              "x": 1250,
+              "y": 635,
+              "w": 600,
+              "h": 36
+            }
+          },
+          {
+            "item": "viz_dist_column",
+            "type": "block",
+            "position": {
+              "x": 1240,
+              "y": 680,
+              "w": 620,
+              "h": 240
+            }
+          },
+          {
+            "item": "viz_section_activity",
+            "type": "block",
+            "position": {
+              "x": 60,
+              "y": 980,
+              "w": 900,
+              "h": 36
+            }
+          },
+          {
+            "item": "viz_card_activity",
+            "type": "block",
+            "position": {
+              "x": 60,
+              "y": 1040,
+              "w": 1140,
+              "h": 200
+            }
+          },
+          {
+            "item": "viz_activity_title",
+            "type": "block",
+            "position": {
+              "x": 90,
+              "y": 1055,
+              "w": 1080,
+              "h": 30
+            }
+          },
+          {
+            "item": "viz_activity_body",
+            "type": "block",
+            "position": {
+              "x": 90,
+              "y": 1090,
+              "w": 1080,
+              "h": 140
+            }
+          },
+          {
+            "item": "viz_card_alerts",
+            "type": "block",
+            "position": {
+              "x": 1220,
+              "y": 1040,
+              "w": 660,
+              "h": 200
+            }
+          },
+          {
+            "item": "viz_alerts_title",
+            "type": "block",
+            "position": {
+              "x": 1250,
+              "y": 1055,
+              "w": 600,
+              "h": 30
+            }
+          },
+          {
+            "item": "viz_alerts_body",
+            "type": "block",
+            "position": {
+              "x": 1250,
+              "y": 1090,
+              "w": 600,
+              "h": 140
+            }
+          },
+          {
+            "item": "viz_footer",
+            "type": "block",
+            "position": {
+              "x": 60,
+              "y": 1250,
+              "w": 1800,
+              "h": 20
+            }
+          }
+        ]
+      }
+    }
+  }
+}
+
+]]></definition>
+</dashboard>

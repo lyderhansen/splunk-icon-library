@@ -1,9 +1,9 @@
 <dashboard version="2" theme="light">
-  <label>Sample Dashboard</label>
+  <label>Sample 1 — Exec KPIs (light)</label>
   <description>Sample dashboard demonstrating icon_library in an executive-report layout — KPI cards with embedded icons, stacked area trend, region breakdown, and routes table with row-click drilldown. All data is mocked.</description>
   <definition><![CDATA[
 {
-  "title": "Sample Dashboard \u2014 Service Operations Overview",
+  "title": "Sample Dashboard 1 \u2014 Service Operations Overview",
   "description": "Sample dashboard demonstrating icon_library in an executive-report layout \u2014 4 KPI cards with embedded icons + splunk.singlevalue, a stacked area trend chart, a regional breakdown column chart, and a top-routes table with row-click setToken drilldown. All data is mocked via | makeresults.",
   "defaults": {},
   "dataSources": {
@@ -91,7 +91,7 @@
         "fontColor": "#1D1D1F",
         "fontFamily": "Helvetica",
         "fontSize": "extraLarge",
-        "markdown": "# Service Operations\n\n*Sample dashboard \u00b7 Last 8 weeks*"
+        "markdown": "# Sample 1 \u2014 Service Operations\n\n*Executive-KPI layout \u00b7 last 8 weeks*"
       }
     },
     "viz_header_period": {
