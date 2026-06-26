@@ -3,11 +3,17 @@
     <view name="readme" />
   </default>
   <view name="readme" label="README" />
-  <view name="sample" label="Sample 1 — Exec KPIs (viz icons)" />
-  <view name="sample_status_wall" label="Sample 2 — Status Wall (SVG icons)" />
-  <view name="sample_portal" label="Sample 3 — App Portal (SVG icons)" />
-  <view name="usecase_health" label="Service Health (Use Case)" />
-  <view name="showcase" label="Icon Showcase" />
-  <view name="svg_icons" label="SVG Reference" />
-  <view name="catalog" label="Icon Catalog (SVG Browser)" />
+  <collection label="Samples">
+    <view name="sample" label="Sample 1 — Exec KPIs (viz icons)" />
+    <view name="sample_status_wall" label="Sample 2 — Status Wall (SVG icons)" />
+    <view name="sample_portal" label="Sample 3 — App Portal (SVG icons)" />
+  </collection>
+  <collection label="Use Cases">
+    <view name="usecase_health" label="Service Health" />
+  </collection>
+  <collection label="Reference">
+    <view name="showcase" label="Icon Showcase (256 popular icons)" />
+    <view name="catalog" label="Icon Catalog (SVG Browser)" />
+    <view name="svg_icons" label="SVG Reference (splunk.image pattern)" />
+  </collection>
 </nav>

@@ -28,8 +28,10 @@
     "viz_labels": {
       "type": "splunk.markdown",
       "options": {
-        "markdown": "<div style=\"display:flex;color:#94A3B8;font-family:Inter,sans-serif;font-size:12px;\"><div style=\"flex:1;text-align:center\">action/home</div><div style=\"flex:1;text-align:center\">action/check_circle</div><div style=\"flex:1;text-align:center\">alert/warning</div><div style=\"flex:1;text-align:center\">alert/error</div><div style=\"flex:1;text-align:center\">_other/database</div></div>",
-        "backgroundColor": "transparent"
+        "markdown": "| action/home | action/check_circle | alert/warning | alert/error | _other/database |\n|---|---|---|---|---|\n",
+        "backgroundColor": "transparent",
+        "fontColor": "#94A3B8",
+        "fontSize": "extraSmall"
       }
     },
 

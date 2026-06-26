@@ -4,7 +4,7 @@
   <definition><![CDATA[
 {
   "title": "Sample Dashboard \u2014 Operations Status Wall",
-  "description": "Sample dashboard rendering 24 service tiles using bundled SVG icons via splunk.image \u2014 no icon_library.icon_library viz instances. Demonstrates the lightweight SVG-asset path that lives in the parent document and scales to many tiles without per-panel iframe overhead.",
+  "description": "Sample dashboard rendering 24 service tiles using bundled SVG icons via splunk.image \u2014 no icon_library.icon_library viz instances. Demonstrates the lightweight SVG-asset path for many-tile dashboards.",
   "defaults": {},
   "dataSources": {},
   "inputs": {},
@@ -33,7 +33,7 @@
         "fontColor": "#6E6E73",
         "fontFamily": "Helvetica",
         "fontSize": "small",
-        "markdown": "**24 services monitored**  \u00b7  <span style=\"color:#22C55E\">\u25cf</span> 20 healthy  \u00b7  <span style=\"color:#F59E0B\">\u25cf</span> 3 warning  \u00b7  <span style=\"color:#EF4444\">\u25cf</span> 1 critical\n\nIcons rendered directly from the bundled SVG catalog via `splunk.image` (no `icon_library.icon_library` viz)."
+        "markdown": "**24 services monitored**  \u00b7  \ud83d\udfe2 **20** healthy  \u00b7  \ud83d\udfe1 **3** warning  \u00b7  \ud83d\udd34 **1** critical\n\nIcons rendered directly from the bundled SVG catalog via `splunk.image` (no `icon_library.icon_library` viz)."
       }
     },
     "viz_card_0": {
@@ -65,7 +65,7 @@
         "fontColor": "#1D1D1F",
         "fontFamily": "Helvetica",
         "fontSize": "default",
-        "markdown": "**auth-svc**\n\n<span style=\"color:#6E6E73;font-size:12px;\">OK \u00b7 12 ms</span>"
+        "markdown": "**auth-svc**\n\n*OK \u00b7 12 ms*"
       }
     },
     "viz_card_1": {
@@ -97,7 +97,7 @@
         "fontColor": "#1D1D1F",
         "fontFamily": "Helvetica",
         "fontSize": "default",
-        "markdown": "**user-svc**\n\n<span style=\"color:#6E6E73;font-size:12px;\">OK \u00b7 18 ms</span>"
+        "markdown": "**user-svc**\n\n*OK \u00b7 18 ms*"
       }
     },
     "viz_card_2": {
@@ -129,7 +129,7 @@
         "fontColor": "#1D1D1F",
         "fontFamily": "Helvetica",
         "fontSize": "default",
-        "markdown": "**order-svc**\n\n<span style=\"color:#6E6E73;font-size:12px;\">Elevated \u00b7 240 ms</span>"
+        "markdown": "**order-svc**\n\n*Elevated \u00b7 240 ms*"
       }
     },
     "viz_card_3": {
@@ -161,7 +161,7 @@
         "fontColor": "#1D1D1F",
         "fontFamily": "Helvetica",
         "fontSize": "default",
-        "markdown": "**payment-svc**\n\n<span style=\"color:#6E6E73;font-size:12px;\">OK \u00b7 32 ms</span>"
+        "markdown": "**payment-svc**\n\n*OK \u00b7 32 ms*"
       }
     },
     "viz_card_4": {
@@ -193,7 +193,7 @@
         "fontColor": "#1D1D1F",
         "fontFamily": "Helvetica",
         "fontSize": "default",
-        "markdown": "**inventory-svc**\n\n<span style=\"color:#6E6E73;font-size:12px;\">OK \u00b7 21 ms</span>"
+        "markdown": "**inventory-svc**\n\n*OK \u00b7 21 ms*"
       }
     },
     "viz_card_5": {
@@ -225,7 +225,7 @@
         "fontColor": "#1D1D1F",
         "fontFamily": "Helvetica",
         "fontSize": "default",
-        "markdown": "**notification-svc**\n\n<span style=\"color:#6E6E73;font-size:12px;\">OK \u00b7 14 ms</span>"
+        "markdown": "**notification-svc**\n\n*OK \u00b7 14 ms*"
       }
     },
     "viz_card_6": {
@@ -257,7 +257,7 @@
         "fontColor": "#1D1D1F",
         "fontFamily": "Helvetica",
         "fontSize": "default",
-        "markdown": "**db-primary**\n\n<span style=\"color:#6E6E73;font-size:12px;\">OK \u00b7 4 ms</span>"
+        "markdown": "**db-primary**\n\n*OK \u00b7 4 ms*"
       }
     },
     "viz_card_7": {
@@ -289,7 +289,7 @@
         "fontColor": "#1D1D1F",
         "fontFamily": "Helvetica",
         "fontSize": "default",
-        "markdown": "**db-replica-1**\n\n<span style=\"color:#6E6E73;font-size:12px;\">OK \u00b7 5 ms</span>"
+        "markdown": "**db-replica-1**\n\n*OK \u00b7 5 ms*"
       }
     },
     "viz_card_8": {
@@ -321,7 +321,7 @@
         "fontColor": "#1D1D1F",
         "fontFamily": "Helvetica",
         "fontSize": "default",
-        "markdown": "**db-replica-2**\n\n<span style=\"color:#6E6E73;font-size:12px;\">Lagging \u00b7 18 s</span>"
+        "markdown": "**db-replica-2**\n\n*Lagging \u00b7 18 s*"
       }
     },
     "viz_card_9": {
@@ -353,7 +353,7 @@
         "fontColor": "#1D1D1F",
         "fontFamily": "Helvetica",
         "fontSize": "default",
-        "markdown": "**redis-master**\n\n<span style=\"color:#6E6E73;font-size:12px;\">OK \u00b7 <1 ms</span>"
+        "markdown": "**redis-master**\n\n*OK \u00b7 1 ms*"
       }
     },
     "viz_card_10": {
@@ -385,7 +385,7 @@
         "fontColor": "#1D1D1F",
         "fontFamily": "Helvetica",
         "fontSize": "default",
-        "markdown": "**redis-slave**\n\n<span style=\"color:#6E6E73;font-size:12px;\">OK \u00b7 <1 ms</span>"
+        "markdown": "**redis-slave**\n\n*OK \u00b7 1 ms*"
       }
     },
     "viz_card_11": {
@@ -417,7 +417,7 @@
         "fontColor": "#1D1D1F",
         "fontFamily": "Helvetica",
         "fontSize": "default",
-        "markdown": "**memcached-1**\n\n<span style=\"color:#6E6E73;font-size:12px;\">OK \u00b7 <1 ms</span>"
+        "markdown": "**memcached-1**\n\n*OK \u00b7 1 ms*"
       }
     },
     "viz_card_12": {
@@ -449,7 +449,7 @@
         "fontColor": "#1D1D1F",
         "fontFamily": "Helvetica",
         "fontSize": "default",
-        "markdown": "**queue-main**\n\n<span style=\"color:#6E6E73;font-size:12px;\">OK \u00b7 18 msg/s</span>"
+        "markdown": "**queue-main**\n\n*OK \u00b7 18 msg/s*"
       }
     },
     "viz_card_13": {
@@ -481,7 +481,7 @@
         "fontColor": "#1D1D1F",
         "fontFamily": "Helvetica",
         "fontSize": "default",
-        "markdown": "**queue-priority**\n\n<span style=\"color:#6E6E73;font-size:12px;\">BACKLOG \u00b7 4.2k</span>"
+        "markdown": "**queue-priority**\n\n*BACKLOG \u00b7 4.2k*"
       }
     },
     "viz_card_14": {
@@ -513,7 +513,7 @@
         "fontColor": "#1D1D1F",
         "fontFamily": "Helvetica",
         "fontSize": "default",
-        "markdown": "**queue-deadletter**\n\n<span style=\"color:#6E6E73;font-size:12px;\">OK \u00b7 2 msg/s</span>"
+        "markdown": "**queue-deadletter**\n\n*OK \u00b7 2 msg/s*"
       }
     },
     "viz_card_15": {
@@ -545,7 +545,7 @@
         "fontColor": "#1D1D1F",
         "fontFamily": "Helvetica",
         "fontSize": "default",
-        "markdown": "**api-gateway**\n\n<span style=\"color:#6E6E73;font-size:12px;\">OK \u00b7 9 ms</span>"
+        "markdown": "**api-gateway**\n\n*OK \u00b7 9 ms*"
       }
     },
     "viz_card_16": {
@@ -577,7 +577,7 @@
         "fontColor": "#1D1D1F",
         "fontFamily": "Helvetica",
         "fontSize": "default",
-        "markdown": "**cdn-edge-us**\n\n<span style=\"color:#6E6E73;font-size:12px;\">OK \u00b7 8 ms</span>"
+        "markdown": "**cdn-edge-us**\n\n*OK \u00b7 8 ms*"
       }
     },
     "viz_card_17": {
@@ -609,7 +609,7 @@
         "fontColor": "#1D1D1F",
         "fontFamily": "Helvetica",
         "fontSize": "default",
-        "markdown": "**cdn-edge-eu**\n\n<span style=\"color:#6E6E73;font-size:12px;\">OK \u00b7 12 ms</span>"
+        "markdown": "**cdn-edge-eu**\n\n*OK \u00b7 12 ms*"
       }
     },
     "viz_card_18": {
@@ -641,7 +641,7 @@
         "fontColor": "#1D1D1F",
         "fontFamily": "Helvetica",
         "fontSize": "default",
-        "markdown": "**cdn-edge-asia**\n\n<span style=\"color:#6E6E73;font-size:12px;\">Slow \u00b7 88 ms</span>"
+        "markdown": "**cdn-edge-asia**\n\n*Slow \u00b7 88 ms*"
       }
     },
     "viz_card_19": {
@@ -673,7 +673,7 @@
         "fontColor": "#1D1D1F",
         "fontFamily": "Helvetica",
         "fontSize": "default",
-        "markdown": "**monitoring**\n\n<span style=\"color:#6E6E73;font-size:12px;\">OK \u00b7 1.4k m/s</span>"
+        "markdown": "**monitoring**\n\n*OK \u00b7 1.4k m/s*"
       }
     },
     "viz_card_20": {
@@ -705,7 +705,7 @@
         "fontColor": "#1D1D1F",
         "fontFamily": "Helvetica",
         "fontSize": "default",
-        "markdown": "**logging**\n\n<span style=\"color:#6E6E73;font-size:12px;\">OK \u00b7 2.1k e/s</span>"
+        "markdown": "**logging**\n\n*OK \u00b7 2.1k e/s*"
       }
     },
     "viz_card_21": {
@@ -737,7 +737,7 @@
         "fontColor": "#1D1D1F",
         "fontFamily": "Helvetica",
         "fontSize": "default",
-        "markdown": "**metrics**\n\n<span style=\"color:#6E6E73;font-size:12px;\">OK \u00b7 980 dp/s</span>"
+        "markdown": "**metrics**\n\n*OK \u00b7 980 dp/s*"
       }
     },
     "viz_card_22": {
@@ -769,7 +769,7 @@
         "fontColor": "#1D1D1F",
         "fontFamily": "Helvetica",
         "fontSize": "default",
-        "markdown": "**tracing**\n\n<span style=\"color:#6E6E73;font-size:12px;\">OK \u00b7 420 sp/s</span>"
+        "markdown": "**tracing**\n\n*OK \u00b7 420 sp/s*"
       }
     },
     "viz_card_23": {
@@ -801,7 +801,7 @@
         "fontColor": "#1D1D1F",
         "fontFamily": "Helvetica",
         "fontSize": "default",
-        "markdown": "**backup**\n\n<span style=\"color:#6E6E73;font-size:12px;\">OK \u00b7 last 2 h</span>"
+        "markdown": "**backup**\n\n*OK \u00b7 last 2 h*"
       }
     },
     "viz_footer": {
@@ -893,7 +893,7 @@
               "x": 60,
               "y": 240,
               "w": 160,
-              "h": 100
+              "h": 110
             }
           },
           {
@@ -923,7 +923,7 @@
               "x": 370,
               "y": 240,
               "w": 160,
-              "h": 100
+              "h": 110
             }
           },
           {
@@ -953,7 +953,7 @@
               "x": 680,
               "y": 240,
               "w": 160,
-              "h": 100
+              "h": 110
             }
           },
           {
@@ -983,7 +983,7 @@
               "x": 990,
               "y": 240,
               "w": 160,
-              "h": 100
+              "h": 110
             }
           },
           {
@@ -1013,7 +1013,7 @@
               "x": 1300,
               "y": 240,
               "w": 160,
-              "h": 100
+              "h": 110
             }
           },
           {
@@ -1043,7 +1043,7 @@
               "x": 1610,
               "y": 240,
               "w": 160,
-              "h": 100
+              "h": 110
             }
           },
           {
@@ -1073,7 +1073,7 @@
               "x": 60,
               "y": 440,
               "w": 160,
-              "h": 100
+              "h": 110
             }
           },
           {
@@ -1103,7 +1103,7 @@
               "x": 370,
               "y": 440,
               "w": 160,
-              "h": 100
+              "h": 110
             }
           },
           {
@@ -1133,7 +1133,7 @@
               "x": 680,
               "y": 440,
               "w": 160,
-              "h": 100
+              "h": 110
             }
           },
           {
@@ -1163,7 +1163,7 @@
               "x": 990,
               "y": 440,
               "w": 160,
-              "h": 100
+              "h": 110
             }
           },
           {
@@ -1193,7 +1193,7 @@
               "x": 1300,
               "y": 440,
               "w": 160,
-              "h": 100
+              "h": 110
             }
           },
           {
@@ -1223,7 +1223,7 @@
               "x": 1610,
               "y": 440,
               "w": 160,
-              "h": 100
+              "h": 110
             }
           },
           {
@@ -1253,7 +1253,7 @@
               "x": 60,
               "y": 640,
               "w": 160,
-              "h": 100
+              "h": 110
             }
           },
           {
@@ -1283,7 +1283,7 @@
               "x": 370,
               "y": 640,
               "w": 160,
-              "h": 100
+              "h": 110
             }
           },
           {
@@ -1313,7 +1313,7 @@
               "x": 680,
               "y": 640,
               "w": 160,
-              "h": 100
+              "h": 110
             }
           },
           {
@@ -1343,7 +1343,7 @@
               "x": 990,
               "y": 640,
               "w": 160,
-              "h": 100
+              "h": 110
             }
           },
           {
@@ -1373,7 +1373,7 @@
               "x": 1300,
               "y": 640,
               "w": 160,
-              "h": 100
+              "h": 110
             }
           },
           {
@@ -1403,7 +1403,7 @@
               "x": 1610,
               "y": 640,
               "w": 160,
-              "h": 100
+              "h": 110
             }
           },
           {
@@ -1433,7 +1433,7 @@
               "x": 60,
               "y": 840,
               "w": 160,
-              "h": 100
+              "h": 110
             }
           },
           {
@@ -1463,7 +1463,7 @@
               "x": 370,
               "y": 840,
               "w": 160,
-              "h": 100
+              "h": 110
             }
           },
           {
@@ -1493,7 +1493,7 @@
               "x": 680,
               "y": 840,
               "w": 160,
-              "h": 100
+              "h": 110
             }
           },
           {
@@ -1523,7 +1523,7 @@
               "x": 990,
               "y": 840,
               "w": 160,
-              "h": 100
+              "h": 110
             }
           },
           {
@@ -1553,7 +1553,7 @@
               "x": 1300,
               "y": 840,
               "w": 160,
-              "h": 100
+              "h": 110
             }
           },
           {
@@ -1583,7 +1583,7 @@
               "x": 1610,
               "y": 840,
               "w": 160,
-              "h": 100
+              "h": 110
             }
           },
           {

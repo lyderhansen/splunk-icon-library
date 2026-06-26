@@ -78,7 +78,17 @@
         "fontColor": "#1D1D1F",
         "fontFamily": "Helvetica",
         "fontSize": "default",
-        "markdown": "**Dashboards**\n\n<span style=\"color:#6E6E73;font-size:13px;\">Visualize anything</span>\n\n<span style=\"color:#06B6D4;font-size:12px;font-weight:600;\">248 SAVED</span>"
+        "markdown": "**Dashboards**\n\n*Visualize anything*"
+      }
+    },
+    "viz_stat_0": {
+      "type": "splunk.markdown",
+      "options": {
+        "backgroundColor": "transparent",
+        "fontColor": "#06B6D4",
+        "fontFamily": "Helvetica",
+        "fontSize": "small",
+        "markdown": "**248 SAVED**"
       }
     },
     "viz_shadow_1": {
@@ -123,7 +133,17 @@
         "fontColor": "#1D1D1F",
         "fontFamily": "Helvetica",
         "fontSize": "default",
-        "markdown": "**Searches**\n\n<span style=\"color:#6E6E73;font-size:13px;\">Ad-hoc and saved searches</span>\n\n<span style=\"color:#06B6D4;font-size:12px;font-weight:600;\">1.2K SAVED</span>"
+        "markdown": "**Searches**\n\n*Ad-hoc and saved searches*"
+      }
+    },
+    "viz_stat_1": {
+      "type": "splunk.markdown",
+      "options": {
+        "backgroundColor": "transparent",
+        "fontColor": "#06B6D4",
+        "fontFamily": "Helvetica",
+        "fontSize": "small",
+        "markdown": "**1.2K SAVED**"
       }
     },
     "viz_shadow_2": {
@@ -168,7 +188,17 @@
         "fontColor": "#1D1D1F",
         "fontFamily": "Helvetica",
         "fontSize": "default",
-        "markdown": "**Alerts**\n\n<span style=\"color:#6E6E73;font-size:13px;\">Real-time notification rules</span>\n\n<span style=\"color:#06B6D4;font-size:12px;font-weight:600;\">47 ACTIVE</span>"
+        "markdown": "**Alerts**\n\n*Real-time notification rules*"
+      }
+    },
+    "viz_stat_2": {
+      "type": "splunk.markdown",
+      "options": {
+        "backgroundColor": "transparent",
+        "fontColor": "#06B6D4",
+        "fontFamily": "Helvetica",
+        "fontSize": "small",
+        "markdown": "**47 ACTIVE**"
       }
     },
     "viz_shadow_3": {
@@ -213,7 +243,17 @@
         "fontColor": "#1D1D1F",
         "fontFamily": "Helvetica",
         "fontSize": "default",
-        "markdown": "**Reports**\n\n<span style=\"color:#6E6E73;font-size:13px;\">Scheduled PDFs and summaries</span>\n\n<span style=\"color:#06B6D4;font-size:12px;font-weight:600;\">89 SCHEDULED</span>"
+        "markdown": "**Reports**\n\n*Scheduled PDFs and summaries*"
+      }
+    },
+    "viz_stat_3": {
+      "type": "splunk.markdown",
+      "options": {
+        "backgroundColor": "transparent",
+        "fontColor": "#06B6D4",
+        "fontFamily": "Helvetica",
+        "fontSize": "small",
+        "markdown": "**89 SCHEDULED**"
       }
     },
     "viz_shadow_4": {
@@ -258,7 +298,17 @@
         "fontColor": "#1D1D1F",
         "fontFamily": "Helvetica",
         "fontSize": "default",
-        "markdown": "**Lookups**\n\n<span style=\"color:#6E6E73;font-size:13px;\">CSV and KV-store enrichment tables</span>\n\n<span style=\"color:#06B6D4;font-size:12px;font-weight:600;\">34 LOOKUPS</span>"
+        "markdown": "**Lookups**\n\n*CSV and KV-store enrichment tables*"
+      }
+    },
+    "viz_stat_4": {
+      "type": "splunk.markdown",
+      "options": {
+        "backgroundColor": "transparent",
+        "fontColor": "#06B6D4",
+        "fontFamily": "Helvetica",
+        "fontSize": "small",
+        "markdown": "**34 LOOKUPS**"
       }
     },
     "viz_shadow_5": {
@@ -303,7 +353,17 @@
         "fontColor": "#1D1D1F",
         "fontFamily": "Helvetica",
         "fontSize": "default",
-        "markdown": "**Macros**\n\n<span style=\"color:#6E6E73;font-size:13px;\">Reusable SPL snippets</span>\n\n<span style=\"color:#06B6D4;font-size:12px;font-weight:600;\">62 MACROS</span>"
+        "markdown": "**Macros**\n\n*Reusable SPL snippets*"
+      }
+    },
+    "viz_stat_5": {
+      "type": "splunk.markdown",
+      "options": {
+        "backgroundColor": "transparent",
+        "fontColor": "#06B6D4",
+        "fontFamily": "Helvetica",
+        "fontSize": "small",
+        "markdown": "**62 MACROS**"
       }
     },
     "viz_shadow_6": {
@@ -348,7 +408,17 @@
         "fontColor": "#1D1D1F",
         "fontFamily": "Helvetica",
         "fontSize": "default",
-        "markdown": "**Apps**\n\n<span style=\"color:#6E6E73;font-size:13px;\">Installed Splunk apps</span>\n\n<span style=\"color:#06B6D4;font-size:12px;font-weight:600;\">18 INSTALLED</span>"
+        "markdown": "**Apps**\n\n*Installed Splunk apps*"
+      }
+    },
+    "viz_stat_6": {
+      "type": "splunk.markdown",
+      "options": {
+        "backgroundColor": "transparent",
+        "fontColor": "#06B6D4",
+        "fontFamily": "Helvetica",
+        "fontSize": "small",
+        "markdown": "**18 INSTALLED**"
       }
     },
     "viz_shadow_7": {
@@ -393,7 +463,17 @@
         "fontColor": "#1D1D1F",
         "fontFamily": "Helvetica",
         "fontSize": "default",
-        "markdown": "**Settings**\n\n<span style=\"color:#6E6E73;font-size:13px;\">Server and user configuration</span>\n\n<span style=\"color:#06B6D4;font-size:12px;font-weight:600;\">ADMIN ONLY</span>"
+        "markdown": "**Settings**\n\n*Server and user configuration*"
+      }
+    },
+    "viz_stat_7": {
+      "type": "splunk.markdown",
+      "options": {
+        "backgroundColor": "transparent",
+        "fontColor": "#06B6D4",
+        "fontFamily": "Helvetica",
+        "fontSize": "small",
+        "markdown": "**ADMIN ONLY**"
       }
     },
     "viz_stats_card": {
@@ -417,7 +497,7 @@
         "fontColor": "#1D1D1F",
         "fontFamily": "Helvetica",
         "fontSize": "default",
-        "markdown": "### Quick stats this week\n\n**248** dashboards rendered \u00b7 **412 k** searches dispatched \u00b7 **89** reports delivered \u00b7 **47** active alert rules \u00b7 **5.4 TB** ingested"
+        "markdown": "### Quick stats this week\n\n**248** dashboards rendered \u00b7 **412k** searches dispatched \u00b7 **89** reports delivered \u00b7 **47** active alert rules \u00b7 **5.4 TB** ingested"
       }
     },
     "viz_footer": {
@@ -519,7 +599,17 @@
               "x": 80,
               "y": 370,
               "w": 380,
-              "h": 100
+              "h": 60
+            }
+          },
+          {
+            "item": "viz_stat_0",
+            "type": "block",
+            "position": {
+              "x": 80,
+              "y": 435,
+              "w": 380,
+              "h": 30
             }
           },
           {
@@ -559,7 +649,17 @@
               "x": 540,
               "y": 370,
               "w": 380,
-              "h": 100
+              "h": 60
+            }
+          },
+          {
+            "item": "viz_stat_1",
+            "type": "block",
+            "position": {
+              "x": 540,
+              "y": 435,
+              "w": 380,
+              "h": 30
             }
           },
           {
@@ -599,7 +699,17 @@
               "x": 1000,
               "y": 370,
               "w": 380,
-              "h": 100
+              "h": 60
+            }
+          },
+          {
+            "item": "viz_stat_2",
+            "type": "block",
+            "position": {
+              "x": 1000,
+              "y": 435,
+              "w": 380,
+              "h": 30
             }
           },
           {
@@ -639,7 +749,17 @@
               "x": 1460,
               "y": 370,
               "w": 380,
-              "h": 100
+              "h": 60
+            }
+          },
+          {
+            "item": "viz_stat_3",
+            "type": "block",
+            "position": {
+              "x": 1460,
+              "y": 435,
+              "w": 380,
+              "h": 30
             }
           },
           {
@@ -679,7 +799,17 @@
               "x": 80,
               "y": 690,
               "w": 380,
-              "h": 100
+              "h": 60
+            }
+          },
+          {
+            "item": "viz_stat_4",
+            "type": "block",
+            "position": {
+              "x": 80,
+              "y": 755,
+              "w": 380,
+              "h": 30
             }
           },
           {
@@ -719,7 +849,17 @@
               "x": 540,
               "y": 690,
               "w": 380,
-              "h": 100
+              "h": 60
+            }
+          },
+          {
+            "item": "viz_stat_5",
+            "type": "block",
+            "position": {
+              "x": 540,
+              "y": 755,
+              "w": 380,
+              "h": 30
             }
           },
           {
@@ -759,7 +899,17 @@
               "x": 1000,
               "y": 690,
               "w": 380,
-              "h": 100
+              "h": 60
+            }
+          },
+          {
+            "item": "viz_stat_6",
+            "type": "block",
+            "position": {
+              "x": 1000,
+              "y": 755,
+              "w": 380,
+              "h": 30
             }
           },
           {
@@ -799,7 +949,17 @@
               "x": 1460,
               "y": 690,
               "w": 380,
-              "h": 100
+              "h": 60
+            }
+          },
+          {
+            "item": "viz_stat_7",
+            "type": "block",
+            "position": {
+              "x": 1460,
+              "y": 755,
+              "w": 380,
+              "h": 30
             }
           },
           {
