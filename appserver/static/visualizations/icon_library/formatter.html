@@ -375,6 +375,13 @@
             <option value="area">Area</option>
         </splunk-radio-input>
     </splunk-control-group>
+
+    <splunk-control-group label="Split at compare point" help="When Show Trend is on, split-color the sparkline at the compare-back index — historical portion in a muted base color, recent portion in the trend color (green/red). Also draws a subtle vertical marker at the split point so viewers see WHERE the comparison anchor is on the timeline.">
+        <splunk-radio-input name="{{VIZ_NAMESPACE}}.sparklineSplitAtCompare" value="yes">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </splunk-radio-input>
+    </splunk-control-group>
 </form>
 
 <form class="splunk-formatter-section" section-label="Tooltip">

@@ -669,6 +669,7 @@ define([
             var showSparkline    = getOption(config, ns, 'showSparkline',    'no') === 'yes';
             var sparklineColorRaw = getOption(config, ns, 'sparklineColor',  'auto');
             var sparklineStyle   = getOption(config, ns, 'sparklineStyle',   'line');
+            var sparklineSplit   = getOption(config, ns, 'sparklineSplitAtCompare', 'yes') === 'yes';
 
             // Threshold per-band effects — icon swap, glow scaling, pulse animation
             var thrIconLow  = getOption(config, ns, 'thresholdIconLow',  '');
@@ -1154,25 +1155,37 @@ define([
 
                 // Sparkline: tiny polyline through the value series, drawn
                 // in the reserved area at the very bottom of the value area.
+                // When Show Trend is on and Split at compare point is on, the
+                // sparkline is split-coloured: historical portion in a neutral
+                // base color, recent portion (from compare-back index to now)
+                // in the trend color. A subtle vertical marker at the split X
+                // shows viewers where the comparison anchor sits on the
+                // timeline.
                 if (hasSparkline) {
-                    var sparkColor;
+                    // Base color (historical portion, and full sparkline when
+                    // no split). Priority: explicit → threshold-band → soft ink.
+                    var baseColor;
                     if (sparklineColorRaw && sparklineColorRaw !== 'auto') {
-                        sparkColor = sparklineColorRaw;
-                    } else if (hasTrend && typeof trendColor === 'string') {
-                        sparkColor = trendColor;
+                        baseColor = sparklineColorRaw;
                     } else if (colorValue && thrBand !== null) {
-                        sparkColor = thrBand;
+                        baseColor = thrBand;
+                    } else if (hasTrend && !sparklineSplit && typeof trendColor === 'string') {
+                        // Single-color mode: whole sparkline inherits trend color.
+                        baseColor = trendColor;
                     } else {
-                        sparkColor = resolvedValueColor;
+                        baseColor = INK_SOFT_FOR_THEME(theme);
                     }
+                    // Recent-portion color (only used when splitting).
+                    var recentColor = (hasTrend && typeof trendColor === 'string')
+                        ? trendColor
+                        : baseColor;
 
                     var sparkX = valueAreaX + valueAreaW * 0.04;
                     var sparkW = valueAreaW * 0.92;
                     var sparkY = valueAreaY + mainValueAreaH + trendReserveH;
                     var sparkH = sparklineReserveH * 0.85;
 
-                    // Find min/max of the series to normalise. Add a small
-                    // padding so the line doesn't hug the top/bottom edges.
+                    // Find min/max of the series to normalise.
                     var sMin = valueSeries[0], sMax = valueSeries[0];
                     for (var si = 1; si < valueSeries.length; si++) {
                         if (valueSeries[si] < sMin) sMin = valueSeries[si];
@@ -1183,31 +1196,99 @@ define([
                     var padTopBot = sparkH * 0.08;
                     var innerH = sparkH - padTopBot * 2;
 
+                    var n = valueSeries.length;
+                    // Split index: everything up to and including splitIdx is
+                    // "historical" (base color); everything from splitIdx to
+                    // end is "recent" (trend color). Note the two segments
+                    // overlap at splitIdx so the polyline connects cleanly.
+                    var doSplit = (hasTrend && sparklineSplit && n > trendCompareBack + 1);
+                    var splitIdx = n - 1 - trendCompareBack;
+                    if (splitIdx < 1) splitIdx = 1;
+                    if (splitIdx > n - 2) splitIdx = n - 2;
+
+                    // Helper: build a point at index i.
+                    var _pt = function(i) {
+                        var px = sparkX + (n === 1 ? sparkW / 2 : (i / (n - 1)) * sparkW);
+                        var norm = (valueSeries[i] - sMin) / sRange;
+                        var py = sparkY + padTopBot + (1 - norm) * innerH;
+                        return [px, py];
+                    };
+
+                    var strokeW = Math.max(1, Math.round(sparkH / 22));
+
                     ctx.save();
-                    ctx.strokeStyle = sparkColor;
-                    ctx.lineWidth = Math.max(1, Math.round(sparkH / 24));
                     ctx.lineJoin = 'round';
                     ctx.lineCap = 'round';
-                    ctx.beginPath();
-                    var n = valueSeries.length;
-                    for (var pi = 0; pi < n; pi++) {
-                        var px = sparkX + (n === 1 ? sparkW / 2 : (pi / (n - 1)) * sparkW);
-                        var norm = (valueSeries[pi] - sMin) / sRange;
-                        var py = sparkY + padTopBot + (1 - norm) * innerH;
-                        if (pi === 0) ctx.moveTo(px, py);
-                        else          ctx.lineTo(px, py);
-                    }
-                    ctx.stroke();
 
-                    // Area fill option — translucent fill under the line.
+                    // Area fill first (under the line), separately for each
+                    // segment so the split colour also applies to the fill.
                     if (sparklineStyle === 'area') {
-                        ctx.lineTo(sparkX + sparkW, sparkY + sparkH);
-                        ctx.lineTo(sparkX,          sparkY + sparkH);
-                        ctx.closePath();
-                        ctx.globalAlpha = 0.18;
-                        ctx.fillStyle = sparkColor;
-                        ctx.fill();
+                        var baseY = sparkY + sparkH;
+                        var drawAreaSeg = function(startI, endI, color) {
+                            ctx.beginPath();
+                            var p0 = _pt(startI);
+                            ctx.moveTo(p0[0], p0[1]);
+                            for (var ai = startI + 1; ai <= endI; ai++) {
+                                var pa = _pt(ai);
+                                ctx.lineTo(pa[0], pa[1]);
+                            }
+                            var pEnd = _pt(endI);
+                            ctx.lineTo(pEnd[0], baseY);
+                            ctx.lineTo(p0[0],   baseY);
+                            ctx.closePath();
+                            ctx.globalAlpha = 0.18;
+                            ctx.fillStyle = color;
+                            ctx.fill();
+                        };
+                        if (doSplit) {
+                            drawAreaSeg(0,        splitIdx, baseColor);
+                            drawAreaSeg(splitIdx, n - 1,    recentColor);
+                        } else {
+                            drawAreaSeg(0, n - 1, baseColor);
+                        }
+                        ctx.globalAlpha = 1;
                     }
+
+                    // Line strokes.
+                    var drawLineSeg = function(startI, endI, color) {
+                        ctx.strokeStyle = color;
+                        ctx.lineWidth = strokeW;
+                        ctx.beginPath();
+                        var p = _pt(startI);
+                        ctx.moveTo(p[0], p[1]);
+                        for (var li = startI + 1; li <= endI; li++) {
+                            var pl = _pt(li);
+                            ctx.lineTo(pl[0], pl[1]);
+                        }
+                        ctx.stroke();
+                    };
+                    if (doSplit) {
+                        drawLineSeg(0,        splitIdx, baseColor);
+                        drawLineSeg(splitIdx, n - 1,    recentColor);
+
+                        // Vertical marker at the split point — a thin
+                        // semi-transparent line spanning the sparkline area,
+                        // plus a small filled circle where it crosses the
+                        // polyline. Draws AFTER the line so it sits on top.
+                        var splitPt = _pt(splitIdx);
+                        ctx.strokeStyle = INK_SOFT_FOR_THEME(theme);
+                        ctx.globalAlpha = 0.4;
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.moveTo(splitPt[0], sparkY);
+                        ctx.lineTo(splitPt[0], sparkY + sparkH);
+                        ctx.stroke();
+                        ctx.globalAlpha = 1;
+
+                        // Anchor dot at the split point.
+                        ctx.fillStyle = baseColor;
+                        ctx.beginPath();
+                        ctx.arc(splitPt[0], splitPt[1], strokeW * 1.6, 0, Math.PI * 2);
+                        ctx.fill();
+                    } else {
+                        drawLineSeg(0, n - 1, baseColor);
+                    }
+
                     ctx.restore();
                 }
             }

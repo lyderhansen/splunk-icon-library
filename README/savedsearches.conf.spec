@@ -90,6 +90,7 @@ display.visualizations.custom.icon_library.icon_library.trendCaption = <string>
 display.visualizations.custom.icon_library.icon_library.showSparkline = <string>
 display.visualizations.custom.icon_library.icon_library.sparklineColor = <string>
 display.visualizations.custom.icon_library.icon_library.sparklineStyle = <string>
+display.visualizations.custom.icon_library.icon_library.sparklineSplitAtCompare = <string>
 
 
 # --- Threshold effects (per band) --------------------------------------------
