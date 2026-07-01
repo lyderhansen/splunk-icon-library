@@ -1,0 +1,594 @@
+<dashboard version="2" theme="light">
+  <label>Sample 5 — KPI Tiles (v1.7.0)</label>
+  <description>Four large KPI tiles showcasing the v1.7.0 Value display + Trend features. Each tile is a single icon_library viz demonstrating a different value position, format, and trend direction.</description>
+  <definition><![CDATA[
+{
+  "title": "Sample Dashboard 5 \u2014 KPI Tiles (Value + Trend)",
+  "description": "Four large KPI tiles demonstrating the v1.7.0 Value display + Trend features. Each tile is a single icon_library.icon_library viz. Covers all four valuePosition options, four valueFormat modes, threshold-driven value coloring, and both up_good and up_bad trend directions.",
+  "defaults": {},
+  "dataSources": {
+    "ds_users": {
+      "type": "ds.search",
+      "options": {
+        "query": "| makeresults count=48 | streamstats count as h | eval _time = relative_time(now(), \"-\" . tostring(48 - h) . \"h\") | eval value = 240 + h * 0.15 + (h * 3 % 7) - 3 | eval value = round(value * 1000, 0) | fields _time value"
+      },
+      "name": "Active users \u2014 hourly, last 48 h (K-scale)"
+    },
+    "ds_latency": {
+      "type": "ds.search",
+      "options": {
+        "query": "| makeresults count=48 | streamstats count as h | eval _time = relative_time(now(), \"-\" . tostring(48 - h) . \"h\") | eval value = 220 - h * 0.9 + (h * 5 % 11) | eval value = round(value, 0) | fields _time value"
+      },
+      "name": "p95 latency ms \u2014 hourly, last 48 h"
+    },
+    "ds_errors": {
+      "type": "ds.search",
+      "options": {
+        "query": "| makeresults count=48 | streamstats count as h | eval _time = relative_time(now(), \"-\" . tostring(48 - h) . \"h\") | eval value = 1.4 - h * 0.012 + (h * 7 % 5) * 0.05 | eval value = round(value, 2) | fields _time value"
+      },
+      "name": "Error rate % \u2014 hourly, last 48 h"
+    },
+    "ds_revenue": {
+      "type": "ds.search",
+      "options": {
+        "query": "| makeresults count=48 | streamstats count as h | eval _time = relative_time(now(), \"-\" . tostring(48 - h) . \"h\") | eval value = 68000 + h * 210 + (h * 11 % 13) * 40 | eval value = round(value, 0) | fields _time value"
+      },
+      "name": "Revenue $ \u2014 hourly, last 48 h"
+    }
+  },
+  "inputs": {},
+  "visualizations": {
+    "viz_canvas_bg": {
+      "type": "splunk.rectangle",
+      "options": {
+        "fillColor": "#F5F5F7",
+        "strokeColor": "transparent"
+      }
+    },
+    "viz_header_title": {
+      "type": "splunk.markdown",
+      "options": {
+        "backgroundColor": "transparent",
+        "fontColor": "#1D1D1F",
+        "fontFamily": "Helvetica",
+        "fontSize": "extraLarge",
+        "markdown": "# Sample 5 \u2014 KPI Tiles\n\n*Value + Trend (new in v1.7.0) \u00b7 each tile is a single `icon_library` viz*"
+      }
+    },
+    "viz_header_note": {
+      "type": "splunk.markdown",
+      "options": {
+        "backgroundColor": "transparent",
+        "fontColor": "#6E6E73",
+        "fontFamily": "Helvetica",
+        "fontSize": "small",
+        "markdown": "Every tile below is one `icon_library.icon_library` visualization \u2014 icon, big value, and trend arrow are rendered together. Data comes from a 48-row time-series (`\\| makeresults count=48 \\| streamstats count as h \\| ...`). The viz reads the **last** row for the current value and a row **N** bins back for the trend delta."
+      }
+    },
+    "viz_shadow_users": {
+      "type": "splunk.rectangle",
+      "options": {
+        "fillColor": "#E8E8ED",
+        "strokeColor": "transparent"
+      },
+      "cornerRadius": [
+        20,
+        20,
+        20,
+        20
+      ]
+    },
+    "viz_card_users": {
+      "type": "splunk.rectangle",
+      "options": {
+        "fillColor": "#FFFFFF",
+        "strokeColor": "#D2D2D7",
+        "strokeWidth": 1
+      },
+      "cornerRadius": [
+        20,
+        20,
+        20,
+        20
+      ]
+    },
+    "viz_users": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_users"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "group",
+        "icon_library.icon_library.iconColor": "#06B6D4",
+        "icon_library.icon_library.iconSize": "0",
+        "icon_library.icon_library.theme": "light",
+        "icon_library.icon_library.showValue": "yes",
+        "icon_library.icon_library.valueField": "value",
+        "icon_library.icon_library.valuePosition": "right",
+        "icon_library.icon_library.valueFormat": "abbreviated",
+        "icon_library.icon_library.valueColor": "#1D1D1F",
+        "icon_library.icon_library.valueSize": "0",
+        "icon_library.icon_library.showLabel": "yes",
+        "icon_library.icon_library.labelText": "Active users (24 h)",
+        "icon_library.icon_library.labelColor": "#6E6E73",
+        "icon_library.icon_library.labelSize": "0",
+        "icon_library.icon_library.showTrend": "yes",
+        "icon_library.icon_library.trendCompareBack": "24",
+        "icon_library.icon_library.trendDirection": "up_good",
+        "icon_library.icon_library.trendFormat": "percentage",
+        "icon_library.icon_library.trendCaption": "vs 24 h ago"
+      }
+    },
+    "viz_shadow_latency": {
+      "type": "splunk.rectangle",
+      "options": {
+        "fillColor": "#E8E8ED",
+        "strokeColor": "transparent"
+      },
+      "cornerRadius": [
+        20,
+        20,
+        20,
+        20
+      ]
+    },
+    "viz_card_latency": {
+      "type": "splunk.rectangle",
+      "options": {
+        "fillColor": "#FFFFFF",
+        "strokeColor": "#D2D2D7",
+        "strokeWidth": 1
+      },
+      "cornerRadius": [
+        20,
+        20,
+        20,
+        20
+      ]
+    },
+    "viz_latency": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_latency"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "speed",
+        "icon_library.icon_library.iconColor": "#06B6D4",
+        "icon_library.icon_library.iconSize": "0",
+        "icon_library.icon_library.theme": "light",
+        "icon_library.icon_library.showValue": "yes",
+        "icon_library.icon_library.valueField": "value",
+        "icon_library.icon_library.valuePosition": "below",
+        "icon_library.icon_library.valueFormat": "integer",
+        "icon_library.icon_library.valueUnit": "ms",
+        "icon_library.icon_library.valueUnitPosition": "after",
+        "icon_library.icon_library.valueSize": "0",
+        "icon_library.icon_library.showLabel": "yes",
+        "icon_library.icon_library.labelText": "p95 latency",
+        "icon_library.icon_library.labelColor": "#6E6E73",
+        "icon_library.icon_library.labelSize": "0",
+        "icon_library.icon_library.showTrend": "yes",
+        "icon_library.icon_library.trendCompareBack": "1",
+        "icon_library.icon_library.trendDirection": "up_bad",
+        "icon_library.icon_library.trendFormat": "both",
+        "icon_library.icon_library.trendCaption": "vs prev hour",
+        "icon_library.icon_library.thresholdField": "value",
+        "icon_library.icon_library.thresholdLow": "150",
+        "icon_library.icon_library.thresholdHigh": "300",
+        "icon_library.icon_library.thresholdDirection": "high_bad",
+        "icon_library.icon_library.colorIcon": "yes",
+        "icon_library.icon_library.colorValue": "yes"
+      }
+    },
+    "viz_shadow_errors": {
+      "type": "splunk.rectangle",
+      "options": {
+        "fillColor": "#E8E8ED",
+        "strokeColor": "transparent"
+      },
+      "cornerRadius": [
+        20,
+        20,
+        20,
+        20
+      ]
+    },
+    "viz_card_errors": {
+      "type": "splunk.rectangle",
+      "options": {
+        "fillColor": "#FFFFFF",
+        "strokeColor": "#D2D2D7",
+        "strokeWidth": 1
+      },
+      "cornerRadius": [
+        20,
+        20,
+        20,
+        20
+      ]
+    },
+    "viz_errors": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_errors"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "warning_amber",
+        "icon_library.icon_library.iconColor": "#06B6D4",
+        "icon_library.icon_library.iconSize": "0",
+        "icon_library.icon_library.theme": "light",
+        "icon_library.icon_library.showValue": "yes",
+        "icon_library.icon_library.valueField": "value",
+        "icon_library.icon_library.valuePosition": "right",
+        "icon_library.icon_library.valueFormat": "two_decimals",
+        "icon_library.icon_library.valueUnit": "%",
+        "icon_library.icon_library.valueUnitPosition": "after",
+        "icon_library.icon_library.valueSize": "0",
+        "icon_library.icon_library.showLabel": "yes",
+        "icon_library.icon_library.labelText": "Error rate",
+        "icon_library.icon_library.labelColor": "#6E6E73",
+        "icon_library.icon_library.labelSize": "0",
+        "icon_library.icon_library.showTrend": "yes",
+        "icon_library.icon_library.trendCompareBack": "1",
+        "icon_library.icon_library.trendDirection": "up_bad",
+        "icon_library.icon_library.trendFormat": "percentage",
+        "icon_library.icon_library.trendCaption": "vs prev",
+        "icon_library.icon_library.thresholdField": "value",
+        "icon_library.icon_library.thresholdLow": "0.5",
+        "icon_library.icon_library.thresholdHigh": "1.0",
+        "icon_library.icon_library.thresholdDirection": "high_bad",
+        "icon_library.icon_library.colorIcon": "yes",
+        "icon_library.icon_library.colorValue": "yes",
+        "icon_library.icon_library.glow": "yes",
+        "icon_library.icon_library.glowColor": "#06B6D4",
+        "icon_library.icon_library.glowSize": "8",
+        "icon_library.icon_library.colorGlow": "yes",
+        "icon_library.icon_library.thresholdPulse": "critical"
+      }
+    },
+    "viz_shadow_revenue": {
+      "type": "splunk.rectangle",
+      "options": {
+        "fillColor": "#E8E8ED",
+        "strokeColor": "transparent"
+      },
+      "cornerRadius": [
+        20,
+        20,
+        20,
+        20
+      ]
+    },
+    "viz_card_revenue": {
+      "type": "splunk.rectangle",
+      "options": {
+        "fillColor": "#FFFFFF",
+        "strokeColor": "#D2D2D7",
+        "strokeWidth": 1
+      },
+      "cornerRadius": [
+        20,
+        20,
+        20,
+        20
+      ]
+    },
+    "viz_revenue": {
+      "type": "icon_library.icon_library",
+      "dataSources": {
+        "primary": "ds_revenue"
+      },
+      "options": {
+        "backgroundColor": "transparent",
+        "icon_library.icon_library.iconName": "payments",
+        "icon_library.icon_library.iconColor": "#06B6D4",
+        "icon_library.icon_library.iconSize": "0",
+        "icon_library.icon_library.theme": "light",
+        "icon_library.icon_library.showValue": "yes",
+        "icon_library.icon_library.valueField": "value",
+        "icon_library.icon_library.valuePosition": "left",
+        "icon_library.icon_library.valueFormat": "thousands",
+        "icon_library.icon_library.valuePrefix": "$",
+        "icon_library.icon_library.valueSize": "0",
+        "icon_library.icon_library.valueColor": "#1D1D1F",
+        "icon_library.icon_library.showLabel": "yes",
+        "icon_library.icon_library.labelText": "Hourly revenue",
+        "icon_library.icon_library.labelColor": "#6E6E73",
+        "icon_library.icon_library.labelSize": "0",
+        "icon_library.icon_library.showTrend": "yes",
+        "icon_library.icon_library.trendCompareBack": "1",
+        "icon_library.icon_library.trendDirection": "up_good",
+        "icon_library.icon_library.trendFormat": "absolute",
+        "icon_library.icon_library.trendCaption": "vs prev hour"
+      }
+    },
+    "viz_section_how": {
+      "type": "splunk.markdown",
+      "options": {
+        "backgroundColor": "transparent",
+        "fontColor": "#1D1D1F",
+        "fontFamily": "Helvetica",
+        "fontSize": "large",
+        "markdown": "## How the tiles above are configured"
+      }
+    },
+    "viz_shadow_explain": {
+      "type": "splunk.rectangle",
+      "options": {
+        "fillColor": "#E8E8ED",
+        "strokeColor": "transparent"
+      },
+      "cornerRadius": [
+        16,
+        16,
+        16,
+        16
+      ]
+    },
+    "viz_card_explain": {
+      "type": "splunk.rectangle",
+      "options": {
+        "fillColor": "#FFFFFF",
+        "strokeColor": "#D2D2D7",
+        "strokeWidth": 1
+      },
+      "cornerRadius": [
+        16,
+        16,
+        16,
+        16
+      ]
+    },
+    "viz_explain_md": {
+      "type": "splunk.markdown",
+      "options": {
+        "backgroundColor": "transparent",
+        "fontColor": "#1D1D1F",
+        "fontFamily": "Helvetica",
+        "fontSize": "small",
+        "markdown": "**Tile 1 \u00b7 Active users** \u2014 `valuePosition: right` \u00b7 `valueFormat: abbreviated` (247.3 \u2192 **247.3K**) \u00b7 `trendCompareBack: 24` (vs 24 h ago).\n\n**Tile 2 \u00b7 p95 latency** \u2014 `valuePosition: below` \u00b7 `valueUnit: ms` \u00b7 `valueFormat: integer` \u00b7 `up_bad` trend \u00b7 threshold engine colors both icon and value.\n\n**Tile 3 \u00b7 Error rate** \u2014 `valuePosition: right` \u00b7 `valueUnit: %` \u00b7 `valueFormat: two_decimals` \u00b7 `up_bad` trend \u00b7 threshold engine pulses the glow red on critical.\n\n**Tile 4 \u00b7 Revenue** \u2014 `valuePosition: left` \u00b7 `valuePrefix: $` \u00b7 `valueFormat: thousands` (68000 \u2192 **$68,000**) \u00b7 `up_good` absolute trend."
+      }
+    },
+    "viz_footer": {
+      "type": "splunk.markdown",
+      "options": {
+        "backgroundColor": "transparent",
+        "fontColor": "#6E6E73",
+        "fontFamily": "Helvetica",
+        "fontSize": "extraSmall",
+        "markdown": "*Sample 5 \u00b7 showcases the v1.7.0 Value display + Trend features \u00b7 every tile is one `icon_library.icon_library` viz \u00b7 data is a 48-bin `\\| makeresults` time-series with slight up/down curves so the trend arrow shows a realistic delta.*"
+      }
+    }
+  },
+  "layout": {
+    "globalInputs": [],
+    "tabs": {
+      "items": [
+        {
+          "label": "KPI Tiles",
+          "layoutId": "layout_main"
+        }
+      ],
+      "options": {
+        "showTabBar": false
+      }
+    },
+    "layoutDefinitions": {
+      "layout_main": {
+        "type": "absolute",
+        "options": {
+          "width": 1920,
+          "height": 1240
+        },
+        "structure": [
+          {
+            "item": "viz_canvas_bg",
+            "type": "block",
+            "position": {
+              "x": 0,
+              "y": 0,
+              "w": 1920,
+              "h": 1240
+            }
+          },
+          {
+            "item": "viz_header_title",
+            "type": "block",
+            "position": {
+              "x": 60,
+              "y": 30,
+              "w": 1200,
+              "h": 90
+            }
+          },
+          {
+            "item": "viz_header_note",
+            "type": "block",
+            "position": {
+              "x": 60,
+              "y": 130,
+              "w": 1800,
+              "h": 60
+            }
+          },
+          {
+            "item": "viz_shadow_users",
+            "type": "block",
+            "position": {
+              "x": 64,
+              "y": 224,
+              "w": 880,
+              "h": 360
+            }
+          },
+          {
+            "item": "viz_card_users",
+            "type": "block",
+            "position": {
+              "x": 60,
+              "y": 220,
+              "w": 880,
+              "h": 360
+            }
+          },
+          {
+            "item": "viz_users",
+            "type": "block",
+            "position": {
+              "x": 90,
+              "y": 250,
+              "w": 820,
+              "h": 300
+            }
+          },
+          {
+            "item": "viz_shadow_latency",
+            "type": "block",
+            "position": {
+              "x": 984,
+              "y": 224,
+              "w": 880,
+              "h": 360
+            }
+          },
+          {
+            "item": "viz_card_latency",
+            "type": "block",
+            "position": {
+              "x": 980,
+              "y": 220,
+              "w": 880,
+              "h": 360
+            }
+          },
+          {
+            "item": "viz_latency",
+            "type": "block",
+            "position": {
+              "x": 1010,
+              "y": 250,
+              "w": 820,
+              "h": 300
+            }
+          },
+          {
+            "item": "viz_shadow_errors",
+            "type": "block",
+            "position": {
+              "x": 64,
+              "y": 604,
+              "w": 880,
+              "h": 360
+            }
+          },
+          {
+            "item": "viz_card_errors",
+            "type": "block",
+            "position": {
+              "x": 60,
+              "y": 600,
+              "w": 880,
+              "h": 360
+            }
+          },
+          {
+            "item": "viz_errors",
+            "type": "block",
+            "position": {
+              "x": 90,
+              "y": 630,
+              "w": 820,
+              "h": 300
+            }
+          },
+          {
+            "item": "viz_shadow_revenue",
+            "type": "block",
+            "position": {
+              "x": 984,
+              "y": 604,
+              "w": 880,
+              "h": 360
+            }
+          },
+          {
+            "item": "viz_card_revenue",
+            "type": "block",
+            "position": {
+              "x": 980,
+              "y": 600,
+              "w": 880,
+              "h": 360
+            }
+          },
+          {
+            "item": "viz_revenue",
+            "type": "block",
+            "position": {
+              "x": 1010,
+              "y": 630,
+              "w": 820,
+              "h": 300
+            }
+          },
+          {
+            "item": "viz_section_how",
+            "type": "block",
+            "position": {
+              "x": 60,
+              "y": 1000,
+              "w": 800,
+              "h": 40
+            }
+          },
+          {
+            "item": "viz_shadow_explain",
+            "type": "block",
+            "position": {
+              "x": 64,
+              "y": 1054,
+              "w": 1800,
+              "h": 130
+            }
+          },
+          {
+            "item": "viz_card_explain",
+            "type": "block",
+            "position": {
+              "x": 60,
+              "y": 1050,
+              "w": 1800,
+              "h": 130
+            }
+          },
+          {
+            "item": "viz_explain_md",
+            "type": "block",
+            "position": {
+              "x": 90,
+              "y": 1065,
+              "w": 1750,
+              "h": 105
+            }
+          },
+          {
+            "item": "viz_footer",
+            "type": "block",
+            "position": {
+              "x": 60,
+              "y": 1200,
+              "w": 1800,
+              "h": 30
+            }
+          }
+        ]
+      }
+    }
+  }
+}
+
+]]></definition>
+</dashboard>

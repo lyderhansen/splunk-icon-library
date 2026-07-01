@@ -8,6 +8,7 @@
     <view name="sample_status_wall" label="Sample 2 — Status Wall (SVG icons)" />
     <view name="sample_portal" label="Sample 3 — App Portal (SVG icons)" />
     <view name="sample_realtime" label="Sample 4 — Real-Time Console (dark)" />
+    <view name="sample_kpi" label="Sample 5 — KPI Tiles (v1.7.0)" />
   </collection>
   <collection label="Use Cases">
     <view name="usecase_health" label="Service Health" />
