@@ -349,6 +349,32 @@
         <splunk-text-input name="{{VIZ_NAMESPACE}}.trendCaption" value="" placeholder="e.g. vs prev">
         </splunk-text-input>
     </splunk-control-group>
+
+    <splunk-control-group label="Show sparkline" help="Render a tiny line chart through every value in the returned series, drawn under the value / trend text. Uses the same valueField and the same series as the trend calculation.">
+        <splunk-radio-input name="{{VIZ_NAMESPACE}}.showSparkline" value="no">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </splunk-radio-input>
+    </splunk-control-group>
+
+    <splunk-control-group label="Sparkline color" help="Color of the sparkline stroke. Leave 'auto' to inherit the current trend color (green when up=good and rising, red when up=bad and rising, etc.).">
+        <splunk-color-picker name="{{VIZ_NAMESPACE}}.sparklineColor" type="custom" value="auto">
+            <splunk-color>auto</splunk-color>
+            <splunk-color>#06B6D4</splunk-color>
+            <splunk-color>#22C55E</splunk-color>
+            <splunk-color>#F59E0B</splunk-color>
+            <splunk-color>#EF4444</splunk-color>
+            <splunk-color>#94A3B8</splunk-color>
+            <splunk-color>#1D1D1F</splunk-color>
+        </splunk-color-picker>
+    </splunk-control-group>
+
+    <splunk-control-group label="Sparkline style" help="Line: single stroke through the values. Area: line with translucent fill below (looks fuller for taller sparklines).">
+        <splunk-radio-input name="{{VIZ_NAMESPACE}}.sparklineStyle" value="line">
+            <option value="line">Line</option>
+            <option value="area">Area</option>
+        </splunk-radio-input>
+    </splunk-control-group>
 </form>
 
 <form class="splunk-formatter-section" section-label="Tooltip">

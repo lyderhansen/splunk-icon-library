@@ -117,7 +117,10 @@
         "icon_library.icon_library.trendCompareBack": "24",
         "icon_library.icon_library.trendDirection": "up_good",
         "icon_library.icon_library.trendFormat": "percentage",
-        "icon_library.icon_library.trendCaption": "vs 24 h ago"
+        "icon_library.icon_library.trendCaption": "vs 24 h ago",
+        "icon_library.icon_library.showSparkline": "yes",
+        "icon_library.icon_library.sparklineStyle": "area",
+        "icon_library.icon_library.sparklineColor": "auto"
       }
     },
     "viz_shadow_latency": {
@@ -179,7 +182,10 @@
         "icon_library.icon_library.thresholdHigh": "300",
         "icon_library.icon_library.thresholdDirection": "high_bad",
         "icon_library.icon_library.colorIcon": "yes",
-        "icon_library.icon_library.colorValue": "yes"
+        "icon_library.icon_library.colorValue": "yes",
+        "icon_library.icon_library.showSparkline": "yes",
+        "icon_library.icon_library.sparklineStyle": "line",
+        "icon_library.icon_library.sparklineColor": "auto"
       }
     },
     "viz_shadow_errors": {
@@ -246,7 +252,10 @@
         "icon_library.icon_library.glowColor": "#06B6D4",
         "icon_library.icon_library.glowSize": "8",
         "icon_library.icon_library.colorGlow": "yes",
-        "icon_library.icon_library.thresholdPulse": "critical"
+        "icon_library.icon_library.thresholdPulse": "critical",
+        "icon_library.icon_library.showSparkline": "yes",
+        "icon_library.icon_library.sparklineStyle": "area",
+        "icon_library.icon_library.sparklineColor": "auto"
       }
     },
     "viz_shadow_revenue": {
@@ -302,7 +311,10 @@
         "icon_library.icon_library.trendCompareBack": "1",
         "icon_library.icon_library.trendDirection": "up_good",
         "icon_library.icon_library.trendFormat": "absolute",
-        "icon_library.icon_library.trendCaption": "vs prev hour"
+        "icon_library.icon_library.trendCaption": "vs prev hour",
+        "icon_library.icon_library.showSparkline": "yes",
+        "icon_library.icon_library.sparklineStyle": "line",
+        "icon_library.icon_library.sparklineColor": "#22C55E"
       }
     },
     "viz_section_how": {
@@ -349,7 +361,7 @@
         "fontColor": "#1D1D1F",
         "fontFamily": "Helvetica",
         "fontSize": "small",
-        "markdown": "**Tile 1 \u00b7 Active users** \u2014 `valuePosition: right` \u00b7 `valueFormat: abbreviated` (247.3 \u2192 **247.3K**) \u00b7 `trendCompareBack: 24` (vs 24 h ago).\n\n**Tile 2 \u00b7 p95 latency** \u2014 `valuePosition: below` \u00b7 `valueUnit: ms` \u00b7 `valueFormat: integer` \u00b7 `up_bad` trend \u00b7 threshold engine colors both icon and value.\n\n**Tile 3 \u00b7 Error rate** \u2014 `valuePosition: right` \u00b7 `valueUnit: %` \u00b7 `valueFormat: two_decimals` \u00b7 `up_bad` trend \u00b7 threshold engine pulses the glow red on critical.\n\n**Tile 4 \u00b7 Revenue** \u2014 `valuePosition: left` \u00b7 `valuePrefix: $` \u00b7 `valueFormat: thousands` (68000 \u2192 **$68,000**) \u00b7 `up_good` absolute trend."
+        "markdown": "**Tile 1 \u00b7 Active users** \u2014 `valuePosition: right` \u00b7 `valueFormat: abbreviated` (247.3 \u2192 **247.3K**) \u00b7 `trendCompareBack: 24` (vs 24 h ago) \u00b7 sparkline area under trend.\n\n**Tile 2 \u00b7 p95 latency** \u2014 `valuePosition: below` \u00b7 `valueUnit: ms` \u00b7 `valueFormat: integer` \u00b7 `up_bad` trend \u00b7 threshold engine colors both icon and value \u00b7 sparkline line, threshold-tinted.\n\n**Tile 3 \u00b7 Error rate** \u2014 `valuePosition: right` \u00b7 `valueUnit: %` \u00b7 `valueFormat: two_decimals` \u00b7 `up_bad` trend \u00b7 glow pulses red on critical band \u00b7 sparkline area, threshold-tinted.\n\n**Tile 4 \u00b7 Revenue** \u2014 `valuePosition: left` \u00b7 `valuePrefix: $` \u00b7 `valueFormat: thousands` (68000 \u2192 **$68,000**) \u00b7 `up_good` absolute trend \u00b7 fixed green sparkline (`sparklineColor: #22C55E`)."
       }
     },
     "viz_footer": {
@@ -589,6 +601,5 @@
     }
   }
 }
-
 ]]></definition>
 </dashboard>

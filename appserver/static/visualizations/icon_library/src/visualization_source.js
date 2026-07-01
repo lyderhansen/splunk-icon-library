@@ -665,6 +665,11 @@ define([
             var trendCaption     = getOption(config, ns, 'trendCaption',      '');
             if (isNaN(trendCompareBack) || trendCompareBack < 1) trendCompareBack = 1;
 
+            // ── Sparkline (v1.7.1) ───────────────────────────────
+            var showSparkline    = getOption(config, ns, 'showSparkline',    'no') === 'yes';
+            var sparklineColorRaw = getOption(config, ns, 'sparklineColor',  'auto');
+            var sparklineStyle   = getOption(config, ns, 'sparklineStyle',   'line');
+
             // Threshold per-band effects — icon swap, glow scaling, pulse animation
             var thrIconLow  = getOption(config, ns, 'thresholdIconLow',  '');
             var thrIconMid  = getOption(config, ns, 'thresholdIconMid',  '');
@@ -714,6 +719,7 @@ define([
             var currentValue = NaN;      // numeric value for the KPI display
             var compareValue = NaN;      // value from N bins back, for trend
             var valueFieldIdx = -1;      // index of the valueField column in data.fields
+            var valueSeries = null;      // full series of numeric values for the sparkline
             if (data && data.rows && data.rows.length > 0 && data.fields) {
                 var lastRow = data.rows[data.rows.length - 1];
                 var fields = data.fields;
@@ -745,6 +751,15 @@ define([
                         var ncv = parseFloat(compareRow[valueFieldIdx]);
                         if (!isNaN(ncv)) compareValue = ncv;
                     }
+                }
+                // Sparkline: collect all rows of the valueField column.
+                if (showSparkline && valueFieldIdx >= 0 && data.rows.length >= 2) {
+                    valueSeries = [];
+                    for (var ri = 0; ri < data.rows.length; ri++) {
+                        var rv = parseFloat(data.rows[ri][valueFieldIdx]);
+                        if (!isNaN(rv)) valueSeries.push(rv);
+                    }
+                    if (valueSeries.length < 2) valueSeries = null;
                 }
             }
 
@@ -846,6 +861,7 @@ define([
             var hasLabel = (showLabel === 'yes' && labelText && labelText.trim() !== '');
             var hasValue = (showValue && !isNaN(currentValue));
             var hasTrend = (showTrend && hasValue && !isNaN(compareValue) && compareValue !== 0);
+            var hasSparkline = (showSparkline && hasValue && valueSeries !== null);
             var pad = Math.max(8, Math.min(w, h) * 0.04);
 
             var effectPad = 0;
@@ -1068,10 +1084,12 @@ define([
                     valueStr = valuePrefix + displayed;
                 }
 
-                // Auto-size the value font to fit valueArea. Reserve ~30 % of
-                // the value area's height for trend + caption if present.
-                var trendReserveH = hasTrend ? valueAreaH * 0.28 : 0;
-                var mainValueAreaH = valueAreaH - trendReserveH;
+                // Auto-size the value font to fit valueArea. Reserve height at
+                // the bottom for trend text (if any) and sparkline (if any).
+                var trendReserveH    = hasTrend     ? valueAreaH * 0.22 : 0;
+                var sparklineReserveH = hasSparkline ? valueAreaH * 0.28 : 0;
+                var reservedBottomH  = trendReserveH + sparklineReserveH;
+                var mainValueAreaH   = valueAreaH - reservedBottomH;
                 var vFontSize;
                 if (valueSize > 0) {
                     vFontSize = valueSize;
@@ -1131,6 +1149,65 @@ define([
                     ctx.textBaseline = 'middle';
                     var trendY = valueAreaY + mainValueAreaH + trendReserveH / 2;
                     ctx.fillText(trendStr, valueCx, trendY);
+                    ctx.restore();
+                }
+
+                // Sparkline: tiny polyline through the value series, drawn
+                // in the reserved area at the very bottom of the value area.
+                if (hasSparkline) {
+                    var sparkColor;
+                    if (sparklineColorRaw && sparklineColorRaw !== 'auto') {
+                        sparkColor = sparklineColorRaw;
+                    } else if (hasTrend && typeof trendColor === 'string') {
+                        sparkColor = trendColor;
+                    } else if (colorValue && thrBand !== null) {
+                        sparkColor = thrBand;
+                    } else {
+                        sparkColor = resolvedValueColor;
+                    }
+
+                    var sparkX = valueAreaX + valueAreaW * 0.04;
+                    var sparkW = valueAreaW * 0.92;
+                    var sparkY = valueAreaY + mainValueAreaH + trendReserveH;
+                    var sparkH = sparklineReserveH * 0.85;
+
+                    // Find min/max of the series to normalise. Add a small
+                    // padding so the line doesn't hug the top/bottom edges.
+                    var sMin = valueSeries[0], sMax = valueSeries[0];
+                    for (var si = 1; si < valueSeries.length; si++) {
+                        if (valueSeries[si] < sMin) sMin = valueSeries[si];
+                        if (valueSeries[si] > sMax) sMax = valueSeries[si];
+                    }
+                    var sRange = sMax - sMin;
+                    if (sRange < 1e-9) sRange = 1; // flat line
+                    var padTopBot = sparkH * 0.08;
+                    var innerH = sparkH - padTopBot * 2;
+
+                    ctx.save();
+                    ctx.strokeStyle = sparkColor;
+                    ctx.lineWidth = Math.max(1, Math.round(sparkH / 24));
+                    ctx.lineJoin = 'round';
+                    ctx.lineCap = 'round';
+                    ctx.beginPath();
+                    var n = valueSeries.length;
+                    for (var pi = 0; pi < n; pi++) {
+                        var px = sparkX + (n === 1 ? sparkW / 2 : (pi / (n - 1)) * sparkW);
+                        var norm = (valueSeries[pi] - sMin) / sRange;
+                        var py = sparkY + padTopBot + (1 - norm) * innerH;
+                        if (pi === 0) ctx.moveTo(px, py);
+                        else          ctx.lineTo(px, py);
+                    }
+                    ctx.stroke();
+
+                    // Area fill option — translucent fill under the line.
+                    if (sparklineStyle === 'area') {
+                        ctx.lineTo(sparkX + sparkW, sparkY + sparkH);
+                        ctx.lineTo(sparkX,          sparkY + sparkH);
+                        ctx.closePath();
+                        ctx.globalAlpha = 0.18;
+                        ctx.fillStyle = sparkColor;
+                        ctx.fill();
+                    }
                     ctx.restore();
                 }
             }
