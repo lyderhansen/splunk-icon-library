@@ -350,6 +350,28 @@
         </splunk-text-input>
     </splunk-control-group>
 
+    <splunk-control-group label="Good-direction color" help="Color used for the trend arrow, delta text, and recent-portion sparkline when the change is in the 'good' direction. When Direction=up_good, this fires on rising values; when Direction=up_bad, it fires on falling values.">
+        <splunk-color-picker name="{{VIZ_NAMESPACE}}.trendColorGood" type="custom" value="#22C55E">
+            <splunk-color>#22C55E</splunk-color>
+            <splunk-color>#16A34A</splunk-color>
+            <splunk-color>#06B6D4</splunk-color>
+            <splunk-color>#3B82F6</splunk-color>
+            <splunk-color>#8B5CF6</splunk-color>
+            <splunk-color>#0071E3</splunk-color>
+        </splunk-color-picker>
+    </splunk-control-group>
+
+    <splunk-control-group label="Bad-direction color" help="Color used for the trend arrow, delta text, and recent-portion sparkline when the change is in the 'bad' direction. When Direction=up_good, this fires on falling values; when Direction=up_bad, it fires on rising values.">
+        <splunk-color-picker name="{{VIZ_NAMESPACE}}.trendColorBad" type="custom" value="#EF4444">
+            <splunk-color>#EF4444</splunk-color>
+            <splunk-color>#DC2626</splunk-color>
+            <splunk-color>#F59E0B</splunk-color>
+            <splunk-color>#F97316</splunk-color>
+            <splunk-color>#EC4899</splunk-color>
+            <splunk-color>#8B5CF6</splunk-color>
+        </splunk-color-picker>
+    </splunk-control-group>
+
     <splunk-control-group label="Show sparkline" help="Render a tiny line chart through every value in the returned series, drawn under the value / trend text. Uses the same valueField and the same series as the trend calculation.">
         <splunk-radio-input name="{{VIZ_NAMESPACE}}.showSparkline" value="no">
             <option value="yes">Yes</option>

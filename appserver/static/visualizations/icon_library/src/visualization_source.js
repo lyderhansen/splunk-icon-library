@@ -663,6 +663,8 @@ define([
             var trendDirection   = getOption(config, ns, 'trendDirection',    'up_good');
             var trendFormat      = getOption(config, ns, 'trendFormat',       'percentage');
             var trendCaption     = getOption(config, ns, 'trendCaption',      '');
+            var trendColorGood   = getOption(config, ns, 'trendColorGood',    '#22C55E');
+            var trendColorBad    = getOption(config, ns, 'trendColorBad',     '#EF4444');
             if (isNaN(trendCompareBack) || trendCompareBack < 1) trendCompareBack = 1;
 
             // ── Sparkline (v1.7.1) ───────────────────────────────
@@ -1131,8 +1133,8 @@ define([
 
                     var trendColor;
                     if (trendGood === null)      trendColor = INK_SOFT_FOR_THEME(theme);
-                    else if (trendGood)          trendColor = '#22C55E';
-                    else                         trendColor = '#EF4444';
+                    else if (trendGood)          trendColor = trendColorGood;
+                    else                         trendColor = trendColorBad;
 
                     var deltaAbs = Math.abs(delta);
                     var pctAbs = Math.abs(pct);
