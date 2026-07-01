@@ -249,6 +249,108 @@
     </splunk-control-group>
 </form>
 
+<form class="splunk-formatter-section" section-label="Value display">
+    <splunk-control-group label="Show value" help="Render a big-number KPI alongside the icon. Reads the numeric column named in Value Column (default 'value') from your SPL results.">
+        <splunk-radio-input name="{{VIZ_NAMESPACE}}.showValue" value="no">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </splunk-radio-input>
+    </splunk-control-group>
+
+    <splunk-control-group label="Value column" help="SPL column name to read the value from. Defaults to 'value'. Reads the last row of the returned series (typical timechart pattern).">
+        <splunk-text-input name="{{VIZ_NAMESPACE}}.valueField" value="value" placeholder="e.g. value, cpu_pct, sessions">
+        </splunk-text-input>
+    </splunk-control-group>
+
+    <splunk-control-group label="Value position" help="Where to place the big number relative to the icon.">
+        <splunk-select name="{{VIZ_NAMESPACE}}.valuePosition" value="right">
+            <option value="right">Right of icon</option>
+            <option value="left">Left of icon</option>
+            <option value="below">Below icon</option>
+            <option value="above">Above icon</option>
+        </splunk-select>
+    </splunk-control-group>
+
+    <splunk-control-group label="Value size" help="Font size for the value, in pixels. 0 = auto-scale to fit the value area.">
+        <splunk-text-input name="{{VIZ_NAMESPACE}}.valueSize" value="0">
+        </splunk-text-input>
+    </splunk-control-group>
+
+    <splunk-control-group label="Value color" help="Color of the value number. Overridden if 'Apply threshold color to value' is on.">
+        <splunk-color-picker name="{{VIZ_NAMESPACE}}.valueColor" type="custom" value="#F1F5F9">
+            <splunk-color>#F1F5F9</splunk-color>
+            <splunk-color>#1D1D1F</splunk-color>
+            <splunk-color>#94A3B8</splunk-color>
+            <splunk-color>#06B6D4</splunk-color>
+            <splunk-color>#22C55E</splunk-color>
+            <splunk-color>#F59E0B</splunk-color>
+            <splunk-color>#EF4444</splunk-color>
+        </splunk-color-picker>
+    </splunk-control-group>
+
+    <splunk-control-group label="Value prefix" help="Text placed immediately before the number. Example: '$', '~'. Leave empty for none.">
+        <splunk-text-input name="{{VIZ_NAMESPACE}}.valuePrefix" value="" placeholder="e.g. $">
+        </splunk-text-input>
+    </splunk-control-group>
+
+    <splunk-control-group label="Value unit" help="Text placed after (or before) the number. Example: '%', 'ms', 'req/s'. Leave empty for none.">
+        <splunk-text-input name="{{VIZ_NAMESPACE}}.valueUnit" value="" placeholder="e.g. %, ms, req/s">
+        </splunk-text-input>
+    </splunk-control-group>
+
+    <splunk-control-group label="Unit position" help="Whether the unit shows immediately after or before the number.">
+        <splunk-radio-input name="{{VIZ_NAMESPACE}}.valueUnitPosition" value="after">
+            <option value="after">After</option>
+            <option value="before">Before</option>
+        </splunk-radio-input>
+    </splunk-control-group>
+
+    <splunk-control-group label="Value format" help="How the number is displayed. Abbreviated: 1234 → 1.2K, 1,500,000 → 1.5M, 2,300,000,000 → 2.3B.">
+        <splunk-select name="{{VIZ_NAMESPACE}}.valueFormat" value="raw">
+            <option value="raw">Raw (as-is)</option>
+            <option value="integer">Integer</option>
+            <option value="one_decimal">One decimal (0.0)</option>
+            <option value="two_decimals">Two decimals (0.00)</option>
+            <option value="abbreviated">Abbreviated (K/M/B)</option>
+            <option value="thousands">With thousand separators (1,234)</option>
+        </splunk-select>
+    </splunk-control-group>
+</form>
+
+<form class="splunk-formatter-section" section-label="Trend">
+    <splunk-control-group label="Show trend" help="Display an up/down arrow with the change vs an earlier row in the timechart. Requires Show Value to be enabled and the SPL to return more than one row (typical timechart with span=...).">
+        <splunk-radio-input name="{{VIZ_NAMESPACE}}.showTrend" value="no">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </splunk-radio-input>
+    </splunk-control-group>
+
+    <splunk-control-group label="Compare back N bins" help="How many rows back from the latest to use as the comparison. 1 = previous bin (default). For a timechart with span=1h, 24 = compare with 24 hours ago; 168 = one week ago.">
+        <splunk-text-input name="{{VIZ_NAMESPACE}}.trendCompareBack" value="1" placeholder="1">
+        </splunk-text-input>
+    </splunk-control-group>
+
+    <splunk-control-group label="Direction" help="Which direction is 'good'. Up-good means the arrow is green when the number is rising; up-bad flips the color logic (useful for error rates, latency).">
+        <splunk-radio-input name="{{VIZ_NAMESPACE}}.trendDirection" value="up_good">
+            <option value="up_good">Up = good</option>
+            <option value="up_bad">Up = bad</option>
+        </splunk-radio-input>
+    </splunk-control-group>
+
+    <splunk-control-group label="Trend format" help="How the delta is displayed.">
+        <splunk-select name="{{VIZ_NAMESPACE}}.trendFormat" value="percentage">
+            <option value="percentage">Percentage (↑ 6.2 %)</option>
+            <option value="absolute">Absolute (↑ 12.4)</option>
+            <option value="both">Both (↑ 12.4 · 6.2 %)</option>
+        </splunk-select>
+    </splunk-control-group>
+
+    <splunk-control-group label="Trend caption" help="Optional small caption shown next to the trend arrow. Example: 'vs 24 h ago', 'vs last week'. Leave empty for none.">
+        <splunk-text-input name="{{VIZ_NAMESPACE}}.trendCaption" value="" placeholder="e.g. vs prev">
+        </splunk-text-input>
+    </splunk-control-group>
+</form>
+
 <form class="splunk-formatter-section" section-label="Tooltip">
     <splunk-control-group label="Hover tooltip" help="Show a small tooltip on hover with the resolved label, icon name, and numeric value. Off by default; switch to Auto to show only when a SPL search is attached, or Always to show on every panel.">
         <splunk-select name="{{VIZ_NAMESPACE}}.tooltip" value="no">
@@ -456,6 +558,13 @@
 
     <splunk-control-group label="Apply to background color" help="Tint the background shape with the threshold band color. Only takes effect when a Background Shape is set.">
         <splunk-radio-input name="{{VIZ_NAMESPACE}}.colorBg" value="no">
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+        </splunk-radio-input>
+    </splunk-control-group>
+
+    <splunk-control-group label="Apply to value color" help="Tint the value number with the threshold band color. Only takes effect when Show Value is on.">
+        <splunk-radio-input name="{{VIZ_NAMESPACE}}.colorValue" value="no">
             <option value="yes">Yes</option>
             <option value="no">No</option>
         </splunk-radio-input>

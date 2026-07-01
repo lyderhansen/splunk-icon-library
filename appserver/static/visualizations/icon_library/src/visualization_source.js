@@ -161,6 +161,36 @@ define([
         ctx.closePath();
     }
 
+    // ── Value formatting (v1.7.0) ───────────────────────────────
+    // Applied to the KPI value and, when trendFormat is 'absolute' or
+    // 'both', to the trend delta as well.
+    function formatNumber(n, mode) {
+        if (isNaN(n)) return '';
+        if (mode === 'integer')      return String(Math.round(n));
+        if (mode === 'one_decimal')  return n.toFixed(1);
+        if (mode === 'two_decimals') return n.toFixed(2);
+        if (mode === 'thousands') {
+            var parts = String(Math.round(n * 100) / 100).split('.');
+            parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+            return parts.join('.');
+        }
+        if (mode === 'abbreviated') {
+            var abs = Math.abs(n);
+            var sign = n < 0 ? '-' : '';
+            if (abs >= 1e12) return sign + (abs / 1e12).toFixed(1) + 'T';
+            if (abs >= 1e9)  return sign + (abs / 1e9).toFixed(1)  + 'B';
+            if (abs >= 1e6)  return sign + (abs / 1e6).toFixed(1)  + 'M';
+            if (abs >= 1e3)  return sign + (abs / 1e3).toFixed(1)  + 'K';
+            return String(n);
+        }
+        return String(n); // raw
+    }
+
+    // Neutral text color for trend when the change is exactly zero.
+    function INK_SOFT_FOR_THEME(theme) {
+        return theme === 'light' ? '#6E6E73' : '#94A3B8';
+    }
+
     // ── Glyph centroid offset ──────────────────────────────────
     // Material Symbols is a ligature-only font: the multi-character
     // run ("check_circle") is replaced with a single glyph at paint
@@ -421,12 +451,16 @@ define([
         },
 
         getInitialDataParams: function() {
-            // The viz only ever reads data.rows[0] — request a single row instead
-            // of the default 10k. On dashboards with many icon panels (e.g. the
-            // 256-icon showcase) this avoids transferring ~2.5M unused rows.
+            // Historic behaviour was count:1 (single-row search). v1.7.0 added
+            // trend rendering which needs the last row plus one N-th-back row
+            // for delta calculation. count:200 covers the common case (24h @
+            // 5-min bins = 288 rows — trend still works via `head 200` upstream)
+            // while keeping wire size reasonable. The showcase's 256 panels
+            // request ~50k rows total — negligible compared with the framework
+            // chunks that dominate that page.
             return {
                 outputMode: SplunkVisualizationBase.ROW_MAJOR_OUTPUT_MODE,
-                count: 1
+                count: 200
             };
         },
 
@@ -606,6 +640,31 @@ define([
             var colorGlow  = getOption(config, ns, 'colorGlow',  'no')  === 'yes';
             var colorBg    = getOption(config, ns, 'colorBg',    'no')  === 'yes';
 
+            // ── Value display (v1.7.0) ───────────────────────────
+            // Optional big-number KPI rendered alongside the icon. Reads the
+            // numeric column named by valueField from the LAST row of the
+            // returned series (timechart-style pattern).
+            var showValue        = getOption(config, ns, 'showValue',         'no') === 'yes';
+            var valueField       = getOption(config, ns, 'valueField',        'value');
+            var valuePosition    = getOption(config, ns, 'valuePosition',     'right');
+            var valueSize        = parseInt(getOption(config, ns, 'valueSize', '0'), 10);
+            var valueColor       = getOption(config, ns, 'valueColor',        '#F1F5F9');
+            var valuePrefix      = getOption(config, ns, 'valuePrefix',       '');
+            var valueUnit        = getOption(config, ns, 'valueUnit',         '');
+            var valueUnitPos     = getOption(config, ns, 'valueUnitPosition', 'after');
+            var valueFormat      = getOption(config, ns, 'valueFormat',       'raw');
+            var colorValue       = getOption(config, ns, 'colorValue',        'no') === 'yes';
+
+            // ── Trend (v1.7.0) ───────────────────────────────────
+            // Compares the latest row's valueField to a row N bins back and
+            // renders an up/down arrow with the delta.
+            var showTrend        = getOption(config, ns, 'showTrend',         'no') === 'yes';
+            var trendCompareBack = parseInt(getOption(config, ns, 'trendCompareBack', '1'), 10);
+            var trendDirection   = getOption(config, ns, 'trendDirection',    'up_good');
+            var trendFormat      = getOption(config, ns, 'trendFormat',       'percentage');
+            var trendCaption     = getOption(config, ns, 'trendCaption',      '');
+            if (isNaN(trendCompareBack) || trendCompareBack < 1) trendCompareBack = 1;
+
             // Threshold per-band effects — icon swap, glow scaling, pulse animation
             var thrIconLow  = getOption(config, ns, 'thresholdIconLow',  '');
             var thrIconMid  = getOption(config, ns, 'thresholdIconMid',  '');
@@ -646,15 +705,22 @@ define([
             }
 
             // ── Data-driven overrides ────────────────────────────
+            // Read the LAST row of the returned series (timechart pattern).
+            // For a single-row search (| makeresults | eval …) the last row
+            // is the only row, so behaviour is unchanged from earlier releases.
             var resolvedField = 'icon';
             var thrNumeric = NaN;
             var sawColorColumn = false;
+            var currentValue = NaN;      // numeric value for the KPI display
+            var compareValue = NaN;      // value from N bins back, for trend
+            var valueFieldIdx = -1;      // index of the valueField column in data.fields
             if (data && data.rows && data.rows.length > 0 && data.fields) {
-                var row = data.rows[0];
+                var lastRow = data.rows[data.rows.length - 1];
                 var fields = data.fields;
                 for (var fi = 0; fi < fields.length; fi++) {
                     var fname = fields[fi].name;
-                    var fval = row[fi];
+                    var fval = lastRow[fi];
+                    if (fname === valueField) valueFieldIdx = fi;
                     if (fval === null || fval === undefined) continue;
                     if (fname === 'icon') {
                         resolvedIcon = sanitizeIconName(String(fval)) || resolvedIcon;
@@ -665,6 +731,19 @@ define([
                     if (fname === thrField) {
                         var n = parseFloat(fval);
                         if (!isNaN(n)) thrNumeric = n;
+                    }
+                    if (fname === valueField) {
+                        var nv = parseFloat(fval);
+                        if (!isNaN(nv)) currentValue = nv;
+                    }
+                }
+                // Trend compare: N rows back from the last row.
+                if (showTrend && valueFieldIdx >= 0) {
+                    var compareIdx = data.rows.length - 1 - trendCompareBack;
+                    if (compareIdx >= 0) {
+                        var compareRow = data.rows[compareIdx];
+                        var ncv = parseFloat(compareRow[valueFieldIdx]);
+                        if (!isNaN(ncv)) compareValue = ncv;
                     }
                 }
             }
@@ -765,6 +844,8 @@ define([
 
             // ── Calculate sizes ──────────────────────────────────
             var hasLabel = (showLabel === 'yes' && labelText && labelText.trim() !== '');
+            var hasValue = (showValue && !isNaN(currentValue));
+            var hasTrend = (showTrend && hasValue && !isNaN(compareValue) && compareValue !== 0);
             var pad = Math.max(8, Math.min(w, h) * 0.04);
 
             var effectPad = 0;
@@ -776,11 +857,55 @@ define([
             if (availW < 16) availW = 16;
             if (availH < 16) availH = 16;
 
+            // ── Layout: icon area vs value area ──────────────────
+            // Historic single-element behaviour reserved the whole canvas for
+            // the icon. When Show Value is on we carve the canvas into two
+            // regions per valuePosition. The icon-drawing pipeline below uses
+            // iconAreaX/Y/W/H for its bounds; the value pipeline at the end of
+            // this function uses valueAreaX/Y/W/H.
+            var iconAreaX = pad + effectPad;
+            var iconAreaY = pad + effectPad;
+            var iconAreaW = availW;
+            var iconAreaH = availH;
+            var valueAreaX = 0, valueAreaY = 0, valueAreaW = 0, valueAreaH = 0;
+            if (hasValue) {
+                // Value gets ~55% of the split dimension; icon gets ~45%.
+                // Anecdotally this reads best when the value is the loud
+                // element and the icon is the accent.
+                if (valuePosition === 'right') {
+                    iconAreaW = availW * 0.42;
+                    valueAreaX = iconAreaX + iconAreaW + Math.min(16, availW * 0.02);
+                    valueAreaY = iconAreaY;
+                    valueAreaW = (pad + effectPad + availW) - valueAreaX;
+                    valueAreaH = availH;
+                } else if (valuePosition === 'left') {
+                    valueAreaX = iconAreaX;
+                    valueAreaY = iconAreaY;
+                    valueAreaW = availW * 0.55;
+                    valueAreaH = availH;
+                    iconAreaX = valueAreaX + valueAreaW + Math.min(16, availW * 0.02);
+                    iconAreaW = (pad + effectPad + availW) - iconAreaX;
+                } else if (valuePosition === 'below') {
+                    iconAreaH = availH * 0.55;
+                    valueAreaX = iconAreaX;
+                    valueAreaY = iconAreaY + iconAreaH + Math.min(12, availH * 0.02);
+                    valueAreaW = availW;
+                    valueAreaH = (pad + effectPad + availH) - valueAreaY;
+                } else { // above
+                    valueAreaX = iconAreaX;
+                    valueAreaY = iconAreaY;
+                    valueAreaW = availW;
+                    valueAreaH = availH * 0.42;
+                    iconAreaY = valueAreaY + valueAreaH + Math.min(12, availH * 0.02);
+                    iconAreaH = (pad + effectPad + availH) - iconAreaY;
+                }
+            }
+
             var computedIconSize;
             if (iconSize > 0) {
                 computedIconSize = iconSize;
             } else if (bgShape !== 'none') {
-                var maxBgDim = Math.min(availW, availH);
+                var maxBgDim = Math.min(iconAreaW, iconAreaH);
                 var iconBudget = maxBgDim - bgPadding * 2;
                 if (hasLabel) {
                     var estLabelH = Math.max(8, Math.min(20, Math.min(w, h) * 0.09)) + 6 + 8;
@@ -788,9 +913,9 @@ define([
                 }
                 computedIconSize = Math.max(16, iconBudget);
             } else {
-                var sizeRef = Math.min(availW, availH);
+                var sizeRef = Math.min(iconAreaW, iconAreaH);
                 if (hasLabel) {
-                    sizeRef = Math.min(availW, availH * 0.78);
+                    sizeRef = Math.min(iconAreaW, iconAreaH * 0.78);
                 }
                 computedIconSize = Math.max(16, sizeRef * 0.80);
             }
@@ -806,22 +931,24 @@ define([
             var contentH = computedIconSize + (hasLabel ? 8 + labelH : 0);
 
             // ── Alignment ────────────────────────────────────────
+            // Icon centres are computed within the icon area (which may be
+            // narrower/shorter than the full canvas when Show Value is on).
             var cx, cy;
 
             if (hAlign === 'left') {
-                cx = pad + effectPad + computedIconSize / 2;
+                cx = iconAreaX + computedIconSize / 2;
             } else if (hAlign === 'right') {
-                cx = w - pad - effectPad - computedIconSize / 2;
+                cx = iconAreaX + iconAreaW - computedIconSize / 2;
             } else {
-                cx = w / 2;
+                cx = iconAreaX + iconAreaW / 2;
             }
 
             if (vAlign === 'top') {
-                cy = pad + effectPad + computedIconSize / 2;
+                cy = iconAreaY + computedIconSize / 2;
             } else if (vAlign === 'bottom') {
-                cy = h - pad - effectPad - labelH - (hasLabel ? 8 : 0) - computedIconSize / 2;
+                cy = iconAreaY + iconAreaH - labelH - (hasLabel ? 8 : 0) - computedIconSize / 2;
             } else {
-                var blockTop = (h - contentH) / 2;
+                var blockTop = iconAreaY + (iconAreaH - contentH) / 2;
                 cy = blockTop + computedIconSize / 2;
             }
 
@@ -923,6 +1050,89 @@ define([
                 var labelY = cy + computedIconSize / 2 + 8;
                 ctx.fillText(labelText, cx, labelY);
                 ctx.restore();
+            }
+
+            // ── Draw value + trend (v1.7.0) ──────────────────────
+            if (hasValue) {
+                var resolvedValueColor = valueColor;
+                if (colorValue && thrBand !== null) resolvedValueColor = thrBand;
+                if (theme === 'light' && valueColor === '#F1F5F9') resolvedValueColor = colorValue && thrBand !== null ? thrBand : '#1D1D1F';
+
+                // Build the value string with prefix/unit/format.
+                var displayed = formatNumber(currentValue, valueFormat);
+                var valueStr;
+                if (valueUnit) {
+                    if (valueUnitPos === 'before') valueStr = valuePrefix + valueUnit + ' ' + displayed;
+                    else                          valueStr = valuePrefix + displayed + ' ' + valueUnit;
+                } else {
+                    valueStr = valuePrefix + displayed;
+                }
+
+                // Auto-size the value font to fit valueArea. Reserve ~30 % of
+                // the value area's height for trend + caption if present.
+                var trendReserveH = hasTrend ? valueAreaH * 0.28 : 0;
+                var mainValueAreaH = valueAreaH - trendReserveH;
+                var vFontSize;
+                if (valueSize > 0) {
+                    vFontSize = valueSize;
+                } else {
+                    // Fit-by-width and fit-by-height, take the smaller.
+                    var maxByHeight = mainValueAreaH * 0.85;
+                    ctx.save();
+                    ctx.font = '600 100px "Inter", "Helvetica Neue", Arial, sans-serif';
+                    var mw = ctx.measureText(valueStr).width;
+                    ctx.restore();
+                    // mw is width at 100px; scale to fit valueAreaW * 0.94.
+                    var maxByWidth = mw > 0 ? (valueAreaW * 0.94 * 100 / mw) : maxByHeight;
+                    vFontSize = Math.max(12, Math.min(maxByHeight, maxByWidth));
+                }
+
+                ctx.save();
+                ctx.fillStyle = resolvedValueColor;
+                ctx.font = '600 ' + Math.round(vFontSize) + 'px "Inter", "Helvetica Neue", Arial, sans-serif';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                var valueCx = valueAreaX + valueAreaW / 2;
+                var valueCy = valueAreaY + mainValueAreaH / 2;
+                ctx.fillText(valueStr, valueCx, valueCy);
+                ctx.restore();
+
+                // Trend arrow + delta + optional caption.
+                if (hasTrend) {
+                    var delta = currentValue - compareValue;
+                    var pct = (delta / Math.abs(compareValue)) * 100;
+                    var arrow, isRising = delta > 0, isFlat = Math.abs(delta) < 1e-9;
+                    if (isFlat) arrow = '→';
+                    else        arrow = isRising ? '↑' : '↓';
+
+                    var trendGood;
+                    if (isFlat) trendGood = null;
+                    else if (trendDirection === 'up_good') trendGood = isRising;
+                    else                                   trendGood = !isRising;
+
+                    var trendColor;
+                    if (trendGood === null)      trendColor = INK_SOFT_FOR_THEME(theme);
+                    else if (trendGood)          trendColor = '#22C55E';
+                    else                         trendColor = '#EF4444';
+
+                    var deltaAbs = Math.abs(delta);
+                    var pctAbs = Math.abs(pct);
+                    var deltaText;
+                    if (trendFormat === 'absolute')      deltaText = formatNumber(deltaAbs, valueFormat);
+                    else if (trendFormat === 'both')     deltaText = formatNumber(deltaAbs, valueFormat) + ' · ' + pctAbs.toFixed(1) + '%';
+                    else                                 deltaText = pctAbs.toFixed(1) + '%';
+
+                    var trendStr = arrow + ' ' + deltaText + (trendCaption ? ('  ' + trendCaption) : '');
+                    var tFontSize = Math.max(10, Math.min(vFontSize * 0.34, trendReserveH * 0.7));
+                    ctx.save();
+                    ctx.fillStyle = trendColor;
+                    ctx.font = '500 ' + Math.round(tFontSize) + 'px "Inter", "Helvetica Neue", Arial, sans-serif';
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    var trendY = valueAreaY + mainValueAreaH + trendReserveH / 2;
+                    ctx.fillText(trendStr, valueCx, trendY);
+                    ctx.restore();
+                }
             }
 
             // Successful render — Splunk has either not shown the no-results

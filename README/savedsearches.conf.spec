@@ -64,6 +64,29 @@ display.visualizations.custom.icon_library.icon_library.colorIcon = <string>
 display.visualizations.custom.icon_library.icon_library.colorLabel = <string>
 display.visualizations.custom.icon_library.icon_library.colorGlow = <string>
 display.visualizations.custom.icon_library.icon_library.colorBg = <string>
+display.visualizations.custom.icon_library.icon_library.colorValue = <string>
+
+
+# --- Value display (v1.7.0) --------------------------------------------------
+
+display.visualizations.custom.icon_library.icon_library.showValue = <string>
+display.visualizations.custom.icon_library.icon_library.valueField = <string>
+display.visualizations.custom.icon_library.icon_library.valuePosition = <string>
+display.visualizations.custom.icon_library.icon_library.valueSize = <string>
+display.visualizations.custom.icon_library.icon_library.valueColor = <string>
+display.visualizations.custom.icon_library.icon_library.valuePrefix = <string>
+display.visualizations.custom.icon_library.icon_library.valueUnit = <string>
+display.visualizations.custom.icon_library.icon_library.valueUnitPosition = <string>
+display.visualizations.custom.icon_library.icon_library.valueFormat = <string>
+
+
+# --- Trend (v1.7.0) ----------------------------------------------------------
+
+display.visualizations.custom.icon_library.icon_library.showTrend = <string>
+display.visualizations.custom.icon_library.icon_library.trendCompareBack = <string>
+display.visualizations.custom.icon_library.icon_library.trendDirection = <string>
+display.visualizations.custom.icon_library.icon_library.trendFormat = <string>
+display.visualizations.custom.icon_library.icon_library.trendCaption = <string>
 
 
 # --- Threshold effects (per band) --------------------------------------------
